@@ -26,18 +26,18 @@ void Joystick :: update() {
   bool raw_8R = joystickGetDigital(joystick, 8, JOY_RIGHT);
 
   // determine new button presses
-  btn5U_new = (raw_5U && !btn5U);
-  btn5D_new = (raw_5D && !btn5D);
-  btn6U_new = (raw_6U && !btn6U);
-  btn6D_new = (raw_6D && !btn6D);
-  btn7U_new = (raw_7U && !btn7U);
-  btn7D_new = (raw_7D && !btn7D);
-  btn7L_new = (raw_7L && !btn7L);
-  btn7R_new = (raw_7R && !btn7R);
-  btn8U_new = (raw_8U && !btn8U);
-  btn8D_new = (raw_8D && !btn8D);
-  btn8L_new = (raw_8L && !btn8L);
-  btn8R_new = (raw_8R && !btn8R);
+  btn5U_new = (raw_5U && !btn5U) - (!raw_5U && btn5U);
+  btn5D_new = (raw_5D && !btn5D) - (!raw_5D && btn5D);
+  btn6U_new = (raw_6U && !btn6U) - (!raw_6U && btn6U);
+  btn6D_new = (raw_6D && !btn6D) - (!raw_6D && btn6D);
+  btn7U_new = (raw_7U && !btn7U) - (!raw_7U && btn7U);
+  btn7D_new = (raw_7D && !btn7D) - (!raw_7D && btn7D);
+  btn7L_new = (raw_7L && !btn7L) - (!raw_7L && btn7L);
+  btn7R_new = (raw_7R && !btn7R) - (!raw_7R && btn7R);
+  btn8U_new = (raw_8U && !btn8U) - (!raw_8U && btn8U);
+  btn8D_new = (raw_8D && !btn8D) - (!raw_8D && btn8D);
+  btn8L_new = (raw_8L && !btn8L) - (!raw_8L && btn8L);
+  btn8R_new = (raw_8R && !btn8R) - (!raw_8R && btn8R);
 
   // update public raw button presses
   btn5U = raw_5U;

@@ -22,18 +22,18 @@ public:
   bool btn8R;
 
   // registers NEW button pressed
-  bool btn5U_new;
-  bool btn5D_new;
-  bool btn6U_new;
-  bool btn6D_new;
-  bool btn7U_new;
-  bool btn7D_new;
-  bool btn7L_new;
-  bool btn7R_new;
-  bool btn8U_new;
-  bool btn8D_new;
-  bool btn8L_new;
-  bool btn8R_new;
+  int btn5U_new;
+  int btn5D_new;
+  int btn6U_new;
+  int btn6D_new;
+  int btn7U_new;
+  int btn7D_new;
+  int btn7L_new;
+  int btn7R_new;
+  int btn8U_new;
+  int btn8D_new;
+  int btn8L_new;
+  int btn8R_new;
 
   // analog stick values (left/right, horizontal/vertical)
   int analogRH;
