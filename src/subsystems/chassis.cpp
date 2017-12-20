@@ -1,10 +1,17 @@
 #include "chassis.h"
 #include "pid.h"
+#include "motor.h"
 
 // init variables to zero
 float chassis_left = 0;
 float chassis_right = 0;
 float chassis_angle = 0;
+
+// declare motors
+Motor motor_chassis_fl;
+Motor motor_chassis_bl;
+Motor motor_chassis_fr;
+Motor motor_chassis_br;
 
 // declare encoders
 Encoder enc_chassis_l;
@@ -16,6 +23,12 @@ Pid pid_chassis_r;
 
 // inits the chassis (PID, encoders, etc)
 void chassisInit() {
+
+  // init motors
+  motor_chassis_fl.init(5, false, 0);
+  motor_chassis_bl.init(2, false, 0);
+  motor_chassis_fr.init(6, false, 0);
+  motor_chassis_br.init(9, false, 0);
 
   // init encoders
   enc_chassis_l = encoderInit(1, 2, false);
@@ -35,14 +48,14 @@ void chassisUpdateSensors() {
 
 // set the power of the left side of the chassis
 void chassisSetPowerL(int power) {
-  motorSet(MOTOR_CHASSIS_FL, power);
-  motorSet(MOTOR_CHASSIS_BL, power);
+  motor_chassis_fl.setPower(power);
+  motor_chassis_bl.setPower(power);
 }
 
 // set the power of the right side of the chassis
 void chassisSetPowerR(int power) {
-  motorSet(MOTOR_CHASSIS_FR, power);
-  motorSet(MOTOR_CHASSIS_BR, power);
+  motor_chassis_fr.setPower(power);
+  motor_chassis_br.setPower(power);
 }
 
 // set the power of both sides of the chassis
@@ -57,7 +70,7 @@ void chassisSetPowerExt(int l, int r) {
   chassisSetPowerR(r);
 }
 
-void chassisMove(float l, float r) {
+void chassisMove(float l, float r, bool wait, bool vel) {
 
    // set target variables (relative to current state)
   float target_l = chassis_left + l;
@@ -65,5 +78,11 @@ void chassisMove(float l, float r) {
 
   // set PID targets
   pid_chassis_l.setTarget(target_l);
-  pid_chassis_l.setTarget(target_r);
+  pid_chassis_r.setTarget(target_r);
+
+  if (wait) {
+    while (!(pid_chassis_l.atTarget(vel) || pid_chassis_r.atTarget(vel))) {
+      delay(1);
+    }
+  }
 }

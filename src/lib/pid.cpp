@@ -26,6 +26,10 @@ void Pid :: init(float kp_, float ki_, float kd_, float dr_, float target_, floa
   // init previous error and integral to 0
   prev_error = 0;
   integral = 0;
+
+  // PID starts off not at target (false until proven true)
+  at_target = false;
+  at_target_vel = false;
 }
 
 // target "getter"
@@ -36,6 +40,13 @@ float Pid :: getTarget() {
 // integral "getter"
 float Pid :: getIntegral() {
   return integral;
+}
+
+// returns whether or not the PID system is approx. at its target
+// can optionally factor in velocity
+bool Pid :: atTarget(bool v) {
+  if (v) return at_target_vel;
+  else return at_target;
 }
 
 // resets the integral accumulator to zero
@@ -54,7 +65,7 @@ void Pid :: setTarget(float target_) {
 float Pid :: run(float current_, float dt_) {
 
   // calculate error
-  float error = current_ - prev;
+  float error = target - current_;
 
   // calculate P
   float p = error * kp;
@@ -85,6 +96,16 @@ float Pid :: run(float current_, float dt_) {
   p = limit(p, -max_p, max_p);
   i = limit(i, -max_i, max_i);
   d = limit(d, -max_d, max_d);
+
+  // determine whether or not the system is "at" the target
+  if (abs(target - current_) <= target_buffer) {
+    at_target = true;
+    at_target_vel = (abs(current_ - prev) <= velocity_buffer);
+  }
+  else {
+    at_target = false;
+    at_target_vel = false;
+  }
 
   // return the calculated PID output
   return p + i + d;
