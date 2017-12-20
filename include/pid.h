@@ -13,6 +13,11 @@ public:
   float kd;
   float dr;
 
+  // maximum outputs
+  int max_p;
+  int max_i;
+  int max_d;
+
   // default initializer
   // MAKE SURE TO FULLY INITIALIZE WITH <Pid>.init()
   Pid();

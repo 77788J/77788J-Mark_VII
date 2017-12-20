@@ -12,6 +12,11 @@ void Pid :: init(float kp_, float ki_, float kd_, float dr_, float target_, floa
   kd = kd_;
   dr = dr_;
 
+  // init maximum output of each component
+  max_p = 200;
+  max_i = 50;
+  max_d = 64;
+
   // init target
   target = target_;
 
@@ -75,6 +80,11 @@ float Pid :: run(float current_, float dt_) {
   // update previous values for next run
   prev = current_;
   prev_error = error;
+
+  // confine P, I, and D components to within their set bounds
+  p = limit(p, -max_p, max_p);
+  i = limit(i, -max_i, max_i);
+  d = limit(d, -max_d, max_d);
 
   // return the calculated PID output
   return p + i + d;
