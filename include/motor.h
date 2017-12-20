@@ -27,10 +27,10 @@ public:
   float getVelocity();
 
   // sets the power of the motor
-  void setPower(int power);
+  void setPower(int p);
 
   // updates the internal motor variables (e.g. velocity)
-  void update(float angle);
+  void update(float angle, int interval);
 
 private:
 
