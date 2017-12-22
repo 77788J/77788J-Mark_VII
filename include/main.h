@@ -9,6 +9,14 @@ extern "C" {
 
 #include <utility.h>
 
+#define UPDATE_INTERVAL 20
+
+// timer, always accurate to 1ms
+extern int time;
+void startTimer();
+void timer();
+
+// default
 void autonomous();
 void initializeIO();
 void initialize();

@@ -6,6 +6,7 @@ Joystick :: Joystick() {}
 // "factory" that inits a Joystick
 void Joystick :: init(int joystick_) {
   joystick = joystick_;
+  updated = 0;
 }
 
 // updates the joystick variables
@@ -54,9 +55,12 @@ void Joystick :: update() {
   btn8R = raw_8R;
 
   // update analog sticks
-  analogRH = joystickGetAnalog(joystick, 1);
-  analogRV = joystickGetAnalog(joystick, 2);
-  analogLV = joystickGetAnalog(joystick, 3);
-  analogLH = joystickGetAnalog(joystick, 4);
+  analogRH = (float) joystickGetAnalog(joystick, 1) * .787f;
+  analogRV = (float) joystickGetAnalog(joystick, 2) * .787f;
+  analogLV = (float) joystickGetAnalog(joystick, 3) * .787f;
+  analogLH = (float) joystickGetAnalog(joystick, 4) * .787f;
+
+  // update time when last updated
+  updated = time;
 
 }

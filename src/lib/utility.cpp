@@ -10,3 +10,9 @@ float limit(float val, float min, float max) {
 float wrap(int val, int min, int max) {
   return min + ((val - min) % (max - min));
 }
+
+void waitForJoystickUpdate(Joystick joy, int reference) {
+  while (joy.updated < reference) {
+    delay(1);
+  }
+}

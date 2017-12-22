@@ -7,6 +7,9 @@ class Joystick {
 
 public:
 
+  // time when last updated
+  int updated;
+
   // raw joystick button values
   bool btn5U;
   bool btn5D;

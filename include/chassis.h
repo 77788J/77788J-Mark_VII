@@ -21,6 +21,9 @@ extern float chassis_angle;
 // inits the chassis (PID, encoders, etc)
 void chassisInit();
 
+// update all chassis motors
+void chassisUpdateMotors();
+
 // updates all chassis sensors
 void chassisUpdateSensors();
 

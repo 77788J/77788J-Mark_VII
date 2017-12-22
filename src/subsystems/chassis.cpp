@@ -39,6 +39,14 @@ void chassisInit() {
   pid_chassis_r.init(1, 0, 0, 0, 0, 0);
 }
 
+// update all chassis motors
+void chassisUpdateMotors() {
+  // motor_chassis_fl.update(float angle, UPDATE_INTERVAL);
+  // motor_chassis_bl.update(float angle, UPDATE_INTERVAL);
+  // motor_chassis_fr.update(float angle, UPDATE_INTERVAL);
+  // motor_chassis_br.update(float angle, UPDATE_INTERVAL);
+}
+
 // update all chassis sensors
 void chassisUpdateSensors() {
   chassis_left = (float) encoderGet(enc_chassis_l) * .333f;
