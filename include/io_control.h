@@ -17,8 +17,8 @@ void updateAllJoysticks();
 // update all of the robot's motors
 void updateAllMotors();
 
-// update all of the robot's sensors
-void updateAllMotors();
+// update all of the robots sensors
+void updateAllSensors();
 
 // update literally everything
 void updateAllIO();
