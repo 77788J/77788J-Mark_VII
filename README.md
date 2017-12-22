@@ -10,4 +10,4 @@ We are the 'A-team' of Calvary Christian Academy (88877_). This is mark VII of o
 - [ ] Drive-to-write autonomous generator
 - [ ] Automated tasks during driver control (such as auto-stacking)
 
-NOTE: PROS requires a disclaimer and some copywrite info. This can be found in 'disclaimer.txt'
+NOTE: PROS requires a disclaimer and some copyright info. This can be found in 'disclaimer.txt'
