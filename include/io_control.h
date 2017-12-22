@@ -24,7 +24,7 @@ void updateAllMotors();
 void updateAllIO();
 
 // start background task to update everything automatically
-void startUpdateTask();
+void startUpdateIOTask();
 
 #ifdef __cplusplus
 }

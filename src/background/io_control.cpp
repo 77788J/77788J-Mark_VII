@@ -27,6 +27,6 @@ void updateAllIO() {
 }
 
 // start background task to update everything automatically
-void startUpdateTask() {
+void startUpdateIOTask() {
   taskRunLoop(updateAllIO, UPDATE_INTERVAL);
 }
