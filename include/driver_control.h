@@ -1,14 +1,19 @@
 #ifndef DRIVER_CONTROL_H_
 #define DRIVER_CONTROL_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <main.h>
 
-extern bool driver_chassis = true;
-extern bool driver_mogo = true;
-
-// start background task
-void driverControlStart();
-
+extern bool driver_chassis;
+extern bool driver_mogo;
 // run driver control loop
-void driverControl();
+void updateDriverControl();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

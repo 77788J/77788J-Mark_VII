@@ -1,6 +1,10 @@
 #ifndef PID_H_
 #define PID_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <main.h>
 
 class Pid {
@@ -66,5 +70,9 @@ private:
   float target;
 
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

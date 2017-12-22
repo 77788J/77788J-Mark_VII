@@ -1,6 +1,10 @@
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <main.h>
 
 class Joystick {
@@ -60,5 +64,9 @@ private:
   int joystick;
 
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
