@@ -32,7 +32,8 @@ void Motor :: setPower(int p) {
 void Motor :: update(float angle, int interval) {
 
   // move physical motor at specified power
-  motorSet(port, power);
+  if (reversed) motorSet(port, -power);
+  else motorSet(port, power);
 
   // update velocity (with moving average filter)
   float error = angle - prev; // change in angle

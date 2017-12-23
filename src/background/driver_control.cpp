@@ -1,11 +1,15 @@
 #include "main.h"
 #include "chassis.h"
 #include "io_control.h"
+#include "driver_control.h"
 #include "math.h"
 
 // driver control enabled?
 bool driver_chassis = true;
 bool driver_mogo = true;
+
+// was moving previously?
+bool was_moving = false;
 
 // chassis control
 void driverControlChassis() {
@@ -13,13 +17,13 @@ void driverControlChassis() {
   // make sure chassis is in direct control mode
   chassis_mode = CHASSIS_MODE_DIRECT;
 
-  // store joystick output (scaled between -100 to 100) in mutable variables
-  int l = (float) joystick.analogLH * 0.787401575f;
-  int r = (float) joystick.analogRH * 0.787401575f;
+  // store joystick output in mutable variables
+  int l = joystick.analogLV;
+  int r = joystick.analogRV;
 
   // if joysticks are close enough to zero, treat them as zero
-  if (abs(l) < 10) l = 0;
-  if (abs(r) < 10) r = 0;
+  if (abs(l) < 20) l = 0;
+  if (abs(r) < 20) r = 0;
 
   // if the joystick are facing opposite directions, slow them down
   // for more accurate turning
@@ -28,8 +32,27 @@ void driverControlChassis() {
     r *= .75f;
   }
 
-  // set the chassis power to the processed joystick output
-  chassisSetPowerExt(l, r);
+  chassisSetPower(0);
+
+  // if the robot should be stopped, activate PID to keep position
+  if (l == 0 && r == 0) {
+
+    // update targets only if the chassis was moving the previous run
+    if (motor_chassis_fl.getVelocity() == 0 && motor_chassis_fr.getVelocity() == 0) {
+      chassis_mode = CHASSIS_MODE_POSITION;
+      pid_chassis_l.setTarget(chassis_left);
+      pid_chassis_r.setTarget(chassis_right);
+    }
+
+    was_moving = false;
+  }
+
+  // otherwise set the chassis power to the processed joystick output
+  else {
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPowerExt(l, r);
+    was_moving = true;
+  }
 }
 
 // full driver control

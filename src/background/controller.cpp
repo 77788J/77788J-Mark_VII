@@ -1,6 +1,8 @@
-#include <controller.h>
+#include "controller.h"
 #include "io_control.h"
 #include "driver_control.h"
+#include "pid_control.h"
+#include "chassis.h"
 
 // update literally everything on the bot
 void updateAll() {
@@ -16,6 +18,9 @@ void updateAll() {
 
   // run driver control (if in driver control mode)
   if (isEnabled() && !isAutonomous()) updateDriverControl();
+
+  // update PIDs
+  updateAllPids();
 
   // update motors (for physical motor output)
   updateAllMotors();

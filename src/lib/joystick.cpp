@@ -5,26 +5,26 @@ Joystick :: Joystick() {}
 
 // "factory" that inits a Joystick
 void Joystick :: init(int joystick_) {
-  joystick = joystick_;
+  j = joystick_;
   updated = 0;
 }
 
-// updates the joystick variables
+// updates the j variables
 void Joystick :: update() {
 
-  // save raw joystick button data
-  bool raw_5U = joystickGetDigital(joystick, 5, JOY_UP);
-  bool raw_5D = joystickGetDigital(joystick, 5, JOY_DOWN);
-  bool raw_6U = joystickGetDigital(joystick, 6, JOY_UP);
-  bool raw_6D = joystickGetDigital(joystick, 6, JOY_DOWN);
-  bool raw_7U = joystickGetDigital(joystick, 7, JOY_UP);
-  bool raw_7D = joystickGetDigital(joystick, 7, JOY_DOWN);
-  bool raw_7L = joystickGetDigital(joystick, 7, JOY_LEFT);
-  bool raw_7R = joystickGetDigital(joystick, 7, JOY_RIGHT);
-  bool raw_8U = joystickGetDigital(joystick, 8, JOY_UP);
-  bool raw_8D = joystickGetDigital(joystick, 8, JOY_DOWN);
-  bool raw_8L = joystickGetDigital(joystick, 8, JOY_LEFT);
-  bool raw_8R = joystickGetDigital(joystick, 8, JOY_RIGHT);
+  // save raw j button data
+  bool raw_5U = joystickGetDigital(j, 5, JOY_UP);
+  bool raw_5D = joystickGetDigital(j, 5, JOY_DOWN);
+  bool raw_6U = joystickGetDigital(j, 6, JOY_UP);
+  bool raw_6D = joystickGetDigital(j, 6, JOY_DOWN);
+  bool raw_7U = joystickGetDigital(j, 7, JOY_UP);
+  bool raw_7D = joystickGetDigital(j, 7, JOY_DOWN);
+  bool raw_7L = joystickGetDigital(j, 7, JOY_LEFT);
+  bool raw_7R = joystickGetDigital(j, 7, JOY_RIGHT);
+  bool raw_8U = joystickGetDigital(j, 8, JOY_UP);
+  bool raw_8D = joystickGetDigital(j, 8, JOY_DOWN);
+  bool raw_8L = joystickGetDigital(j, 8, JOY_LEFT);
+  bool raw_8R = joystickGetDigital(j, 8, JOY_RIGHT);
 
   // determine new button presses
   btn5U_new = (raw_5U && !btn5U) - (!raw_5U && btn5U);
@@ -55,10 +55,10 @@ void Joystick :: update() {
   btn8R = raw_8R;
 
   // update analog sticks
-  analogRH = (float) joystickGetAnalog(joystick, 1) * .787f;
-  analogRV = (float) joystickGetAnalog(joystick, 2) * .787f;
-  analogLV = (float) joystickGetAnalog(joystick, 3) * .787f;
-  analogLH = (float) joystickGetAnalog(joystick, 4) * .787f;
+  analogRH = (float) joystickGetAnalog(j, 1) * 0.787401575f;
+  analogRV = (float) joystickGetAnalog(j, 2) * 0.787401575f;
+  analogLV = (float) joystickGetAnalog(j, 3) * 0.787401575f;
+  analogLH = (float) joystickGetAnalog(j, 4) * 0.787401575f;
 
   // update time when last updated
   updated = time;

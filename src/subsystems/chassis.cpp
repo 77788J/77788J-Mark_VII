@@ -18,6 +18,10 @@ Motor motor_chassis_br;
 Encoder enc_chassis_l;
 Encoder enc_chassis_r;
 
+// declare gyros
+Gyro gyro_a;
+Gyro gyro_b;
+
 // declare PIDs
 Pid pid_chassis_l;
 Pid pid_chassis_r;
@@ -27,8 +31,8 @@ Pid pid_chassis_theta;
 void chassisInit() {
 
   // init motors
-  motor_chassis_fl.init(5, false, 0);
-  motor_chassis_bl.init(2, false, 0);
+  motor_chassis_fl.init(5, true, 0);
+  motor_chassis_bl.init(2, true, 0);
   motor_chassis_fr.init(6, false, 0);
   motor_chassis_br.init(9, false, 0);
 
@@ -37,12 +41,12 @@ void chassisInit() {
   gyro_b = gyroInit(7, 196);
 
   // init encoders
-  enc_chassis_l = encoderInit(1, 2, false);
+  enc_chassis_l = encoderInit(1, 2, true);
   enc_chassis_r = encoderInit(3, 4, false);
 
   // init PIDs
-  pid_chassis_l.init(1, 0, 0, 0, 0, 0);
-  pid_chassis_r.init(1, 0, 0, 0, 0, 0);
+  pid_chassis_l.init(.7f, 0, 3, 0, 0, 0);
+  pid_chassis_r.init(.7f, 0, 3, 0, 0, 0);
   pid_chassis_theta.init(1, 0, 0, 0, 0, 0);
 }
 

@@ -23,6 +23,10 @@ extern int chassis_mode;
 #define MOTOR_CHASSIS_FR 6
 #define MOTOR_CHASSIS_BR 9
 
+// motors
+extern Motor motor_chassis_fl;
+extern Motor motor_chassis_fr;
+
 // sensors
 extern Gyro gyro_a;
 extern Gyro gyro_b;

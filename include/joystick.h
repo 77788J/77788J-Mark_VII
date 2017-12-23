@@ -61,7 +61,7 @@ public:
 private:
 
   // whether this refers to a primary or partner joystick
-  int joystick;
+  int j;
 
 };
 
