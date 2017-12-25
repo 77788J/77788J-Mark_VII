@@ -11,6 +11,9 @@ bool driver_mogo = true;
 // was moving previously?
 bool was_moving = false;
 
+// has it stopped yet?
+bool is_stopped = false;
+
 // chassis control
 void driverControlChassis() {
 
@@ -38,10 +41,14 @@ void driverControlChassis() {
   if (l == 0 && r == 0) {
 
     // update targets only if the chassis was moving the previous run
-    if (motor_chassis_fl.getVelocity() == 0 && motor_chassis_fr.getVelocity() == 0) {
+    if (abs(motor_chassis_fl.getVelocity()) <= 0.01f &&
+        abs(motor_chassis_fr.getVelocity()) <= 0.01f &&
+        !is_stopped) {
       chassis_mode = CHASSIS_MODE_POSITION;
       pid_chassis_l.setTarget(chassis_left);
       pid_chassis_r.setTarget(chassis_right);
+
+      is_stopped = true;
     }
 
     was_moving = false;
@@ -52,6 +59,7 @@ void driverControlChassis() {
     chassis_mode = CHASSIS_MODE_DIRECT;
     chassisSetPowerExt(l, r);
     was_moving = true;
+    is_stopped = false;
   }
 }
 
