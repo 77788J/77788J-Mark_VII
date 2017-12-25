@@ -37,20 +37,24 @@ void driverControlChassis() {
 
   chassisSetPower(0);
 
-  // if the robot should be stopped, activate PID to keep position
+  // if joysticks are both ~0...
   if (l == 0 && r == 0) {
 
-    // update targets only if the chassis was moving the previous run
+    // if the velocity is ~0 AND the it hasn't been in the past...
     if (abs(motor_chassis_fl.getVelocity()) <= 0.01f &&
         abs(motor_chassis_fr.getVelocity()) <= 0.01f &&
         !is_stopped) {
+
+      // activate PID
       chassis_mode = CHASSIS_MODE_POSITION;
       pid_chassis_l.setTarget(chassis_left);
       pid_chassis_r.setTarget(chassis_right);
 
+      // log that the chassis has now officially stopped
       is_stopped = true;
     }
 
+    // log that the chassis is not stop being controlled
     was_moving = false;
   }
 
