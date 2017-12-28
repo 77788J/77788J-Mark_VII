@@ -1,5 +1,6 @@
 #include "pid_control.h"
 #include "chassis.h"
+#include "mogo.h"
 #include "pid.h"
 
 // run chasis PID
@@ -27,9 +28,20 @@ void pidRunChassis() {
   }
 }
 
+// run mogo lifter PID
+void pidRunMogo() {
+
+  mogoSetPower(
+    pid_mogo.run(mogo_angle, UPDATE_INTERVAL)
+  );
+}
+
 // run all PIDs
 void updateAllPids() {
 
   // chassis
   pidRunChassis();
+
+  // mogo lifter
+  pidRunMogo();
 }

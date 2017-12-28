@@ -13,8 +13,11 @@ void operatorControl() {
 	startTimer();
 
 	while (true) {
-		printf("%f, %d\n", motor_chassis_fl.getVelocity(), round(motor_chassis_fl.getVelocity()) == 0);
+		print("MOGO LIFTER\n");
+		printf("\tLEFT\t%d\n", analogRead(1));
+		printf("\tRIGHT\t%d\n", analogRead(2));
+		print("\n\n\n");
 
-		delay(1900);
+		delay(1000);
 	}
 }

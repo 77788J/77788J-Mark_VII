@@ -33,7 +33,7 @@ public:
   Pid();
 
   // actually initializes the PID
-  void init(float kp_, float ki_, float kd_, float dr_, float target_, float current_);
+  void init(float kp_, float ki_, float kd_, float target_, float current_);
 
   // gets the current target of the PID
   float getTarget();

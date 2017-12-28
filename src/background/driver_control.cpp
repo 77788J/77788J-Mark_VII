@@ -1,5 +1,6 @@
 #include "main.h"
 #include "chassis.h"
+#include "mogo.h"
 #include "io_control.h"
 #include "driver_control.h"
 #include "math.h"
@@ -16,9 +17,6 @@ bool is_stopped = false;
 
 // chassis control
 void driverControlChassis() {
-
-  // make sure chassis is in direct control mode
-  chassis_mode = CHASSIS_MODE_DIRECT;
 
   // store joystick output in mutable variables
   int l = joystick.analogLV;
@@ -67,11 +65,38 @@ void driverControlChassis() {
   }
 }
 
+// mogo lifter control
+void driverControlMogo() {
+
+  // extend button
+  if (joystick.btn6U) {
+    pid_mogo.setTarget(MOGO_ANGLE_EXTENDED);
+  }
+
+  // retract button
+  else if (joystick.btn6D) {
+    pid_mogo.setTarget(MOGO_ANGLE_RETRACTED);
+  }
+
+  // if mogo lifter was being extended/retracted and is not past grab point
+  if ((joystick.btn6U_new == -1 && mogo_angle < MOGO_ANGLE_GRAB) ||
+      (joystick.btn6D_new == -1 && mogo_angle > MOGO_ANGLE_GRAB)) {
+
+    // set mogo target to grab
+    pid_mogo.setTarget(MOGO_ANGLE_GRAB);
+  }
+}
+
 // full driver control
 void updateDriverControl() {
 
   // run chassis control
   if (driver_chassis) {
     driverControlChassis();
+  }
+
+  // run mogo control
+  if (driver_mogo) {
+    driverControlMogo();
   }
 }

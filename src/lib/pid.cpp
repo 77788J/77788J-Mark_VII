@@ -4,13 +4,12 @@
 Pid :: Pid() {}
 
 // "factory" that initialized a PID
-void Pid :: init(float kp_, float ki_, float kd_, float dr_, float target_, float current_) {
+void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_) {
 
   // init tuning parameters
   kp = kp_;
   ki = ki_;
   kd = kd_;
-  dr = dr_;
 
   // init maximum output of each component
   max_p = 200;
@@ -76,9 +75,9 @@ float Pid :: run(float current_, float dt_) {
   // calculate D
   float d;
   if (error == 0)
-    d = (kd * (prev_error - error)) / dt_; // don't want to divide by zero
+    d = 0; // don't want to divide by zero
   else
-    d = (kd * (prev_error - error) * (dr / error)) / dt_; // implements dynamic derivative algorithm
+    d = ((kd / error) * (prev_error - error)) / dt_; // implements dynamic derivative algorithm
 
   // if input is not saturated, integrate
   if (abs(p + i + d) < 100) {
