@@ -2,6 +2,7 @@
 #include "controller.h"
 #include "io_control.h"
 #include "chassis.h"
+#include "mogo.h"
 #include "math.h"
 
 void operatorControl() {
@@ -14,8 +15,11 @@ void operatorControl() {
 
 	while (true) {
 		print("MOGO LIFTER\n");
-		printf("\tLEFT\t%d\n", analogRead(1));
-		printf("\tRIGHT\t%d\n", analogRead(2));
+		printf("\tLEFT\t%f\n", mogo_angle_l);
+		printf("\tRIGHT\t%f\n", mogo_angle_r);
+		printf("\tAVERAGE\t%f\n", mogo_angle);
+		printf("\tTARGET\t%f\n", pid_mogo.getTarget());
+		printf("\tPOWER\t%d\n", motor_mogo.getPower());
 		print("\n\n\n");
 
 		delay(1000);

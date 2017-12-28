@@ -10,7 +10,7 @@ extern "C" {
 #include <pid.h>
 
 // motor port
-#define MOTOR_MOGO 5
+#define MOTOR_MOGO 3
 
 // motors
 extern Motor motor_mogo;
@@ -20,8 +20,8 @@ extern Motor motor_mogo;
 #define POT_MOGO_R 1
 
 // angle presets
-#define MOGO_ANGLE_EXTENDED 3000
-#define MOGO_ANGLE_GRAB 1500
+#define MOGO_ANGLE_EXTENDED 200
+#define MOGO_ANGLE_GRAB 100
 #define MOGO_ANGLE_RETRACTED 0
 
 // PID

@@ -45,8 +45,8 @@ void chassisInit() {
   enc_chassis_r = encoderInit(3, 4, false);
 
   // init PIDs
-  pid_chassis_l.init(5, 5, 30, 0, 0);
-  pid_chassis_r.init(5, 5, 30, 0, 0);
+  pid_chassis_l.init(5, 5, 5, 0, 0);
+  pid_chassis_r.init(5, 5, 5, 0, 0);
   pid_chassis_theta.init(1, 0, 0, 0, 0);
 }
 

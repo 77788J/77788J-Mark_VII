@@ -31,9 +31,21 @@ void pidRunChassis() {
 // run mogo lifter PID
 void pidRunMogo() {
 
-  mogoSetPower(
-    pid_mogo.run(mogo_angle, UPDATE_INTERVAL)
-  );
+  // calculate PID
+  float pid = pid_mogo.run(mogo_angle, UPDATE_INTERVAL);
+
+  // if the mogo lifter is extended or retracted, make its minimum power +/-24
+  if (pid_mogo.getTarget() == MOGO_ANGLE_EXTENDED &&
+      mogo_angle > MOGO_ANGLE_EXTENDED - 5 &&
+      pid < 24)
+    mogoSetPower(24);
+
+  else if (pid_mogo.getTarget() == MOGO_ANGLE_RETRACTED &&
+           mogo_angle < MOGO_ANGLE_RETRACTED - 5 &&
+           pid > -24)
+      mogoSetPower(-24);
+      
+  else mogoSetPower(pid);
 }
 
 // run all PIDs

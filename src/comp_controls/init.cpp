@@ -1,5 +1,6 @@
 #include "main.h"
 #include "chassis.h"
+#include "mogo.h"
 #include "io_control.h"
 
 void initializeIO() {
@@ -12,4 +13,5 @@ void initialize() {
 
   // init subsystems
   chassisInit();
+  mogoInit();
 }

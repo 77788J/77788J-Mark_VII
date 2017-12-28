@@ -77,7 +77,7 @@ float Pid :: run(float current_, float dt_) {
   if (error == 0)
     d = 0; // don't want to divide by zero
   else
-    d = ((kd / error) * (prev_error - error)) / dt_; // implements dynamic derivative algorithm
+    d = ((kd / 1) * (prev_error - error)) / dt_; // implements dynamic derivative algorithm
 
   // if input is not saturated, integrate
   if (abs(p + i + d) < 100) {
@@ -107,5 +107,9 @@ float Pid :: run(float current_, float dt_) {
   }
 
   // return the calculated PID output
-  return p + i + d;
+  int result = p + i + d;
+  if (time % 1000 == 0) {
+    printf("%f, %f, %f, %d\n", p, i, d, result);
+  }
+  return result;
 }
