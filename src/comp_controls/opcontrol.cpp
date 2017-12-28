@@ -14,6 +14,11 @@ void operatorControl() {
 	startTimer();
 
 	while (true) {
+		print("CHASSIS\n");
+		printf("\tLEFT\t%f\n", chassis_left);
+		printf("\tRIGHT\t%f\n", chassis_right);
+		printf("\tORIENTATION\t%f\n", chassis_angle);
+		print("\n");
 		print("MOGO LIFTER\n");
 		printf("\tLEFT\t%f\n", mogo_angle_l);
 		printf("\tRIGHT\t%f\n", mogo_angle_r);

@@ -10,9 +10,11 @@ void pidRunChassis() {
     // if controlling position
     case (CHASSIS_MODE_POSITION): {
 
+      // reset integrals if at target
       if (pid_chassis_l.atTarget(false)) pid_chassis_l.resetIntegral();
       if (pid_chassis_r.atTarget(false)) pid_chassis_r.resetIntegral();
 
+      // run the PID
       chassisSetPowerExt(
         pid_chassis_l.run(chassis_left, UPDATE_INTERVAL),
         pid_chassis_r.run(chassis_right, UPDATE_INTERVAL));
@@ -22,7 +24,12 @@ void pidRunChassis() {
     // if controlling orientation
     case (CHASSIS_MODE_ANGLE): {
 
-      // do stuff
+      // reset the integral if at target
+      if (pid_chassis_theta.atTarget(false)) pid_chassis_theta.resetIntegral();
+
+      // run the PID
+      int power = pid_chassis_theta.run(chassis_angle, UPDATE_INTERVAL);
+      chassisSetPowerExt(power, -power);
 
     } break;
   }
@@ -44,7 +51,7 @@ void pidRunMogo() {
            mogo_angle < MOGO_ANGLE_RETRACTED - 5 &&
            pid > -24)
       mogoSetPower(-24);
-      
+
   else mogoSetPower(pid);
 }
 

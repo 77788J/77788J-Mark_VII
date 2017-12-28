@@ -5,6 +5,9 @@
 // declare joystick
 Joystick joystick;
 
+// declare lcd
+Lcd lcd;
+
 // update all of the registered joysticks
 void updateAllJoysticks() {
   joystick.update();
@@ -16,10 +19,15 @@ void updateAllMotors() {
   mogoUpdateMotors();
 }
 
-// update all of the robots sensors
+// update all of the robot's sensors
 void updateAllSensors() {
   chassisUpdateSensors();
   mogoUpdateSensors();
+}
+
+// update all of the robot's LCDs
+void updateAllLcds() {
+  lcd.updateButtons();
 }
 
 // update literally everything
@@ -27,6 +35,7 @@ void updateAllIO() {
   updateAllJoysticks();
   updateAllMotors();
   updateAllSensors();
+  updateAllLcds();
 }
 
 // start background task to update everything automatically

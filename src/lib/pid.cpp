@@ -10,6 +10,8 @@ void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_)
   kp = kp_;
   ki = ki_;
   kd = kd_;
+  target_buffer = 1.2f;
+  velocity_buffer = 3;
 
   // init maximum output of each component
   max_p = 200;
@@ -108,8 +110,5 @@ float Pid :: run(float current_, float dt_) {
 
   // return the calculated PID output
   int result = p + i + d;
-  if (time % 1000 == 0) {
-    printf("%f, %f, %f, %d\n", p, i, d, result);
-  }
   return result;
 }

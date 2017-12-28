@@ -37,8 +37,8 @@ void chassisInit() {
   motor_chassis_br.init(9, false, 0);
 
   // init gyros
-  gyro_a = gyroInit(6, 196);
-  gyro_b = gyroInit(7, 196);
+  gyro_a = gyroInit(6, 187);
+  gyro_b = gyroInit(7, 197);
 
   // init encoders
   enc_chassis_l = encoderInit(1, 2, true);
@@ -47,7 +47,9 @@ void chassisInit() {
   // init PIDs
   pid_chassis_l.init(5, 5, 5, 0, 0);
   pid_chassis_r.init(5, 5, 5, 0, 0);
-  pid_chassis_theta.init(1, 0, 0, 0, 0);
+  pid_chassis_theta.init(1.4f, 0, 0, 0, 0);
+  pid_chassis_theta.target_buffer = 2;
+  pid_chassis_theta.velocity_buffer = 3;
 }
 
 // update all chassis motors
@@ -67,8 +69,11 @@ void chassisUpdateSensors() {
 
   // orientation
   float chassis_angle_encoders = (chassis_left - chassis_right) * 0;
-  float chassis_angle_gyros = (float) (gyroGet(gyro_a) + gyroGet(gyro_b)) * .5f;
-  chassis_angle = (chassis_angle_encoders * .5f) + (chassis_angle_gyros * .5f);
+  float a = gyroGet(gyro_a);
+  float b = gyroGet(gyro_b);
+  float chassis_angle_gyros = (a * .7f) + (b * .3f);
+
+  chassis_angle = (chassis_angle_encoders * 0) + (chassis_angle_gyros * 1);
 }
 
 // reset all chassis sensors
@@ -159,6 +164,7 @@ void chassisRotate(float theta, bool wait, bool vel) {
   if (wait) {
     while (!pid_chassis_theta.atTarget(vel)) {
       delay(1);
+      printf("%d\n", motor_chassis_fl.getPower());
     }
 
     // restore original chassis mode (only if waited, obviously)

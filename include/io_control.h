@@ -7,9 +7,13 @@ extern "C" {
 
 #include <main.h>
 #include <joystick.h>
+#include <lcd.h>
 
 // declare joystick
 extern Joystick joystick;
+
+// declare LCD
+extern Lcd lcd;
 
 // updates all of the registered joysticks
 void updateAllJoysticks();
@@ -17,8 +21,11 @@ void updateAllJoysticks();
 // update all of the robot's motors
 void updateAllMotors();
 
-// update all of the robots sensors
+// update all of the robot's sensors
 void updateAllSensors();
+
+// updates all of the robot's LCDs
+void updateAllLcds();
 
 // update literally everything
 void updateAllIO();

@@ -11,6 +11,9 @@ void initialize() {
   // init joystick
   joystick.init(1);
 
+  // init LCD
+  lcd.init(uart1);
+
   // init subsystems
   chassisInit();
   mogoInit();

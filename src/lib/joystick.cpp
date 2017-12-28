@@ -12,7 +12,7 @@ void Joystick :: init(int joystick_) {
 // updates the j variables
 void Joystick :: update() {
 
-  // save raw j button data
+  // save raw joystick button data
   bool raw_5U = joystickGetDigital(j, 5, JOY_UP);
   bool raw_5D = joystickGetDigital(j, 5, JOY_DOWN);
   bool raw_6U = joystickGetDigital(j, 6, JOY_UP);
@@ -62,5 +62,4 @@ void Joystick :: update() {
 
   // update time when last updated
   updated = time;
-
 }
