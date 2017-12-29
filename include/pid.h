@@ -42,7 +42,7 @@ public:
   float getIntegral();
 
   // determines whether or not the system is at the target (within a margin of error)
-  bool atTarget(bool v);
+  bool atTarget(bool , float current_, float velocity_);
 
   // resets the integral component to zero
   void resetIntegral();

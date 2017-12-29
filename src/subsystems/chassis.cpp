@@ -1,4 +1,5 @@
 #include "chassis.h"
+#include "math.h"
 
 // init mode to direct
 int chassis_mode = CHASSIS_MODE_DIRECT;
@@ -45,11 +46,12 @@ void chassisInit() {
   enc_chassis_r = encoderInit(3, 4, false);
 
   // init PIDs
-  pid_chassis_l.init(5, 5, 5, 0, 0);
-  pid_chassis_r.init(5, 5, 5, 0, 0);
-  pid_chassis_theta.init(1.4f, 0, 0, 0, 0);
+  pid_chassis_l.init(.3f, 0, 1, 0, 0);
+  pid_chassis_r.init(.3f, 0, 1, 0, 0);
+  pid_chassis_theta.init(2, 1, 240, 0, 0);
   pid_chassis_theta.target_buffer = 2;
   pid_chassis_theta.velocity_buffer = 3;
+  pid_chassis_theta.max_d = 200;
 }
 
 // update all chassis motors
@@ -127,8 +129,8 @@ void chassisMove(float l, float r, bool wait, bool vel) {
   chassis_mode = CHASSIS_MODE_POSITION;
 
    // set target variables (relative to current state)
-  float target_l = chassis_left + l;
-  float target_r = chassis_right + r;
+  float target_l = chassis_left + (l * 17.73);
+  float target_r = chassis_right + (r * 17.73);
 
   // set PID targets
   pid_chassis_l.setTarget(target_l);
@@ -136,12 +138,14 @@ void chassisMove(float l, float r, bool wait, bool vel) {
 
   // wait for chassis to have moved (if applicable)
   if (wait) {
-    while (!(pid_chassis_l.atTarget(vel) || pid_chassis_r.atTarget(vel))) {
+    while (!(pid_chassis_l.atTarget(vel, chassis_left,  motor_chassis_fl.getVelocity()) ||
+             pid_chassis_r.atTarget(vel, chassis_right, motor_chassis_fr.getVelocity()))) {
       delay(1);
     }
 
     // restore original chassis mode (only if waited, obviously)
     chassis_mode = prev_chassis_mode;
+    chassisSetPower(0);
   }
 }
 
@@ -162,12 +166,14 @@ void chassisRotate(float theta, bool wait, bool vel) {
 
   // wait for chassis to have rotated (if applicable)
   if (wait) {
-    while (!pid_chassis_theta.atTarget(vel)) {
+    while (!pid_chassis_theta.atTarget(vel, chassis_angle, (fabs(motor_chassis_fl.getVelocity()) + fabs(motor_chassis_fr.getVelocity())) * .5f)) {
       delay(1);
-      printf("%d\n", motor_chassis_fl.getPower());
     }
 
     // restore original chassis mode (only if waited, obviously)
+    pid_chassis_l.setTarget(chassis_left);
+    pid_chassis_r.setTarget(chassis_right);
     chassis_mode = prev_chassis_mode;
+    chassisSetPower(0);
   }
 }

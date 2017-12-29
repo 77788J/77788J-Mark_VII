@@ -41,8 +41,7 @@ void Motor :: update(float angle, int interval) {
   motorSet(port, p); // set the actualy power
 
   // update velocity (with moving average filter)
-  float error = angle - prev; // change in angle
-  float rpm = (error * 166.67) / interval; // convert error to RPM
+  float rpm = calcRpm(angle - prev, interval); // calculate RPM
   velocity = (velocity * .6f) + (rpm * .4f); // apply moving average filter and store in velocity variable
 
   // uodate previous angle for next run

@@ -27,6 +27,11 @@ void operatorControl() {
 		printf("\tPOWER\t%d\n", motor_mogo.getPower());
 		print("\n\n\n");
 
+		if (joystick.btn7U) {
+			chassisRotate(90, true, true);
+			printf("\n\n\n%f\n\n\n", motor_chassis_fl.getVelocity());
+		}
+
 		delay(1000);
 	}
 }

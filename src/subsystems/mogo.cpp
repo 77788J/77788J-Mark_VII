@@ -56,7 +56,7 @@ void mogoGoto(float angle, bool wait, bool vel) {
 
   // wait if applicable
   if (wait) {
-    while (pid_mogo.atTarget(vel)) {
+    while (pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity())) {
       delay(1);
     }
   }

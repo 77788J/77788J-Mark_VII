@@ -11,8 +11,8 @@ void pidRunChassis() {
     case (CHASSIS_MODE_POSITION): {
 
       // reset integrals if at target
-      if (pid_chassis_l.atTarget(false)) pid_chassis_l.resetIntegral();
-      if (pid_chassis_r.atTarget(false)) pid_chassis_r.resetIntegral();
+      if (pid_chassis_l.atTarget(false, chassis_left, 0)) pid_chassis_l.resetIntegral();
+      if (pid_chassis_r.atTarget(false, chassis_right, 0)) pid_chassis_r.resetIntegral();
 
       // run the PID
       chassisSetPowerExt(
@@ -25,10 +25,11 @@ void pidRunChassis() {
     case (CHASSIS_MODE_ANGLE): {
 
       // reset the integral if at target
-      if (pid_chassis_theta.atTarget(false)) pid_chassis_theta.resetIntegral();
+      if (pid_chassis_theta.atTarget(false, chassis_angle, 0)) pid_chassis_theta.resetIntegral();
 
       // run the PID
       int power = pid_chassis_theta.run(chassis_angle, UPDATE_INTERVAL);
+      if (abs(power) < 24) power = 24 * (limit(power, -1, 1));
       chassisSetPowerExt(power, -power);
 
     } break;

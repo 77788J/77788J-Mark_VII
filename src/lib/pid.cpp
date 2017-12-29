@@ -45,7 +45,19 @@ float Pid :: getIntegral() {
 
 // returns whether or not the PID system is approx. at its target
 // can optionally factor in velocity
-bool Pid :: atTarget(bool v) {
+bool Pid :: atTarget(bool v, float current_, float velocity_) {
+
+  // update at_target variables
+  if (abs(target - current_) <= target_buffer) {
+    at_target = true;
+    at_target_vel = (abs(velocity_) <= velocity_buffer);
+  }
+  else  {
+    at_target = false;
+    at_target_vel = false;
+  }
+
+  // return correct value
   if (v) return at_target_vel;
   else return at_target;
 }
@@ -75,14 +87,10 @@ float Pid :: run(float current_, float dt_) {
   float i = (integral * ki) / dt_;
 
   // calculate D
-  float d;
-  if (error == 0)
-    d = 0; // don't want to divide by zero
-  else
-    d = ((kd / 1) * (prev_error - error)) / dt_; // implements dynamic derivative algorithm
+  float d = (kd * (error - prev_error)) / dt_;
 
   // if input is not saturated, integrate
-  if (abs(p + i + d) < 100) {
+  if (abs(p + d) < 30 && ((error < 20) || abs(error - prev_error) < (.006f * dt_))) {
     integral += error;
   }
 
@@ -101,7 +109,7 @@ float Pid :: run(float current_, float dt_) {
   // determine whether or not the system is "at" the target
   if (abs(target - current_) <= target_buffer) {
     at_target = true;
-    at_target_vel = (abs(current_ - prev) <= velocity_buffer);
+    at_target_vel = (abs(calcRpm(current_ - prev, UPDATE_INTERVAL)) <= velocity_buffer);
   }
   else {
     at_target = false;

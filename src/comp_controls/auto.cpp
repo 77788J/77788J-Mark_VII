@@ -11,7 +11,7 @@ void autonomous() {
   startTimer();
   startController();
 
-  chassisRotate(90, true, true);
+  chassisMove(18, 18, true, true);
 
   while (true) {
     print("done\n");

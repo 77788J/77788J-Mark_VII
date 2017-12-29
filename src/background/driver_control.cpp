@@ -39,7 +39,8 @@ void driverControlChassis() {
   if (l == 0 && r == 0) {
 
     // if the velocity is ~0 AND the it hasn't been in the past...
-    if (abs(motor_chassis_fl.getVelocity()) <= 0.01f &&
+    if (chassis_mode == CHASSIS_MODE_DIRECT &&
+        abs(motor_chassis_fl.getVelocity()) <= 0.01f &&
         abs(motor_chassis_fr.getVelocity()) <= 0.01f &&
         !is_stopped) {
 

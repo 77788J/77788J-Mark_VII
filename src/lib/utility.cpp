@@ -10,3 +10,7 @@ float limit(float val, float min, float max) {
 float wrap(int val, int min, int max) {
   return min + ((val - min) % (max - min));
 }
+
+float calcRpm(float error, int interval) {
+  return (error * 166.67) / interval; // convert error to RPM
+}
