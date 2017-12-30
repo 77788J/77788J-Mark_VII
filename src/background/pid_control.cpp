@@ -14,10 +14,16 @@ void pidRunChassis() {
       if (pid_chassis_l.atTarget(false, chassis_left, 0)) pid_chassis_l.resetIntegral();
       if (pid_chassis_r.atTarget(false, chassis_right, 0)) pid_chassis_r.resetIntegral();
 
-      // run the PID
-      chassisSetPowerExt(
-        pid_chassis_l.run(chassis_left, UPDATE_INTERVAL),
-        pid_chassis_r.run(chassis_right, UPDATE_INTERVAL));
+      // calculate PIDs
+      int l = pid_chassis_l.run(chassis_left, UPDATE_INTERVAL);
+      int r = pid_chassis_r.run(chassis_right, UPDATE_INTERVAL);
+
+      // implement minimum speed 'hack'
+      // if (abs(l) < 24) l = 24 * sign(l);
+      // if (abs(r) < 24) r = 24 * sign(r);
+
+      // run the motors
+      chassisSetPowerExt(l, r);
 
     } break;
 
@@ -29,7 +35,6 @@ void pidRunChassis() {
 
       // run the PID
       int power = pid_chassis_theta.run(chassis_angle, UPDATE_INTERVAL);
-      if (abs(power) < 24) power = 24 * (limit(power, -1, 1));
       chassisSetPowerExt(power, -power);
 
     } break;

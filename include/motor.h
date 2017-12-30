@@ -31,7 +31,7 @@ public:
   float getVelocity();
 
   // sets the power of the motor
-  void setPower(int p);
+  void setPower(int p, bool accel_);
 
   // updates the internal motor variables (e.g. velocity)
   void update(float angle, int interval);
@@ -40,6 +40,12 @@ private:
 
   // current motor power output
   int power;
+
+  // target motor power output
+  int target_power;
+
+  // tells whether or not to artificially accelerate
+  bool accel;
 
   // current motor velocity
   float velocity;

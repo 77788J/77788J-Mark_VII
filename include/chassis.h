@@ -62,6 +62,7 @@ void chassisSetPowerR(int power);
 // mid-level chassis control
 void chassisSetPower(int power);
 void chassisSetPowerExt(int l, int r);
+void chassisSetPowerAccel(int l, int r);
 
 // high level chassis control
 void chassisMove(float l, float r, bool wait, bool vel);

@@ -11,11 +11,8 @@ void autonomous() {
   startTimer();
   startController();
 
+  // move 18 inches
   chassisMove(18, 18, true, true);
 
-  while (true) {
-    print("done\n");
-    delay(1000);
-  }
-
+  print("done");
 }

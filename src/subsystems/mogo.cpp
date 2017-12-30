@@ -46,7 +46,7 @@ void mogoUpdateSensors() {
 
 // sets the power of both mogo motors
 void mogoSetPower(int power) {
-  motor_mogo.setPower(power);
+  motor_mogo.setPower(power, false);
 }
 
 void mogoGoto(float angle, bool wait, bool vel) {

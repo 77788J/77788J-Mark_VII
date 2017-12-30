@@ -1,6 +1,10 @@
 #include "utility.h"
 #include "math.h"
 
+int sign(float x) {
+  return (x > 0) - (x < 0);
+}
+
 float limit(float val, float min, float max) {
   if (val > max) return max;
   if (val < min) return min;
@@ -12,5 +16,5 @@ float wrap(int val, int min, int max) {
 }
 
 float calcRpm(float error, int interval) {
-  return (error * 166.67) / interval; // convert error to RPM
+  return (error * 166.67) / interval;
 }

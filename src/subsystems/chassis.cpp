@@ -46,8 +46,8 @@ void chassisInit() {
   enc_chassis_r = encoderInit(3, 4, false);
 
   // init PIDs
-  pid_chassis_l.init(.3f, 0, 1, 0, 0);
-  pid_chassis_r.init(.3f, 0, 1, 0, 0);
+  pid_chassis_l.init(.5f, 0, 1, 0, 0);
+  pid_chassis_r.init(.5f, 0, 1, 0, 0);
   pid_chassis_theta.init(2, 1, 240, 0, 0);
   pid_chassis_theta.target_buffer = 2;
   pid_chassis_theta.velocity_buffer = 3;
@@ -97,14 +97,14 @@ void chassisResetSensors() {
 
 // set the power of the left side of the chassis
 void chassisSetPowerL(int power) {
-  motor_chassis_fl.setPower(power);
-  motor_chassis_bl.setPower(power);
+  motor_chassis_fl.setPower(power, false);
+  motor_chassis_bl.setPower(power, false);
 }
 
 // set the power of the right side of the chassis
 void chassisSetPowerR(int power) {
-  motor_chassis_fr.setPower(power);
-  motor_chassis_br.setPower(power);
+  motor_chassis_fr.setPower(power, false);
+  motor_chassis_br.setPower(power, false);
 }
 
 // set the power of both sides of the chassis
@@ -119,6 +119,14 @@ void chassisSetPowerExt(int l, int r) {
   chassisSetPowerR(r);
 }
 
+// set the power of the chassis with artificial acceleration
+void chassisSetPowerAccel(int l, int r) {
+  motor_chassis_fl.setPower(l, true);
+  motor_chassis_bl.setPower(l, true);
+  motor_chassis_fr.setPower(r, true);
+  motor_chassis_br.setPower(r, true);
+}
+
 // move the chassis (uses PIDs)
 void chassisMove(float l, float r, bool wait, bool vel) {
 
@@ -129,8 +137,8 @@ void chassisMove(float l, float r, bool wait, bool vel) {
   chassis_mode = CHASSIS_MODE_POSITION;
 
    // set target variables (relative to current state)
-  float target_l = chassis_left + (l * 17.73);
-  float target_r = chassis_right + (r * 17.73);
+  float target_l = chassis_left  + (l * 17.4f);
+  float target_r = chassis_right + (r * 17.4f);
 
   // set PID targets
   pid_chassis_l.setTarget(target_l);
