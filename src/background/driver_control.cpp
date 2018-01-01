@@ -26,12 +26,16 @@ void driverControlChassis() {
   if (abs(l) < 20) l = 0;
   if (abs(r) < 20) r = 0;
 
-  // if the joystick are facing opposite directions, slow them down
-  // for more accurate turning
-  if ((l >= 0) != (r >= 0)) {
-    l *= .75f;
-    r *= .75f;
-  }
+  // if joysticks are close to 100, treat them as 100
+  if (abs(l) > 90) l = 100 * sign(l);
+  if (abs(r) > 90) r = 100 * sign(r);
+
+  // // if the joystick are facing opposite directions, slow them down
+  // // for more accurate turning
+  // if ((l >= 40) != (r >= 40) && (l <= -40) != (r <= -40)) {
+  //   l *= .75f;
+  //   r *= .75f;
+  // }
 
   chassisSetPower(0);
 
@@ -80,8 +84,8 @@ void driverControlMogo() {
   }
 
   // if mogo lifter was being extended/retracted and is not past grab point
-  if ((joystick.btn6U_new == -1 && mogo_angle < MOGO_ANGLE_GRAB) ||
-      (joystick.btn6D_new == -1 && mogo_angle > MOGO_ANGLE_GRAB)) {
+  if ((joystick.btn6U_new == -1 && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
+      (joystick.btn6D_new == -1 && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
 
     // set mogo target to grab
     pid_mogo.setTarget(MOGO_ANGLE_GRAB);

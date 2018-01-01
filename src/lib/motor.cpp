@@ -63,7 +63,7 @@ void Motor :: update(float angle, int interval) {
   // interpolate power (if artificial acceleration is enabled)
   if (accel && target_power != power) {
     float error = target_power - power;
-    power += 1000.0f / error;
+    power += 200.0f / error;
   }
 
   // uodate previous angle for next run

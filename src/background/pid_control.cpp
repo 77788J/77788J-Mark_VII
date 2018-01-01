@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "mogo.h"
 #include "pid.h"
+#include "math.h"
 
 // run chasis PID
 void pidRunChassis() {
@@ -23,6 +24,11 @@ void pidRunChassis() {
       // if (abs(r) < 24) r = 24 * sign(r);
 
       // run the motors
+      // if (abs(motor_chassis_fl.getPower()) < 5 &&
+      //     abs(motor_chassis_fr.getPower()) < 5)
+      //   chassisSetPowerAccel(l, r);
+      //
+      // else
       chassisSetPowerExt(l, r);
 
     } break;
@@ -50,13 +56,13 @@ void pidRunMogo() {
   // if the mogo lifter is extended or retracted, make its minimum power +/-24
   if (pid_mogo.getTarget() == MOGO_ANGLE_EXTENDED &&
       mogo_angle > MOGO_ANGLE_EXTENDED - 5 &&
-      pid < 24)
-    mogoSetPower(24);
+      pid < 15)
+    mogoSetPower(15);
 
   else if (pid_mogo.getTarget() == MOGO_ANGLE_RETRACTED &&
-           mogo_angle < MOGO_ANGLE_RETRACTED - 5 &&
-           pid > -24)
-      mogoSetPower(-24);
+           mogo_angle < MOGO_ANGLE_RETRACTED + 5 &&
+           pid > -15)
+      mogoSetPower(-15);
 
   else mogoSetPower(pid);
 }

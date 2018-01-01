@@ -18,7 +18,7 @@ void updateAll() {
   updateAllMotors();
 
   // run driver control (if in driver control mode)
-  // if (isEnabled() && !isAutonomous()) updateDriverControl();
+  if (isEnabled() && !isAutonomous()) updateDriverControl();
 
   // update PIDs
   updateAllPids();

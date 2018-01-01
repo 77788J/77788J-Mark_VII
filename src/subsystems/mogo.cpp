@@ -21,7 +21,8 @@ void mogoInit() {
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
 
   // init PID
-  pid_mogo.init(1, .75f, 3, mogo_angle, mogo_angle);
+  pid_mogo.init(1.1, 0, 3.5, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.target_buffer = 5;
 }
 
 // update all mogo lifter motors
@@ -56,7 +57,7 @@ void mogoGoto(float angle, bool wait, bool vel) {
 
   // wait if applicable
   if (wait) {
-    while (pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity())) {
+    while (!pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity())) {
       delay(1);
     }
   }

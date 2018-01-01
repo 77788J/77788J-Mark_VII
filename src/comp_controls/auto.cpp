@@ -11,8 +11,11 @@ void autonomous() {
   startTimer();
   startController();
 
-  // move 18 inches
-  chassisMove(18, 18, true, true);
+  // stop all subsystems (they do random stuff at the beginnig for some reason)
+  chassisSetPower(0);
+  mogoSetPower(0);
+
+  chassisMove(8, 8, true, true);
 
   print("done");
 }
