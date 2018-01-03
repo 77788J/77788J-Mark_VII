@@ -23,6 +23,12 @@ Encoder enc_chassis_r;
 Gyro gyro_a;
 Gyro gyro_b;
 
+// declare AP filter
+ApFilterInput input_gyro_a;
+ApFilterInput input_gyro_b;
+ApFilterInput input_encoders;
+ApFilter ap_filter_orientation;
+
 // declare PIDs
 Pid pid_chassis_l;
 Pid pid_chassis_r;
@@ -45,6 +51,21 @@ void chassisInit() {
   enc_chassis_l = encoderInit(1, 2, true);
   enc_chassis_r = encoderInit(3, 4, false);
 
+  // init AP inputs
+  input_gyro_a.init(.9f);
+  input_gyro_b.init(.9f);
+  input_encoders.init(.75f);
+
+  // create array of AP filter inputs
+  ApFilterInput inputs[3] = {
+    input_gyro_a,
+    input_gyro_b,
+    input_encoders
+  };
+
+  // init AP filter
+  ap_filter_orientation.init(.1f, 3, inputs);
+
   // init PIDs
   pid_chassis_l.init(.5f, 3, 1, 0, 0);
   pid_chassis_r.init(.5f, 3, 1, 0, 0);
@@ -65,6 +86,11 @@ void chassisUpdateMotors() {
   motor_chassis_br.update(chassis_right, UPDATE_INTERVAL);
 }
 
+int prev_gyro_a = 0;
+int prev_gyro_b = 0;
+float prev_enc = 0;
+float orientation_ap = 0;
+
 // update all chassis sensors
 void chassisUpdateSensors() {
 
@@ -78,7 +104,18 @@ void chassisUpdateSensors() {
   float b = gyroGet(gyro_b);
   float chassis_angle_gyros = (a * .7f) + (b * .3f);
 
+  // calculate orientation from AP filter
+  float inputs[3] = {a - prev_gyro_a, b - prev_gyro_b, chassis_angle_encoders - prev_enc};
+  orientation_ap += ap_filter_orientation.run(inputs);
+  printf("AP ANGLE: %f\n", orientation_ap);
+
+  // calculate orientation from weighted average
   chassis_angle = (chassis_angle_encoders * 0) + (chassis_angle_gyros * 1);
+
+  // update previous values
+  prev_gyro_a = a;
+  prev_gyro_b = b;
+  prev_enc = chassis_angle_encoders;
 }
 
 // reset all chassis sensors

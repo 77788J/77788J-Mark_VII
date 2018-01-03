@@ -7,6 +7,7 @@ extern "C" {
 
 #include <main.h>
 #include <motor.h>
+#include <ap_filter.h>
 #include <pid.h>
 
 // chassis modes
@@ -32,6 +33,12 @@ extern Gyro gyro_a;
 extern Gyro gyro_b;
 extern Encoder enc_chassis_l;
 extern Encoder enc_chassis_r;
+
+// orientation AP filter
+extern ApFilterInput input_gyro_a;
+extern ApFilterInput input_gyro_b;
+extern ApFilterInput input_encoders;
+extern ApFilter ap_filter_orientation;
 
 // PIDs
 extern Pid pid_chassis_l;
