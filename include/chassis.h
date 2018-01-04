@@ -49,6 +49,7 @@ extern Pid pid_chassis_theta;
 extern float chassis_left;
 extern float chassis_right;
 extern float chassis_angle;
+extern float orientation_ap;
 
 // inits the chassis (PID, encoders, motors, etc)
 void chassisInit();

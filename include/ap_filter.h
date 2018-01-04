@@ -16,13 +16,19 @@ class ApFilterInput {
 public:
 
   // reliability
-  float reliability;
+  float getReliability(float input_);
 
   // default constructor
   ApFilterInput();
 
   // initializer
-  void init(float reliability_);
+  void init(int count_, float reliability_[]);
+
+private:
+
+  // reliability
+  int reliability_count;
+  float reliabilty[AP_FILTER_MAX_IN];
 
 };
 
@@ -35,22 +41,22 @@ public:
 
   // inputs
   int getInputCount(); // getter for input_count
-  void setInputs(int count_, ApFilterInput inputs_[AP_FILTER_MAX_IN]); // updates input_count and inputs[]
+  void setInputs(int count_, ApFilterInput inputs_[]); // updates input_count and inputs[]
 
   // default constructor
   ApFilter();
 
   // initializer
-  void init(float apathy_, int count_, ApFilterInput inputs_[AP_FILTER_MAX_IN]);
+  void init(float apathy_, int count_, ApFilterInput inputs_[]);
 
   // run the filter
-  float run(float inputs_[AP_FILTER_MAX_IN]);
+  float run(float inputs_[]);
 
 private:
 
   // inputs
   int input_count; // amount of inputs used by the filter
-  ApFilterInput inputs[AP_FILTER_MAX_IN]; // array of input objects
+  ApFilterInput inputs[]; // array of input objects
 
 };
 
