@@ -19,10 +19,10 @@ extern "C" {
 extern int chassis_mode;
 
 // motor ports
-#define MOTOR_CHASSIS_FL 5
+#define MOTOR_CHASSIS_FL 4
 #define MOTOR_CHASSIS_BL 2
-#define MOTOR_CHASSIS_FR 6
-#define MOTOR_CHASSIS_BR 9
+#define MOTOR_CHASSIS_FR 5
+#define MOTOR_CHASSIS_BR 7
 
 // motors
 extern Motor motor_chassis_fl;
