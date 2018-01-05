@@ -40,11 +40,11 @@ void liftUpdateMotors() {
 void liftUpdateSensors() {
 
   // angle (degrees) if the lift
-  lift_angle = (encoderGet(enc_lift) * 0.2f) + 0.f;
+  lift_angle = (encoderGet(enc_lift) * 0.2f) + LIFT_ANGLE_MIN;
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians
-  lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + 0.f; // translate to height
+  lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + LIFT_HEIGHT_MIN; // translate to height
 }
 
 // sets the power of both lift motors

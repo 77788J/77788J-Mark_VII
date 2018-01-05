@@ -11,9 +11,6 @@ bool driver_chassis = true;
 bool driver_lift = true;
 bool driver_mogo = true;
 
-// was moving previously?
-bool was_moving = false;
-
 // has it stopped yet?
 bool is_stopped = false;
 
@@ -59,15 +56,15 @@ void driverControlChassis() {
       is_stopped = true;
     }
 
-    // log that the chassis is not stop being controlled
-    was_moving = false;
+    else {
+      chassisSetPower(0);
+    }
   }
 
   // otherwise set the chassis power to the processed joystick output
   else {
     chassis_mode = CHASSIS_MODE_DIRECT;
     chassisSetPowerExt(l, r);
-    was_moving = true;
     is_stopped = false;
   }
 }
