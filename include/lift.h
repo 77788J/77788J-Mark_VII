@@ -18,10 +18,12 @@ extern Motor motor_lift;
 // encoder
 extern Encoder enc_lift;
 
-// angle presets
+// physical info
 #define LIFT_HEIGHT_MAX 30
 #define LIFT_HEIGHT_MIN 0
-#define BEAM_LENGTH 30.f
+#define LIFT_ANGLE_MIN
+#define LIFT_ANGLE_MAX
+#define BEAM_LENGTH 16.f
 
 // PID
 extern Pid pid_lift;

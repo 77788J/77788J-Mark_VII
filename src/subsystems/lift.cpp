@@ -8,6 +8,9 @@ float lift_height = 0;
 // declare motor
 Motor motor_lift;
 
+// declare encoder
+Encoder enc_lift;
+
 // declare PID
 Pid pid_lift;
 
