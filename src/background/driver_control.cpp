@@ -1,5 +1,6 @@
 #include "main.h"
 #include "chassis.h"
+#include "lift.h"
 #include "mogo.h"
 #include "io_control.h"
 #include "driver_control.h"
@@ -7,6 +8,7 @@
 
 // driver control enabled?
 bool driver_chassis = true;
+bool driver_lift = true;
 bool driver_mogo = true;
 
 // was moving previously?
@@ -70,6 +72,34 @@ void driverControlChassis() {
   }
 }
 
+// lift control
+bool lift_stopped = false;
+void driverControlLift() {
+
+  // raise button
+  if (joystick.btn5U == 1) {
+    pid_lift.setTarget(LIFT_HEIGHT_MAX);
+    lift_stopped = false;
+  }
+
+  // lower button
+  else if (joystick.btn5D == 1) {
+    pid_lift.setTarget(LIFT_HEIGHT_MAX);
+    lift_stopped = false;
+  }
+
+  // if either were both just released and neither are pressed, set the power to 0
+  else if (joystick.btn5U + joystick.btn5D < 0) {
+    motor_lift.setPower(0, false);
+  }
+
+  // otherwise wait until the velocity is ~0 and start the PID
+  else if (!lift_stopped && motor_lift.getVelocity() <= .01f) {
+    pid_lift.setTarget(lift_height);
+    lift_stopped = true;
+  }
+}
+
 // mogo lifter control
 void driverControlMogo() {
 
@@ -103,5 +133,10 @@ void updateDriverControl() {
   // run mogo control
   if (driver_mogo) {
     driverControlMogo();
+  }
+
+  // run lift control
+  if (driver_lift) {
+    driverControlLift();
   }
 }

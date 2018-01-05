@@ -8,6 +8,7 @@ extern "C" {
 #include <main.h>
 
 extern bool driver_chassis;
+extern bool driver_lift;
 extern bool driver_mogo;
 // run driver control loop
 void updateDriverControl();
