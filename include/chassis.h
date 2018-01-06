@@ -28,6 +28,10 @@ extern int chassis_mode;
 extern Motor motor_chassis_fl;
 extern Motor motor_chassis_fr;
 
+// sensor ports
+#define LINE_L 3
+#define LINE_R 4
+
 // sensors
 extern Gyro gyro_a;
 extern Gyro gyro_b;
@@ -50,6 +54,8 @@ extern float chassis_left;
 extern float chassis_right;
 extern float chassis_angle;
 extern float orientation_ap;
+extern bool line_l;
+extern bool line_r;
 
 // inits the chassis (PID, encoders, motors, etc)
 void chassisInit();

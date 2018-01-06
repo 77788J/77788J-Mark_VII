@@ -7,6 +7,7 @@ float lift_height = 0;
 
 // declare motor
 Motor motor_lift;
+Motor motor_lift_r;
 
 // declare encoder
 Encoder enc_lift;
@@ -25,6 +26,7 @@ void liftInit() {
 
   // init motor
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
+  motor_lift_r.init(9, true, lift_angle);
 
   // init PID
   pid_lift.init(1.1, 0, 3.5, LIFT_HEIGHT_MIN, lift_angle);
@@ -50,6 +52,7 @@ void liftUpdateSensors() {
 // sets the power of both lift motors
 void liftSetPower(int power) {
   motor_lift.setPower(power, false);
+  motor_lift_r.setPower(power, false);
 }
 
 void liftGoto(float height, bool wait, bool vel) {

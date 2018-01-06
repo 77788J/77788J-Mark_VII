@@ -14,6 +14,7 @@ extern "C" {
 
 // motors
 extern Motor motor_lift;
+extern Motor motor_lift_r;
 
 // encoder
 extern Encoder enc_lift;

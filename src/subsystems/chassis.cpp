@@ -9,6 +9,8 @@ float chassis_left = 0;
 float chassis_right = 0;
 float chassis_angle = 0;
 float orientation_ap = 0;
+bool line_l = false;
+bool line_r = false;
 
 // declare motors
 Motor motor_chassis_fl;
@@ -89,10 +91,6 @@ void chassisUpdateMotors() {
   motor_chassis_br.update(chassis_right, UPDATE_INTERVAL);
 }
 
-int prev_gyro_a = 0;
-int prev_gyro_b = 0;
-float prev_enc = 0;
-
 // update all chassis sensors
 void chassisUpdateSensors() {
 
@@ -109,17 +107,9 @@ void chassisUpdateSensors() {
   // calculate orientation from weighted average
   chassis_angle = (chassis_angle_encoders * 0) + (chassis_angle_gyros * 1);
 
-  if (time % 100 < UPDATE_INTERVAL) {
-
-    // calculate orientation from AP filter
-    float inputs[3] = {a - prev_gyro_a, b - prev_gyro_b, chassis_angle_encoders - prev_enc};
-    orientation_ap += ap_filter_orientation.run(inputs);
-
-    // update previous values
-    prev_gyro_a = a;
-    prev_gyro_b = b;
-    prev_enc = chassis_angle_encoders;
-  }
+  // determine whether or not each line tracker is over a white line
+  line_l = (analogRead(LINE_L) < 500);
+  line_r = (analogRead(LINE_R) < 500);
 }
 
 // reset all chassis sensors

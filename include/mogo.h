@@ -16,8 +16,8 @@ extern "C" {
 extern Motor motor_mogo;
 
 // sensors
-#define POT_MOGO_L 2
-#define POT_MOGO_R 1
+#define POT_MOGO_L 1
+#define POT_MOGO_R 2
 
 // angle presets
 #define MOGO_ANGLE_EXTENDED 200
