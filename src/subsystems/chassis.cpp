@@ -41,10 +41,10 @@ Pid pid_chassis_theta;
 void chassisInit() {
 
   // init motors
-  motor_chassis_fl.init(5, true, 0);
-  motor_chassis_bl.init(2, true, 0);
-  motor_chassis_fr.init(6, false, 0);
-  motor_chassis_br.init(9, false, 0);
+  motor_chassis_fl.init(MOTOR_CHASSIS_FL, true, 0);
+  motor_chassis_bl.init(MOTOR_CHASSIS_BL, true, 0);
+  motor_chassis_fr.init(MOTOR_CHASSIS_FR, false, 0);
+  motor_chassis_br.init(MOTOR_CHASSIS_BR, false, 0);
 
   // init gyros
   gyro_a = gyroInit(6, 187);

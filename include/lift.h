@@ -14,14 +14,13 @@ extern "C" {
 
 // motors
 extern Motor motor_lift;
-extern Motor motor_lift_r;
 
 // encoder
 extern Encoder enc_lift;
 
 // physical info
 #define LIFT_HEIGHT_MAX 52.f
-#define LIFT_HEIGHT_MIN -10.f
+#define LIFT_HEIGHT_MIN 10.f
 #define LIFT_ANGLE_MIN -5.f
 #define LIFT_ANGLE_MAX 45.f
 #define BEAM_LENGTH 16.f

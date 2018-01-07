@@ -1,5 +1,6 @@
 #include "io_control.h"
 #include "chassis.h"
+#include "lift.h"
 #include "mogo.h"
 
 // declare joystick
@@ -16,12 +17,14 @@ void updateAllJoysticks() {
 // update all of the robot's motors
 void updateAllMotors() {
   chassisUpdateMotors();
+  liftUpdateMotors();
   mogoUpdateMotors();
 }
 
 // update all of the robot's sensors
 void updateAllSensors() {
   chassisUpdateSensors();
+  liftUpdateSensors();
   mogoUpdateSensors();
 }
 

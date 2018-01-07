@@ -4,10 +4,10 @@
 // init variables to zero
 float lift_angle = 0;
 float lift_height = 0;
+float constant = 0;
 
 // declare motor
 Motor motor_lift;
-Motor motor_lift_r;
 
 // declare encoder
 Encoder enc_lift;
@@ -26,11 +26,14 @@ void liftInit() {
 
   // init motor
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
-  motor_lift_r.init(9, true, lift_angle);
 
   // init PID
-  pid_lift.init(1.1, 0, 3.5, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.init(1.1f, 0, 3.5, LIFT_HEIGHT_MIN, lift_angle);
   pid_lift.target_buffer = 5;
+
+  // calculate lift offset from ground when at 'neutral' position (all bars parallel)
+  float rad = lift_angle * 0.0174533f; // convert to radians
+  constant = LIFT_HEIGHT_MIN - ((sin(rad) * BEAM_LENGTH) * 2.f); // do the maths
 }
 
 // update all lift lifter motors
@@ -46,13 +49,12 @@ void liftUpdateSensors() {
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians
-  lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + LIFT_HEIGHT_MIN; // translate to height
+  lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + constant; // translate to height
 }
 
 // sets the power of both lift motors
 void liftSetPower(int power) {
   motor_lift.setPower(power, false);
-  motor_lift_r.setPower(power, false);
 }
 
 void liftGoto(float height, bool wait, bool vel) {

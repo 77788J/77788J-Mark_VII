@@ -4,6 +4,7 @@
 #include "mogo.h"
 #include "io_control.h"
 #include "driver_control.h"
+#include "recorder.h"
 #include "math.h"
 
 // driver control enabled?
@@ -74,14 +75,14 @@ bool lift_stopped = false;
 void driverControlLift() {
 
   // raise button
-  if (joystick.btn5U == 1) {
+  if (joystick.btn5U) {
     pid_lift.setTarget(LIFT_HEIGHT_MAX);
     lift_stopped = false;
   }
 
   // lower button
-  else if (joystick.btn5D == 1) {
-    pid_lift.setTarget(LIFT_HEIGHT_MAX);
+  else if (joystick.btn5D) {
+    pid_lift.setTarget(LIFT_HEIGHT_MIN);
     lift_stopped = false;
   }
 
@@ -120,20 +121,49 @@ void driverControlMogo() {
 }
 
 // full driver control
+unsigned char mode = CHASSIS_MODE_POSITION;
 void updateDriverControl() {
 
-  // run chassis control
-  if (driver_chassis) {
-    driverControlChassis();
-  }
+  // if 'recording' for auto
+  if (RECORDING_ENABLED) {
 
-  // run mogo control
-  if (driver_mogo) {
-    driverControlMogo();
-  }
+    // make sure that the chassis is in the right mode and move
+    if (abs(joystick.analogLV) > 20) {
+      if (mode != CHASSIS_MODE_POSITION) logState(mode); // if the mode is switching, log the state
+      mode = CHASSIS_MODE_POSITION; // update the new mode
+      chassisSetPower(joystick.analogLV); // move the chassis
+    }
+    if (abs(joystick.analogRH) > 20) {
+      if (mode != CHASSIS_MODE_ANGLE) logState(mode); // if the mode is switching, log the state
+      mode = CHASSIS_MODE_ANGLE; // update the new mode
+      chassisSetPowerExt(joystick.analogRH, -joystick.analogRH); // rotate the chassis
+    }
 
-  // run lift control
-  if (driver_lift) {
+    // lift control
     driverControlLift();
+
+    // mogo control
+    driverControlMogo();
+
+    // log state if log button is released
+    if (joystick.btn7U_new == -1) logState(mode);
+  }
+
+  else {
+
+    // run chassis control
+    if (driver_chassis) {
+      driverControlChassis();
+    }
+
+    // run mogo control
+    if (driver_mogo) {
+      driverControlMogo();
+    }
+
+    // run lift control
+    if (driver_lift) {
+      driverControlLift();
+    }
   }
 }
