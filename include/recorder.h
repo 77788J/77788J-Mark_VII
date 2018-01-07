@@ -8,7 +8,7 @@ extern "C" {
 #include <main.h>
 
 // is it recording?
-#define RECORDING_ENABLED true
+#define RECORDING_ENABLED false
 
 // print data to console
 void logState(unsigned char chassis_mode);

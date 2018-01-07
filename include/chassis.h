@@ -69,6 +69,9 @@ void chassisUpdateSensors();
 // reset all chassis sensors
 void chassisResetSensors();
 
+// determines whether or not the chassis has reached its target
+bool chassisAtTarget(bool vel, int mode);
+
 // low-level chassis control
 void chassisSetPowerL(int power);
 void chassisSetPowerR(int power);

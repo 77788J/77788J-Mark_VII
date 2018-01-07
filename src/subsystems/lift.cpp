@@ -52,6 +52,11 @@ void liftUpdateSensors() {
   lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + constant; // translate to height
 }
 
+// determines whether or not the lift has reached its target
+bool liftAtTarget(bool vel) {
+  return pid_lift.atTarget(vel, lift_angle, motor_lift.getVelocity());
+}
+
 // sets the power of both lift motors
 void liftSetPower(int power) {
   motor_lift.setPower(power, false);
@@ -64,7 +69,7 @@ void liftGoto(float height, bool wait, bool vel) {
 
   // wait if applicable
   if (wait) {
-    while (!pid_lift.atTarget(vel, lift_angle, motor_lift.getVelocity())) {
+    while (!liftAtTarget(vel)) {
       delay(1);
     }
   }

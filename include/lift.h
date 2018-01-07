@@ -41,6 +41,9 @@ void liftUpdateMotors();
 // updates all lift sensors
 void liftUpdateSensors();
 
+// determines whether or not the lift has reached its target
+bool liftAtTarget(bool vel);
+
 // low-level lift control
 void liftSetPower(int power);
 

@@ -41,6 +41,9 @@ void mogoUpdateMotors();
 // updates all mogo sensors
 void mogoUpdateSensors();
 
+// determines whether or not the mogo lifter has reached its target
+bool mogoAtTarget(bool vel);
+
 // low-level mogo control
 void mogoSetPower(int power);
 

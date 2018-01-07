@@ -128,16 +128,17 @@ void updateDriverControl() {
   if (RECORDING_ENABLED) {
 
     // make sure that the chassis is in the right mode and move
-    if (abs(joystick.analogLV) > 20) {
+    if (abs(joystick.analogLV) > 20) { // translation
       if (mode != CHASSIS_MODE_POSITION) logState(mode); // if the mode is switching, log the state
       mode = CHASSIS_MODE_POSITION; // update the new mode
       chassisSetPower(joystick.analogLV); // move the chassis
     }
-    if (abs(joystick.analogRH) > 20) {
+    else if (abs(joystick.analogRH) > 20) { // rotation
       if (mode != CHASSIS_MODE_ANGLE) logState(mode); // if the mode is switching, log the state
       mode = CHASSIS_MODE_ANGLE; // update the new mode
       chassisSetPowerExt(joystick.analogRH, -joystick.analogRH); // rotate the chassis
     }
+    else chassisSetPower(0); // stopped
 
     // lift control
     driverControlLift();

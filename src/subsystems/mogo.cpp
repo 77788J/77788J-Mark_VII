@@ -45,6 +45,11 @@ void mogoUpdateSensors() {
   mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f;
 }
 
+// determines whether or not the mogo lifter has reached its target
+bool mogoAtTarget(bool vel) {
+  return pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity());
+}
+
 // sets the power of both mogo motors
 void mogoSetPower(int power) {
   motor_mogo.setPower(power, false);
@@ -57,7 +62,7 @@ void mogoGoto(float angle, bool wait, bool vel) {
 
   // wait if applicable
   if (wait) {
-    while (!pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity())) {
+    while (!mogoAtTarget(vel)) {
       delay(1);
     }
   }
