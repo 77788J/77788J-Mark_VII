@@ -95,8 +95,8 @@ void chassisUpdateMotors() {
 void chassisUpdateSensors() {
 
   // encoder degrees
-  chassis_left = (float) encoderGet(enc_chassis_l) * .333f;
-  chassis_right = (float) encoderGet(enc_chassis_r) * .333f;
+  chassis_left = (float) encoderGet(enc_chassis_l);
+  chassis_right = (float) encoderGet(enc_chassis_r);
 
   // orientation
   float chassis_angle_encoders = (chassis_left - chassis_right) * .2617f; // multiply by a scalar to convert to degrees
