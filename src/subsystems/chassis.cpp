@@ -134,12 +134,12 @@ bool chassisAtTarget(bool vel, int mode) {
 
   switch (mode) {
 
-    case (CHASSIS_MODE_DIRECT):
-      return (pid_chassis_l.atTarget(vel, chassis_left,  motor_chassis_fl.getVelocity()) ||
+    case (CHASSIS_MODE_POSITION):
+      return (pid_chassis_l.atTarget(vel, chassis_left,  motor_chassis_fl.getVelocity()) &&
               pid_chassis_r.atTarget(vel, chassis_right, motor_chassis_fr.getVelocity()));
       break;
 
-    case (CHASSIS_MODE_POSITION):
+    case (CHASSIS_MODE_ANGLE):
       return pid_chassis_theta.atTarget(vel, chassis_angle, (fabs(motor_chassis_fl.getVelocity()) + fabs(motor_chassis_fr.getVelocity())) * .5f);
       break;
 
@@ -193,8 +193,8 @@ void chassisMove(float l, float r, bool wait, bool vel) {
   chassis_mode = CHASSIS_MODE_POSITION;
 
    // set target variables (relative to current state)
-  float target_l = chassis_left  + (l * 16.1f);
-  float target_r = chassis_right + (r * 16.1f);
+  float target_l = chassis_left  + (l * CHASSIS_SCALE_DISTANCE);
+  float target_r = chassis_right + (r * CHASSIS_SCALE_DISTANCE);
 
   // set PID targets
   pid_chassis_l.setTarget(target_l);

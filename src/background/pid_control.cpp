@@ -62,6 +62,8 @@ void pidRunMogo() {
   // calculate PID
   float pid = pid_mogo.run(mogo_angle, UPDATE_INTERVAL);
 
+  if (pid_mogo.atTarget(false, mogo_angle, 0)) pid_mogo.resetIntegral();
+
   // if the mogo lifter is extended or retracted, make its minimum power +/-24
   if (pid_mogo.getTarget() == MOGO_ANGLE_EXTENDED &&
       mogo_angle > MOGO_ANGLE_EXTENDED - 5 &&

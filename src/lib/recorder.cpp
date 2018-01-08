@@ -29,13 +29,18 @@ all whitespace is ignored
 */
 
 // log chassis data
+float prev_pos_l = 0;
+float prev_pos_r = 0;
+float prev_angle = 0;
 void logChassis(unsigned char chassis) {
   switch (chassis) {
-
-    case (CHASSIS_MODE_POSITION): printf("cp: %f,%f", chassis_left, chassis_right); break;
-    case (CHASSIS_MODE_ANGLE): printf("ca: %f", chassis_angle); break;
-
+    case (CHASSIS_MODE_POSITION): printf("cp: %f,%f", (chassis_left - prev_pos_l) / CHASSIS_SCALE_DISTANCE, (chassis_right - prev_pos_r) / CHASSIS_SCALE_DISTANCE); break;
+    case (CHASSIS_MODE_ANGLE): printf("ca: %f", chassis_angle - prev_angle); break;
   }
+
+  prev_pos_l = chassis_left;
+  prev_pos_r = chassis_right;
+  prev_angle = chassis_angle;
 }
 
 // log the mogo lifter data

@@ -24,6 +24,9 @@ extern int chassis_mode;
 #define MOTOR_CHASSIS_FR 5
 #define MOTOR_CHASSIS_BR 7
 
+// distance scaling factor
+#define CHASSIS_SCALE_DISTANCE 16.1f
+
 // motors
 extern Motor motor_chassis_fl;
 extern Motor motor_chassis_fr;

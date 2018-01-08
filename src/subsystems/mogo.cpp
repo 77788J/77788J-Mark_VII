@@ -21,8 +21,8 @@ void mogoInit() {
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
 
   // init PID
-  pid_mogo.init(1.1, 0, 3.5, MOGO_ANGLE_GRAB, mogo_angle);
-  pid_mogo.target_buffer = 5;
+  pid_mogo.init(3.f, 2, 4, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.target_buffer = 15;
 }
 
 // update all mogo lifter motors
@@ -47,7 +47,12 @@ void mogoUpdateSensors() {
 
 // determines whether or not the mogo lifter has reached its target
 bool mogoAtTarget(bool vel) {
-  return pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity());
+  if (pid_mogo.getTarget() == MOGO_ANGLE_EXTENDED && mogo_angle > MOGO_ANGLE_EXTENDED + 20)
+    return true;
+  else if (pid_mogo.getTarget() == MOGO_ANGLE_RETRACTED && mogo_angle < MOGO_ANGLE_EXTENDED - 20)
+    return true;
+  else
+    return pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity());
 }
 
 // sets the power of both mogo motors
