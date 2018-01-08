@@ -28,12 +28,12 @@ void liftInit() {
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
 
   // init PID
-  pid_lift.init(1.1f, 0, 3.5, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.init(20.f, 10, 56, LIFT_HEIGHT_MIN, lift_angle);
   pid_lift.target_buffer = 5;
 
   // calculate lift offset from ground when at 'neutral' position (all bars parallel)
   float rad = lift_angle * 0.0174533f; // convert to radians
-  constant = LIFT_HEIGHT_MIN - ((sin(rad) * BEAM_LENGTH) * 2.f); // do the maths
+  constant = -(-LIFT_HEIGHT_MIN + (sin(rad) * BEAM_LENGTH_BOTTOM) + (sin(rad) * BEAM_LENGTH_TOP)); // do the maths
 }
 
 // update all lift lifter motors
@@ -45,16 +45,23 @@ void liftUpdateMotors() {
 void liftUpdateSensors() {
 
   // angle (degrees) if the lift
-  lift_angle = (encoderGet(enc_lift) * 0.2f) + LIFT_ANGLE_MIN;
+  lift_angle = (encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians
-  lift_height = ((sin(rad) * BEAM_LENGTH) * 2.f) + constant; // translate to height
+  lift_height = (sin(rad) * BEAM_LENGTH_BOTTOM) + (sin(rad) * BEAM_LENGTH_TOP) + constant; // translate to height
 }
 
 // determines whether or not the lift has reached its target
 bool liftAtTarget(bool vel) {
   return pid_lift.atTarget(vel, lift_angle, motor_lift.getVelocity());
+}
+
+// returns a recommended timeout for a PID
+unsigned int liftGetTimeout(float target) {
+  float delta = target - lift_height;
+  if (delta > 0) return delta * 69.f;
+  else return delta * 27.7f;
 }
 
 // sets the power of both lift motors

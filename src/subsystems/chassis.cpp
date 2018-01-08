@@ -72,12 +72,12 @@ void chassisInit() {
   ap_filter_orientation.init(.001f, 3, inputs);
 
   // init PIDs
-  pid_chassis_l.init(.5f, 3, 1, 0, 0);
-  pid_chassis_r.init(.5f, 3, 1, 0, 0);
+  pid_chassis_l.init(.6f, 10, 21, 0, 0);
+  pid_chassis_r.init(.6f, 10, 21, 0, 0);
   pid_chassis_l.target_buffer = 4;
   pid_chassis_r.target_buffer = 4;
 
-  pid_chassis_theta.init(3, 4, 128, 0, 0);
+  pid_chassis_theta.init(2.3f, 4, 70, 0, 0);
   pid_chassis_theta.target_buffer = 1.24f;
   pid_chassis_theta.velocity_buffer = 3;
   pid_chassis_theta.max_d = 200;
@@ -131,7 +131,6 @@ void chassisResetSensors() {
 
 // returns whether or not the chassis has reached its target
 bool chassisAtTarget(bool vel, int mode) {
-
   switch (mode) {
 
     case (CHASSIS_MODE_POSITION):
@@ -148,7 +147,17 @@ bool chassisAtTarget(bool vel, int mode) {
       break;
 
     }
+}
 
+// returns a recommended timeout for a position PID
+unsigned int chassisGetTimeoutPosition(float l, float r) {
+  float dist = max(l, r);
+  return dist * 56.f;
+}
+
+// returns a recommended timeout for a rotation PID
+unsigned int chassisGetTimeoutAngle(float theta) {
+  return theta * 19.f;
 }
 
 // set the power of the left side of the chassis

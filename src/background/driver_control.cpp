@@ -87,12 +87,7 @@ void driverControlLift() {
   }
 
   // if either were both just released and neither are pressed, set the power to 0
-  else if (joystick.btn5U + joystick.btn5D < 0) {
-    motor_lift.setPower(0, false);
-  }
-
-  // otherwise wait until the velocity is ~0 and start the PID
-  else if (!lift_stopped && motor_lift.getVelocity() <= .01f) {
+  else if (joystick.btn5U_new + joystick.btn5D_new < 0) {
     pid_lift.setTarget(lift_height);
     lift_stopped = true;
   }
@@ -102,18 +97,18 @@ void driverControlLift() {
 void driverControlMogo() {
 
   // extend button
-  if (joystick.btn6U) {
+  if (joystick.btn8U) {
     pid_mogo.setTarget(MOGO_ANGLE_EXTENDED);
   }
 
   // retract button
-  else if (joystick.btn6D) {
+  else if (joystick.btn8D) {
     pid_mogo.setTarget(MOGO_ANGLE_RETRACTED);
   }
 
   // if mogo lifter was being extended/retracted and is not past grab point
-  if ((joystick.btn6U_new == -1 && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
-      (joystick.btn6D_new == -1 && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
+  if ((joystick.btn8U_new == -1 && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
+      (joystick.btn8D_new == -1 && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
 
     // set mogo target to grab
     pid_mogo.setTarget(MOGO_ANGLE_GRAB);

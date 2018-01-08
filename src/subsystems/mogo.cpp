@@ -55,6 +55,12 @@ bool mogoAtTarget(bool vel) {
     return pid_mogo.atTarget(vel, mogo_angle, motor_mogo.getVelocity());
 }
 
+// returns a recommended timeout for a PID
+unsigned int mogoGetTimeout(float target) {
+  float delta = target - mogo_angle;
+  return delta * 7.5f;
+}
+
 // sets the power of both mogo motors
 void mogoSetPower(int power) {
   motor_mogo.setPower(power, false);

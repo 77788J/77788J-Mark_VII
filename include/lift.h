@@ -19,11 +19,13 @@ extern Motor motor_lift;
 extern Encoder enc_lift;
 
 // physical info
-#define LIFT_HEIGHT_MAX 52.f
-#define LIFT_HEIGHT_MIN 10.f
-#define LIFT_ANGLE_MIN -5.f
-#define LIFT_ANGLE_MAX 45.f
-#define BEAM_LENGTH 16.f
+#define LIFT_HEIGHT_MAX 41.5f
+#define LIFT_HEIGHT_MIN 4.5f
+#define LIFT_ANGLE_MIN -27.f
+#define LIFT_ANGLE_MAX 56.f
+#define LIFT_BOX_HEIGHT 11.f
+#define BEAM_LENGTH_TOP 13.5f
+#define BEAM_LENGTH_BOTTOM 15.5f
 
 // PID
 extern Pid pid_lift;
@@ -43,6 +45,9 @@ void liftUpdateSensors();
 
 // determines whether or not the lift has reached its target
 bool liftAtTarget(bool vel);
+
+// returns a recommended timeout for a PID
+unsigned int liftGetTimeout(float target);
 
 // low-level lift control
 void liftSetPower(int power);

@@ -75,6 +75,12 @@ void chassisResetSensors();
 // determines whether or not the chassis has reached its target
 bool chassisAtTarget(bool vel, int mode);
 
+// returns a recommended timeout for a position PID
+unsigned int chassisGetTimeoutPosition(float l, float r);
+
+// returns a recommended timeout for a rotation PID
+unsigned int chassisGetTimeoutAngle(float theta);
+
 // low-level chassis control
 void chassisSetPowerL(int power);
 void chassisSetPowerR(int power);

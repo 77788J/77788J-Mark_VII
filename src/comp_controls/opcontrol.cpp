@@ -3,6 +3,7 @@
 #include "io_control.h"
 #include "recorder.h"
 #include "chassis.h"
+#include "lift.h"
 #include "mogo.h"
 #include "math.h"
 
@@ -32,6 +33,9 @@ void operatorControl() {
 			printf("\tAVERAGE\t%f\n", mogo_angle);
 			printf("\tTARGET\t%f\n", pid_mogo.getTarget());
 			printf("\tPOWER\t%d\n", motor_mogo.getPower());
+			print("LIFT\n");
+			printf("\tANGLE\t%f\n", lift_angle);
+			printf("\tHEIGHT\t%f\n", lift_height);
 			print("\n\n\n");
 		}
 

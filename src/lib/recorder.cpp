@@ -61,17 +61,16 @@ void logState(unsigned char chassis) {
   // doesn't really matter, but helpful for readability
   print("\n");
 
-  // log each subsystem
+  // log chassis
   logChassis(chassis);
-  print("|");
-  print("\n");
+  print("|\n");
 
+  // log lift
   logLift();
-  print("|");
-  print("\n");
+  print("|\n");
 
+  // log mogo lifter
   logMogo();
-  print("|");
 
   // end log
   print(";\n");

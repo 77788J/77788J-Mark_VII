@@ -44,6 +44,9 @@ void mogoUpdateSensors();
 // determines whether or not the mogo lifter has reached its target
 bool mogoAtTarget(bool vel);
 
+// returns a recommended timeout for a PID
+unsigned int mogoGetTimeout(float target);
+
 // low-level mogo control
 void mogoSetPower(int power);
 
