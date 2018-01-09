@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "mogo.h"
+#include "claw.h"
 
 /*
 
@@ -53,6 +54,11 @@ void logLift() {
   printf("lf: %f", pid_lift.getTarget());
 }
 
+// log the claw angle
+void logClaw() {
+  printf("cl: %f", pid_claw.getTarget());
+}
+
 // log the current state of the bot to the console
 // to be converted to code via external program
 void logState(unsigned char chassis) {
@@ -71,6 +77,10 @@ void logState(unsigned char chassis) {
 
   // log mogo lifter
   logMogo();
+  print("|\n");
+
+  // log the claw
+  logClaw();
 
   // end log
   print(";\n");
