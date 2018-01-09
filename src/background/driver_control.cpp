@@ -149,6 +149,9 @@ void updateDriverControl() {
     // mogo control
     driverControlMogo();
 
+    // claw control
+    driverControlClaw();
+
     // log state if log button is released
     if (joystick.btn7U_new == -1) logState(mode);
   }
