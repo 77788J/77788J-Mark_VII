@@ -15,9 +15,10 @@ b, c, d and f = values (generally PID targets), continues indefititely
 
 SUBSYSTEM MODES:
 cp: chassis position
-ca: chassis angle/orientation
-mg: mogo
+ca: chassis orientation
+mg: mogo angle
 lf: lift height
+cl: claw angle
 
 METACHARACTERS:
 ':' = delimeter between subsytem and value(s)
