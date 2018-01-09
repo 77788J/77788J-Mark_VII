@@ -4,7 +4,7 @@
 // init variables to zero
 float lift_angle = 0;
 float lift_height = 0;
-float constant = 0;
+static float constant = 0;
 
 // declare motor
 Motor motor_lift;
@@ -60,8 +60,8 @@ bool liftAtTarget(bool vel) {
 // returns a recommended timeout for a PID
 unsigned int liftGetTimeout(float target) {
   float delta = target - lift_height;
-  if (delta > 0) return delta * 69.f;
-  else return delta * 27.7f;
+  if (delta > 0) return abs(delta * 69.f);
+  else return abs(delta * 27.7f);
 }
 
 // sets the power of both lift motors

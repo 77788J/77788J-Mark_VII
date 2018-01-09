@@ -62,6 +62,11 @@ bool Pid :: atTarget(bool v, float current_, float velocity_) {
   else return at_target;
 }
 
+// sets the integral accumulator to a specified value
+void Pid :: setIntegral(float integral_) {
+  integral = integral_;
+}
+
 // resets the integral accumulator to zero
 void Pid :: resetIntegral() {
   integral = 0;

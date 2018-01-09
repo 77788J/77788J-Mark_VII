@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "mogo.h"
+#include "claw.h"
 #include "pid.h"
 #include "math.h"
 
@@ -50,10 +51,9 @@ void pidRunChassis() {
 
 // run lift PID
 void pidRunLift() {
-
+  if (liftAtTarget(false)) pid_lift.setIntegral(pid_lift.getIntegral() - .1f);
   float pid = pid_lift.run(lift_height, UPDATE_INTERVAL);
   liftSetPower(pid);
-
 }
 
 // run mogo lifter PID
@@ -78,6 +78,12 @@ void pidRunMogo() {
   else mogoSetPower(pid);
 }
 
+// run claw PID
+void pidRunClaw() {
+  float pid = pid_claw.run(claw_angle, UPDATE_INTERVAL);
+  clawSetPower(pid);
+}
+
 // run all PIDs
 void updateAllPids() {
 
@@ -89,4 +95,7 @@ void updateAllPids() {
 
   // mogo lifter
   pidRunMogo();
+
+  // claw
+  pidRunClaw();
 }

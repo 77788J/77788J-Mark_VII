@@ -1,4 +1,5 @@
 #include "mogo.h"
+#include "math.h"
 
 // init variables to zero
 float mogo_angle_l = 0;
@@ -57,7 +58,7 @@ bool mogoAtTarget(bool vel) {
 
 // returns a recommended timeout for a PID
 unsigned int mogoGetTimeout(float target) {
-  float delta = target - mogo_angle;
+  float delta = abs(target - mogo_angle);
   return delta * 7.5f;
 }
 

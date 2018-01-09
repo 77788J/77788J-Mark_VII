@@ -151,13 +151,13 @@ bool chassisAtTarget(bool vel, int mode) {
 
 // returns a recommended timeout for a position PID
 unsigned int chassisGetTimeoutPosition(float l, float r) {
-  float dist = max(l, r);
+  float dist = max(abs(l), abs(r));
   return dist * 56.f;
 }
 
 // returns a recommended timeout for a rotation PID
 unsigned int chassisGetTimeoutAngle(float theta) {
-  return theta * 19.f;
+  return abs(theta * 19.f);
 }
 
 // set the power of the left side of the chassis

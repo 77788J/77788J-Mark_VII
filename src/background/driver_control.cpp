@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "mogo.h"
+#include "claw.h"
 #include "io_control.h"
 #include "driver_control.h"
 #include "recorder.h"
@@ -11,6 +12,7 @@
 bool driver_chassis = true;
 bool driver_lift = true;
 bool driver_mogo = true;
+bool driver_claw = true;
 
 // has it stopped yet?
 bool is_stopped = false;
@@ -93,6 +95,12 @@ void driverControlLift() {
   }
 }
 
+// claw control
+void driverControlClaw() {
+  if (joystick.btn8U) pid_claw.setTarget(CLAW_OPEN);
+  if (joystick.btn8D) pid_claw.setTarget(CLAW_CLOSED);
+}
+
 // mogo lifter control
 void driverControlMogo() {
 
@@ -155,6 +163,11 @@ void updateDriverControl() {
     // run mogo control
     if (driver_mogo) {
       driverControlMogo();
+    }
+
+    // run claw control
+    if (driver_claw) {
+      driverControlClaw();
     }
 
     // run lift control
