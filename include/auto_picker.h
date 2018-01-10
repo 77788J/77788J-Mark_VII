@@ -16,8 +16,8 @@ extern unsigned char auto_side;
 extern unsigned char auto_color;
 extern unsigned char auto_variation;
 
-// run driver control loop
-void updateDriverControl();
+// run auto picker
+void autoPickerRun();
 
 #ifdef __cplusplus
 }

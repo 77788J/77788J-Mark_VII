@@ -4,6 +4,7 @@
 #include "claw.h"
 #include "mogo.h"
 #include "io_control.h"
+#include "auto_picker.h"
 
 void initializeIO() {
 }
@@ -21,4 +22,11 @@ void initialize() {
   mogoInit();
   liftInit();
   clawInit();
+
+  // auto selector
+  delay(5000);
+  while (!isEnabled()) {
+    autoPickerRun();
+    delay(1);
+  }
 }
