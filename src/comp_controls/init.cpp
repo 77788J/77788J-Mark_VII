@@ -1,6 +1,7 @@
 #include "main.h"
 #include "chassis.h"
 #include "lift.h"
+#include "claw.h"
 #include "mogo.h"
 #include "io_control.h"
 
@@ -19,4 +20,5 @@ void initialize() {
   chassisInit();
   mogoInit();
   liftInit();
+  clawInit();
 }

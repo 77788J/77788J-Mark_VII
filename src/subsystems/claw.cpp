@@ -27,7 +27,7 @@ void clawInit() {
   motor_claw.init(MOTOR_CLAW, true, claw_angle);
 
   // init PID
-  pid_claw.init(20.f, 10, 56, CLAW_CLOSED, claw_angle);
+  pid_claw.init(1.15f, 0, 10, CLAW_CLOSED, claw_angle);
   pid_claw.target_buffer = 20;
 }
 

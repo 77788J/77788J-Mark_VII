@@ -19,7 +19,7 @@ extern Motor motor_lift;
 extern Encoder enc_lift;
 
 // physical info
-#define LIFT_HEIGHT_MAX 41.5f
+#define LIFT_HEIGHT_MAX 42.5f
 #define LIFT_HEIGHT_MIN 4.5f
 #define LIFT_ANGLE_MIN -27.f
 #define LIFT_ANGLE_MAX 56.f

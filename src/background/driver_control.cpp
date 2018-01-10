@@ -97,8 +97,8 @@ void driverControlLift() {
 
 // claw control
 void driverControlClaw() {
-  if (joystick.btn8U) pid_claw.setTarget(CLAW_OPEN);
-  if (joystick.btn8D) pid_claw.setTarget(CLAW_CLOSED);
+  if (joystick.btn6U) pid_claw.setTarget(CLAW_CLOSED);
+  if (joystick.btn6D) pid_claw.setTarget(CLAW_OPEN);
 }
 
 // mogo lifter control
