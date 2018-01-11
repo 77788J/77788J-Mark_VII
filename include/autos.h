@@ -15,7 +15,7 @@ void runAutoLeftRed(unsigned char variation);
 void runAutoRightRed(unsigned char variation);
 
 // variation 1
-// TODO make a variation 1
+void autoRunLeftRed20Cone();
 
 #ifdef __cplusplus
 }

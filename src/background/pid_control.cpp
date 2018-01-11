@@ -5,6 +5,7 @@
 #include "claw.h"
 #include "pid.h"
 #include "math.h"
+#include "io_control.h"
 
 // run chasis PID
 void pidRunChassis() {
@@ -51,12 +52,17 @@ void pidRunChassis() {
 
 // run lift PID
 void pidRunLift() {
-  if (liftAtTarget(false)) pid_lift.setIntegral(pid_lift.getIntegral() - .1f);
-  float pid = pid_lift.run(lift_height, UPDATE_INTERVAL);
-  if (liftAtTarget(false)) {
-    pid -= (pid_lift.getTarget() - lift_height) * pid_lift.kp;
+  if (joystick.btn7D || lift_height < LIFT_HEIGHT_MIN + 5) {
+    liftSetPower(0);
   }
-  liftSetPower(pid);
+  else {
+    if (liftAtTarget(false)) pid_lift.setIntegral(pid_lift.getIntegral() - .1f);
+    float pid = pid_lift.run(lift_height, UPDATE_INTERVAL);
+    if (liftAtTarget(false)) {
+      pid -= (pid_lift.getTarget() - lift_height) * pid_lift.kp;
+    }
+    liftSetPower(pid);
+  }
 }
 
 // run mogo lifter PID

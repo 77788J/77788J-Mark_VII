@@ -72,12 +72,14 @@ void chassisInit() {
   ap_filter_orientation.init(.001f, 3, inputs);
 
   // init PIDs
-  pid_chassis_l.init(.6f, 10, 21, 0, 0);
-  pid_chassis_r.init(.6f, 10, 21, 0, 0);
-  pid_chassis_l.target_buffer = 4;
-  pid_chassis_r.target_buffer = 4;
+  pid_chassis_l.init(.5f, 10, 150, 0, 0);
+  pid_chassis_r.init(.5f, 10, 150, 0, 0);
+  pid_chassis_l.max_d = 100;
+  pid_chassis_r.max_d = 100;
+  pid_chassis_l.target_buffer = 8;
+  pid_chassis_r.target_buffer = 8;
 
-  pid_chassis_theta.init(2.3f, 4, 70, 0, 0);
+  pid_chassis_theta.init(2.8f, 4, 600, 0, 0);
   pid_chassis_theta.target_buffer = 1.24f;
   pid_chassis_theta.velocity_buffer = 3;
   pid_chassis_theta.max_d = 200;
@@ -152,7 +154,7 @@ bool chassisAtTarget(bool vel, int mode) {
 // returns a recommended timeout for a position PID
 unsigned int chassisGetTimeoutPosition(float l, float r) {
   float dist = max(abs(l), abs(r));
-  return dist * 56.f;
+  return dist * 30.5f + 1.f;
 }
 
 // returns a recommended timeout for a rotation PID

@@ -97,7 +97,6 @@ float Pid :: run(float current_, float dt_) {
   // if input is not saturated, integrate
   if ((abs(error - prev_error) < (.006f * dt_))) {
     integral += error;
-    print("integral\n");
   }
 
   // update I to reflect newest data (will do nothing if input is saturated)
