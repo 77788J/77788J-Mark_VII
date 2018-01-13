@@ -28,8 +28,10 @@ void liftInit() {
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
 
   // init PID
-  pid_lift.init(16.f, 5, 1000, LIFT_HEIGHT_MIN, lift_angle);
-  pid_lift.target_buffer = 1;
+  pid_lift.init(18.f, 20.f, 400.f, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.target_buffer = .2f;
+  pid_lift.max_i = 70;
+  pid_lift.i_factor = .05f;
 
   // calculate lift offset from ground when at 'neutral' position (all bars parallel)
   float rad = lift_angle * 0.0174533f; // convert to radians

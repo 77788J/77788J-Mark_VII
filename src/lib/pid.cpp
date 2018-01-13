@@ -18,6 +18,8 @@ void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_)
   max_i = 50;
   max_d = 64;
 
+  i_factor = .006f;
+
   // init target
   target = target_;
 
@@ -95,7 +97,7 @@ float Pid :: run(float current_, float dt_) {
   float d = (kd * (error - prev_error)) / dt_;
 
   // if input is not saturated, integrate
-  if ((abs(error - prev_error) < (.006f * dt_))) {
+  if ((abs(error - prev_error) < (i_factor * dt_))) {
     integral += error;
   }
 

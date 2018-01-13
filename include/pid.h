@@ -22,6 +22,8 @@ public:
   float max_i;
   float max_d;
 
+  float i_factor;
+
   // buffer around target to safely assume the system is close enough
   float target_buffer;
 

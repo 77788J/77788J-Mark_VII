@@ -56,7 +56,7 @@ void pidRunLift() {
     liftSetPower(0);
   }
   else {
-    if (liftAtTarget(false)) pid_lift.setIntegral(pid_lift.getIntegral() - .1f);
+    // if (liftAtTarget(false) && pid_lift.getIntegral() >= .1f) pid_lift.setIntegral(pid_lift.getIntegral() - .1f);
     float pid = pid_lift.run(lift_height, UPDATE_INTERVAL);
     if (liftAtTarget(false)) {
       pid -= (pid_lift.getTarget() - lift_height) * pid_lift.kp;

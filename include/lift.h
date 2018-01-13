@@ -27,6 +27,8 @@ extern Encoder enc_lift;
 #define BEAM_LENGTH_TOP 13.5f
 #define BEAM_LENGTH_BOTTOM 15.5f
 
+#define LIFT_SNAP_ENABLED true
+
 // PID
 extern Pid pid_lift;
 

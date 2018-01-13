@@ -73,26 +73,44 @@ void driverControlChassis() {
 }
 
 // lift control
-bool lift_stopped = false;
 void driverControlLift() {
 
   // raise button
   if (joystick.btn5U) {
     pid_lift.setTarget(LIFT_HEIGHT_MAX);
-    lift_stopped = false;
   }
 
   // lower button
   else if (joystick.btn5D) {
     pid_lift.setTarget(LIFT_HEIGHT_MIN);
-    lift_stopped = false;
   }
 
   // if either were both just released and neither are pressed, set the power to 0
   else if (joystick.btn5U_new + joystick.btn5D_new < 0) {
-    pid_lift.setTarget(lift_height);
-    lift_stopped = true;
+
+    // if the lift should snap to the nearest cone height, snap
+    if (LIFT_SNAP_ENABLED) {
+
+        if (joystick.btn5U_new == -1) {
+          pid_lift.setTarget((ceil(lift_height / 2.8f) * 2.8f) + 1.f); // round up
+          if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() + 2.8f); // see if it's too close and raise if so
+          if (lift_height < 8.f) pid_lift.setTarget(10.f); // min height to stack
+          if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
+        }
+        if (joystick.btn5D_new == -1) {
+          pid_lift.setTarget((floor(lift_height / 2.8f) * 2.8f) + 1.f); // round down
+          if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() - 2.8f); // see if it's too close and lower if so
+          if (lift_height < 8.f) pid_lift.setTarget(LIFT_HEIGHT_MIN); // just lower it all the way
+          if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
+        }
+    }
+
+    // if snap is disabled, just stop the lift where it is
+    else pid_lift.setTarget(lift_height);
   }
+
+  // stationary goal macro
+  if (joystick.btn7U) pid_lift.setTarget(27.f);
 }
 
 // claw control
