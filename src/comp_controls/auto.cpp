@@ -22,17 +22,16 @@ void autonomous() {
 
     case (LEFT): {
       switch (auto_color) {
-        case (BLUE): runAutoLeftBlue(auto_variation);
-        case (RED): runAutoLeftRed(auto_variation);
+        case (BLUE): runAutoLeftBlue(auto_variation); break;
+        case (RED): runAutoLeftRed(auto_variation); break;
       }
     }; break;
 
     case (RIGHT): {
       switch (auto_color) {
-        case (BLUE): runAutoRightBlue(auto_variation);
-        case (RED): runAutoRightRed(auto_variation);
+        case (BLUE): runAutoRightBlue(auto_variation); break;
+        case (RED): runAutoRightRed(auto_variation); break;
       }
     }; break;
-
   }
 }

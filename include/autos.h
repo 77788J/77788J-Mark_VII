@@ -16,6 +16,7 @@ void runAutoRightRed(unsigned char variation);
 
 // variation 1
 void autoRunLeftRed20Cone();
+void autoRunLeftBlue20Cone();
 
 #ifdef __cplusplus
 }

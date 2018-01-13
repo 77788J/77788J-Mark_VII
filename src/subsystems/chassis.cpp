@@ -154,7 +154,7 @@ bool chassisAtTarget(bool vel, int mode) {
 // returns a recommended timeout for a position PID
 unsigned int chassisGetTimeoutPosition(float l, float r) {
   float dist = max(abs(l), abs(r));
-  return dist * 30.5f + 1.f;
+  return dist * 32.75f + 2.5f;
 }
 
 // returns a recommended timeout for a rotation PID

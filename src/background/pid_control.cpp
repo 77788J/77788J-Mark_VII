@@ -52,7 +52,7 @@ void pidRunChassis() {
 
 // run lift PID
 void pidRunLift() {
-  if (joystick.btn7D || lift_height < LIFT_HEIGHT_MIN + 5) {
+  if (joystick.btn7D) {
     liftSetPower(0);
   }
   else {
