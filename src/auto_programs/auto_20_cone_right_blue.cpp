@@ -9,7 +9,7 @@
 #include "math.h"
 
 
-void autoRunLeftRed20Cone() {
+void autoRunRightBlue20Cone() {
 
   unsigned int timeout = 0;
   unsigned int max_timeout = 0;
@@ -40,13 +40,13 @@ void autoRunLeftRed20Cone() {
   chassisMove(-90, -90, true, false);
 
   // rotate
-  chassisRotate(131.6f, true, false);
+  chassisRotate(-131.6f, true, false);
 
   // move foreward slightly
   chassisMove(50, 50, true, false);
 
   // rotate
-  chassisRotate(85, true, false);
+  chassisRotate(-85, true, false);
 
   // move foreweard
   timeout = 0;

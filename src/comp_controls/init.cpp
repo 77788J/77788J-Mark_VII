@@ -24,7 +24,7 @@ void initialize() {
   clawInit();
 
   // auto selector
-  delay(5000);
+  delay(1000);
   while (!isEnabled()) {
     autoPickerRun();
     delay(1);

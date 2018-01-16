@@ -197,6 +197,9 @@ void chassisSetPowerAccel(int l, int r) {
 // move the chassis (uses PIDs)
 void chassisMove(float l, float r, bool wait, bool vel) {
 
+  int max_timeout = chassisGetTimeoutPosition(l, r);
+  int timeout = 0;
+
   // backup current chassis mode
   int prev_chassis_mode = chassis_mode;
 
@@ -213,8 +216,9 @@ void chassisMove(float l, float r, bool wait, bool vel) {
 
   // wait for chassis to have moved (if applicable)
   if (wait) {
-    while (!chassisAtTarget(vel, CHASSIS_MODE_POSITION)) {
+    while (!chassisAtTarget(vel, CHASSIS_MODE_POSITION) && timeout < max_timeout) {
       delay(1);
+      timeout++;
     }
 
     // restore original chassis mode (only if waited, obviously)
@@ -225,6 +229,9 @@ void chassisMove(float l, float r, bool wait, bool vel) {
 
 // rotates the chassis (uses PIDs)
 void chassisRotate(float theta, bool wait, bool vel) {
+
+  int max_timeout = chassisGetTimeoutAngle(theta);
+  int timeout = 0;
 
   // backup current chassis mode
   int prev_chassis_mode = chassis_mode;
@@ -240,8 +247,9 @@ void chassisRotate(float theta, bool wait, bool vel) {
 
   // wait for chassis to have rotated (if applicable)
   if (wait) {
-    while (!chassisAtTarget(vel, CHASSIS_MODE_ANGLE)) {
+    while (!chassisAtTarget(vel, CHASSIS_MODE_ANGLE) && timeout < max_timeout) {
       delay(1);
+      timeout++;
     }
 
     // restore original chassis mode (only if waited, obviously)
