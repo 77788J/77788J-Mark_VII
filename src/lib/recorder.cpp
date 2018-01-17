@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "chainbar.h"
 
 /*
 
@@ -19,6 +20,7 @@ ca: chassis orientation
 mg: mogo angle
 lf: lift height
 cl: claw angle
+cb: chainbar
 
 METACHARACTERS:
 ':' = delimeter between subsytem and value(s)
@@ -60,6 +62,10 @@ void logClaw() {
   printf("cl: %f", pid_claw.getTarget());
 }
 
+void logChainbar() {
+  printf("cb: %f", pid_chainbar.getTarget());
+}
+
 // log the current state of the bot to the console
 // to be converted to code via external program
 void logState(unsigned char chassis) {
@@ -82,6 +88,10 @@ void logState(unsigned char chassis) {
 
   // log the claw
   logClaw();
+  print("|\n");
+
+  // log the chainbar
+  logChainbar();
 
   // end log
   print(";\n");

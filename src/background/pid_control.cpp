@@ -115,5 +115,5 @@ void updateAllPids() {
   pidRunClaw();
 
   // chainbar
-  pidRunChainbar;
+  pidRunChainbar();
 }
