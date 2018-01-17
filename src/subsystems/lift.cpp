@@ -73,13 +73,18 @@ void liftSetPower(int power) {
 
 void liftGoto(float height, bool wait, bool vel) {
 
+  // setup timeout
+  unsigned int timeout = 0;
+  unsigned int max_timeout = liftGetTimeout(pid_lift.getTarget());
+
   // update PID target
   pid_lift.setTarget(height);
 
   // wait if applicable
   if (wait) {
-    while (!liftAtTarget(vel)) {
+    while (!liftAtTarget(vel) && timeout < max_timeout) {
       delay(1);
+      timeout += 1;
     }
   }
 }

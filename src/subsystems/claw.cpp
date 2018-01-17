@@ -61,13 +61,18 @@ void clawSetPower(int power) {
 
 void clawGoto(float angle, bool wait, bool vel) {
 
+  // setup timeout
+  unsigned int timeout = 0;
+  unsigned int max_timeout = clawGetTimeout(pid_claw.getTarget());
+
   // update PID target
   pid_claw.setTarget(angle);
 
   // wait if applicable
   if (wait) {
-    while (!clawAtTarget(vel)) {
+    while (!clawAtTarget(vel) && timeout < max_timeout) {
       delay(1);
+      timeout += 1;
     }
   }
 }

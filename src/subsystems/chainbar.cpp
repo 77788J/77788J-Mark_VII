@@ -61,13 +61,18 @@ void chainbarSetPower(int power) {
 
 void chainbarGoto(float angle, bool wait, bool vel) {
 
+  // setup timeout
+  unsigned int timeout = 0;
+  unsigned int max_timeout = chainbarGetTimeout(pid_chainbar.getTarget());
+
   // update PID target
   pid_chainbar.setTarget(angle);
 
   // wait if applicable
   if (wait) {
-    while (!chainbarAtTarget(vel)) {
+    while (!chainbarAtTarget(vel) && timeout < max_timeout) {
       delay(1);
+      timeout += 1;
     }
   }
 }
