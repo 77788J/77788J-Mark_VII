@@ -1,13 +1,25 @@
 #include "macros.h"
 #include "io_control.h"
+#include "driver_control.h"
 
 TaskHandle task_macros;
 unsigned char current_macro = NONE;
 
 // kills the macro task and starts a blank one
 void stopMacro() {
+  
+  // kill the task
   taskDelete(task_macros);
+  
+  // reset varaibles for raw driver control
   current_macro = NONE;
+  driver_chassis = true;
+  driver_lift = true;
+  driver_claw = true;
+  driver_mogo = true;
+  driver_chainbar = true;
+  
+  // restart the task
   macrosStartListener();
 }
 
