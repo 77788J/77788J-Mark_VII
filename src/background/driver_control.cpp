@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "chainbar.h"
 #include "io_control.h"
 #include "driver_control.h"
 #include "recorder.h"
@@ -13,6 +14,7 @@ bool driver_chassis = true;
 bool driver_lift = true;
 bool driver_mogo = true;
 bool driver_claw = true;
+bool driver_chainbar = true;
 
 // has it stopped yet?
 bool is_stopped = false;
@@ -141,6 +143,12 @@ void driverControlMogo() {
   }
 }
 
+// chainbar control
+void driverControlChainbar() {
+  if (joystick.btn7U) pid_chainbar.setTarget(CHAINBAR_GRAB);
+  if (joystick.btn7D) pid_chainbar.setTarget(CHAINBAR_GRAB);
+}
+
 // full driver control
 unsigned char mode = CHASSIS_MODE_POSITION;
 void updateDriverControl() {
@@ -170,6 +178,9 @@ void updateDriverControl() {
     // claw control
     driverControlClaw();
 
+    // chainbar control
+    driverControlChainbar();
+
     // log state if log button is released
     if (joystick.btn7U_new == -1) logState(mode);
   }
@@ -194,6 +205,11 @@ void updateDriverControl() {
     // run lift control
     if (driver_lift) {
       driverControlLift();
+    }
+
+    // run chainbar control
+    if (driver_chainbar) {
+      driverControlChainbar();
     }
   }
 }

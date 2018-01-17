@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "chainbar.h"
 
 // declare joystick
 Joystick joystick;
@@ -21,6 +22,7 @@ void updateAllMotors() {
   liftUpdateMotors();
   mogoUpdateMotors();
   clawUpdateMotors();
+  chainbarUpdateMotors();
 }
 
 // update all of the robot's sensors
@@ -29,6 +31,7 @@ void updateAllSensors() {
   liftUpdateSensors();
   mogoUpdateSensors();
   clawUpdateSensors();
+  chainbarUpdateMotors();
 }
 
 // update all of the robot's LCDs
