@@ -47,7 +47,7 @@ void liftUpdateMotors() {
 void liftUpdateSensors() {
 
   // angle (degrees) if the lift
-  lift_angle = (encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
+  lift_angle = (.2f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians

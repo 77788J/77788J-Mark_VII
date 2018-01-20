@@ -37,7 +37,7 @@ void autoRunRightBlue20Cone() {
   }
 
   // go backwards
-  chassisMove(-90, -90, true, false);
+  chassisMove(-90, -900, true, false);
 
   // rotate
   chassisRotate(-131.6f, true, false);
