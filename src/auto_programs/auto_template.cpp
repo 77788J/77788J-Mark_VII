@@ -5,11 +5,12 @@
 #include "chassis.h"
 #include "lift.h"
 #include "mogo.h"
+#include "claw.h"
 #include "math.h"
 
 
 void autoRunSideColorDescription() {
 
 
-  
+
 }

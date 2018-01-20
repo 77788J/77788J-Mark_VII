@@ -21,6 +21,7 @@ extern Motor motor_mogo;
 
 // angle presets
 #define MOGO_ANGLE_EXTENDED 200
+#define MOGO_ANGLE_DROP 150
 #define MOGO_ANGLE_GRAB 100
 #define MOGO_ANGLE_RETRACTED 0
 
