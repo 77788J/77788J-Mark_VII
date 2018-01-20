@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "claw.h"
+#include "chainbar.h"
 #include "mogo.h"
 #include "io_control.h"
 #include "auto_picker.h"
@@ -22,11 +23,12 @@ void initialize() {
   mogoInit();
   liftInit();
   clawInit();
+  chainbarInit();
 
   // auto selector
   delay(1000);
-  while (!isEnabled()) {
+  while (!isEnabled() && !isAutonomous()) {
     autoPickerRun();
-    delay(1);
+    delay(20);
   }
 }

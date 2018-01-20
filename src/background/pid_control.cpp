@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "chainbar.h"
 #include "pid.h"
 #include "math.h"
 #include "io_control.h"
@@ -93,6 +94,11 @@ void pidRunClaw() {
   clawSetPower(pid);
 }
 
+void pidRunChainbar() {
+  float pid = pid_chainbar.run(chainbar_angle, UPDATE_INTERVAL);
+  chainbarSetPower(pid);
+}
+
 // run all PIDs
 void updateAllPids() {
 
@@ -107,4 +113,7 @@ void updateAllPids() {
 
   // claw
   pidRunClaw();
+
+  // chainbar
+  pidRunChainbar();
 }

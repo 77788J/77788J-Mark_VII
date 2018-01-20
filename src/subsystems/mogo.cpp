@@ -69,13 +69,18 @@ void mogoSetPower(int power) {
 
 void mogoGoto(float angle, bool wait, bool vel) {
 
+  // setup timeout
+  unsigned int timeout = 0;
+  unsigned int max_timeout = mogoGetTimeout(pid_mogo.getTarget());
+
   // update PID target
   pid_mogo.setTarget(angle);
 
   // wait if applicable
   if (wait) {
-    while (!mogoAtTarget(vel)) {
+    while (!mogoAtTarget(vel) && timeout < max_timeout) {
       delay(1);
+      timeout += 1;
     }
   }
 }

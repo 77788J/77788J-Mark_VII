@@ -2,6 +2,7 @@
 #include "controller.h"
 #include "io_control.h"
 #include "recorder.h"
+#include "macros.h"
 #include "chassis.h"
 #include "lift.h"
 #include "claw.h"
@@ -15,6 +16,9 @@ void operatorControl() {
 
 	// start the timer
 	startTimer();
+
+	// start the macros listener
+	macrosStartListener();
 
 	while (true) {
 

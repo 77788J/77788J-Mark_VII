@@ -10,7 +10,7 @@ extern "C" {
 #include <pid.h>
 
 // motor port
-#define MOTOR_CLAW 8
+#define MOTOR_CLAW 9
 
 // motors
 extern Motor motor_claw;

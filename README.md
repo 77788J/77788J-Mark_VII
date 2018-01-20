@@ -5,9 +5,11 @@ This program is written with PROS (https://pros.cs.purdue.edu/), an "Open Source
 
 We are the 'A-team' of Calvary Christian Academy (88877_). This is mark VII of our program. Below are some notable features that are currently under developement.
 
-- [x] Full PID library implementing custom 'dynamic derivative' algorithm
+- [x] Full PID library
 - [x] Motor library with velocity statistics
-- [ ] Drive-to-write autonomous generator
-- [ ] Automated tasks during driver control (such as auto-stacking)
+- [x] Abstraction to seperate HAL with high-level program for easy subsystem modification
+- [x] Experimental (disabled) associative probability filter for chassis orientation
+- [x] Drive-to-write autonomous generator
+- [x] Automated tasks during driver control (such as auto-stacking)
 
 NOTE: PROS requires a disclaimer and some copyright info. This can be found in 'disclaimer.txt'

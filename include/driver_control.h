@@ -11,6 +11,7 @@ extern bool driver_chassis;
 extern bool driver_lift;
 extern bool driver_mogo;
 extern bool driver_claw;
+extern bool driver_chainbar;
 
 // run driver control loop
 void updateDriverControl();
