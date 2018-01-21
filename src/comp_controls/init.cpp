@@ -25,10 +25,6 @@ void initialize() {
   clawInit();
   chainbarInit();
 
-  // auto selector
-  delay(1000);
-  while (!isEnabled() && !isAutonomous()) {
-    autoPickerRun();
-    delay(20);
-  }
+  // start auto selector task
+  taskCreate(autoPickerStart, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_LOWEST);
 }

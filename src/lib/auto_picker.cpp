@@ -8,14 +8,15 @@ unsigned char auto_color = BLUE;
 unsigned char auto_variation = 0;
 
 // array of autonomous variations
-#define AUTO_COUNT 4 // 'NONE' is zero, so it's the count of actual variations
+#define AUTO_COUNT 5 // 'NONE' is zero, so it's the count of actual variations
 const char * autos[] = {
-//"                " // 16 characters, size of the LCD
+//"                " // 16 characters, size of an LCD line
   "      NONE      ",
   "    20 CONE     ",
-  "     SKILLS     ",
+  "   STATIONARY   ",
+  "      CONE      ",
   "     BULLET     ",
-  "      CONE      "
+  "     SKILLS     "
 };
 
 // stages of auto picker
@@ -119,5 +120,14 @@ void autoPickerRun() {
         }
 
     }; break;
+  }
+}
+
+void autoPickerStart(void * parameter) {
+  while (true) {
+
+    autoPickerRun();
+    delay(20);
+
   }
 }

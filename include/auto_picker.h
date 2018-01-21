@@ -19,6 +19,9 @@ extern unsigned char auto_variation;
 // run auto picker
 void autoPickerRun();
 
+// start a loop containing the auto picker
+void autoPickerStart(void * parameter);
+
 #ifdef __cplusplus
 }
 #endif
