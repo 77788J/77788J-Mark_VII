@@ -32,6 +32,12 @@ void autoRunRightBlue20Cone();
 // variation 2
 void autoRunCone();
 
+// variation 3
+void autoRunLeftBlueStationary();
+void autoRunRightBlueStationary();
+void autoRunLeftRedStationary();
+void autoRunRightRedStationary();
+
 #ifdef __cplusplus
 }
 #endif

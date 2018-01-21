@@ -112,7 +112,7 @@ void driverControlLift() {
   }
 
   // stationary goal macro
-  if (joystick.btn7U) pid_lift.setTarget(27.f);
+  if (joystick.btn7U) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
 }
 
 // claw control

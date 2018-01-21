@@ -19,6 +19,8 @@ void autoStackerUpdate() {
 void autoStackerRun() {
   if (stack_size < MAX_STACK_SIZE - 1) {
 
+    float target = 0;
+
     // disable driver control of affected subsystems
     driver_claw = false;
     driver_chainbar = false;
@@ -32,25 +34,37 @@ void autoStackerRun() {
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // raise the lift to stack height
-    liftGoto(10.f + (2.8f * stack_size), true, false);
+    target = 10.f + (2.8f * stack_size);
+    liftGoto(target, false, false);
+    while (lift_height < target) {
+      delay(1);
+    }
 
     // move the chainbar into stack position
     chainbarGoto(CHAINBAR_STACK, true, false);
 
     // lower lift slightly to make sure cone is fully nested
-    liftGoto(lift_height - 1.f, true, false);
+    target = lift_height - 1.f;
+    liftGoto(target, false, false);
+    while (lift_height > target) {
+      delay(1);
+    }
 
     // open claw
     clawGoto(CLAW_OPEN, true, false);
 
     // raise lift to clear top cone
-    liftGoto(13.5f + (2.8f * stack_size), true, false);
+    target = 13.5f + (2.8f * stack_size);
+    liftGoto(target, false, false);
+    while (lift_height < target) {
+      delay(1);
+    }
 
     // extend chainbar back into grab position
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // lower lift back down
-    liftGoto(LIFT_HEIGHT_MIN, true, false);
+    liftGoto(LIFT_HEIGHT_MIN, false, false);
 
     // re-enable driver control of affected subsystems
     driver_claw = true;

@@ -11,389 +11,171 @@
 
 void autoRunSkills() {
 
-  unsigned int timeout = 0;
-  unsigned int max_timeout = 0;
-
-  chassisMove(66.832298, 66.149063, false, false);
-	liftGoto(4.500000, false, false);
-	mogoGoto(100.000000, false, false);
-	clawGoto(145.000000, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(66.832298, 66.149063));
-	max_timeout = max(max_timeout, liftGetTimeout(4.500000));
-	max_timeout = max(max_timeout, mogoGetTimeout(100.000000));
-	max_timeout = max(max_timeout, clawGetTimeout(145.000000));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION) || !liftAtTarget(true) || !mogoAtTarget(true) || !clawAtTarget(false))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisMove(0.000000, 0.062112, false, false);
-	mogoGoto(200.000000, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(0.000000, 0.062112));
-	max_timeout = max(max_timeout, mogoGetTimeout(200.000000));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION) || !mogoAtTarget(true))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisMove(-56.894409, -57.950310, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(-56.894409, -57.950310));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisRotate(87.100006, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutAngle(87.100006));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisMove(34.447205, 34.372669, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(38.447205, 40.372669));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisRotate(83.799988, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutAngle(83.799988));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisMove(65.024845, 65.701862, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(56.024845, 47.701862));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-		timeout += 1;
-		delay(1);
-	}
-
-
-	chassisMove(-52.360249, -52.223602, false, false);
-	timeout = 0;
-	max_timeout = 0;
-	max_timeout = max(max_timeout, chassisGetTimeoutPosition(-52.360249, -54.223602));
-	while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-		timeout += 1;
-		delay(1);
-	}
-
-  chassisMove(0.000000, 0.000000, false, false);
-liftGoto(4.500000, false, false);
-mogoGoto(200.000000, false, false);
-clawGoto(145.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(0.000000, 0.000000));
-max_timeout = max(max_timeout, liftGetTimeout(4.500000));
-max_timeout = max(max_timeout, mogoGetTimeout(200.000000));
-max_timeout = max(max_timeout, clawGetTimeout(145.000000));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION) || !liftAtTarget(true) || !mogoAtTarget(true) || !clawAtTarget(false))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(8.633540, 9.751553, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(8.633540, 9.751553));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-104.300003, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-109.300003));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(24.596273, 25.776398, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(24.596273, 25.776398));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-78.399994, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-78.399994));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-mogoGoto(100.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, mogoGetTimeout(100.000000));
-while (timeout < max_timeout && (!mogoAtTarget(true))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(36.024845, 38.385094, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(36.024845, 38.385094));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-mogoGoto(200.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, mogoGetTimeout(200.000000));
-while (timeout < max_timeout && (!mogoAtTarget(true))) {
-  timeout += 1;
-  delay(1);
-}
-
-chassisMove(-53.354034, -53.478260, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(-53.354034, -53.478260));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-94.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-94.000000));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(36.149067, 35.031055, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(36.149067, 35.031055));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-76.700012, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-76.700012));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(19.378881, 17.639751, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(19.378881, 17.639751));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(-0.062112, 0.000000, false, false);
-mogoGoto(100.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(-0.062112, 0.000000));
-max_timeout = max(max_timeout, mogoGetTimeout(100.000000));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION) || !mogoAtTarget(true))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(-28.509315, -25.590061, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(-28.509315, -25.590061));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-// ANOTHER 20!?!?!?
-chassisMove(0.000000, 0.000000, false, false);
-liftGoto(4.500000, false, false);
-mogoGoto(100.000000, false, false);
-clawGoto(145.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(0.000000, 0.000000));
-max_timeout = max(max_timeout, liftGetTimeout(4.500000));
-max_timeout = max(max_timeout, mogoGetTimeout(100.000000));
-max_timeout = max(max_timeout, clawGetTimeout(145.000000));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION) || !liftAtTarget(true) || !mogoAtTarget(true) || !clawAtTarget(false))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-87.599998, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-87.599998));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(27.080744, 28.944099, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(27.080744, 28.944099));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-86.800011f, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-92.300011));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(106.024841, 105.838509, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(106.024841, 105.838509));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-mogoGoto(200.000000, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, mogoGetTimeout(200.000000));
-while (timeout < max_timeout && (!mogoAtTarget(true))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(51.899994, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(51.899994));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(31.428570, 30.621117, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(31.428570, 30.621117));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(-85.800011, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(-93.300011));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(57.515526, 54.844719, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(57.515526, 54.844719));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisRotate(27.600006, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutAngle(27.600006));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_ANGLE))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(60.242233, 60.260868, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(41.242233, 38.260868));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-
-chassisMove(-55.093166, -54.409935, false, false);
-mogoGoto(150, false, false);
-timeout = 0;
-max_timeout = 0;
-max_timeout = max(max_timeout, chassisGetTimeoutPosition(-55.093166, -54.409935));
-while (timeout < max_timeout && (!chassisAtTarget(true, CHASSIS_MODE_POSITION))) {
-  timeout += 1;
-  delay(1);
-}
-
-chassisMove(0, 0, false, false);
+  // raise lift out of the way
+  liftGoto(12.f, false, false);
+
+  // move up to mogo
+  chassisMove(30.794f, 30.794f, true, true);
+
+  // lower lift slightly
+  liftGoto(9.f, true, true);
+
+  // open claw
+  clawGoto(CLAW_OPEN, false, false);
+  delay(500);
+
+  // raise lift back out of way
+  liftGoto(12.f, true, false);
+
+  // raise mogo lifter
+  mogoGoto(MOGO_ANGLE_EXTENDED, true, true);
+
+  // turn around
+  chassisRotate(-180.f, true, true);
+
+  // move to line
+  chassisMove(30.794f, 30.794f, true, true);
+
+  // rotate parallel to line
+  chassisRotate(-90.f, true, true);
+
+  // move to center of line
+  chassisMove(17.208f, 17.208f, true, true);
+
+  // point towards 20 zone
+  chassisRotate(90.f, true, true);
+
+  // move into 20 zone
+  chassisMove(27.631f, 27.631f, true, true);
+
+  // drop mogo into 20 (or 10 if it misses) and move out
+  mogoGoto(MOGO_ANGLE_DROP, false, false);
+  chassisMove(-27.631f, -27.631f, true, true);
+
+  // retract mogo lifter and move forward slowly to align with starting bar
+  mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
+  chassis_mode = CHASSIS_MODE_DIRECT;
+  chassisSetPower(25);
+  delay(2500);
+
+  // back up a bit to turn
+  chassisMove(-8.452, -8.452, true, true);
+
+  // rotate parallel to line
+  chassisRotate(-90.f, true, true);
+
+  // move forward a bit
+  chassisMove(17.096f, 17.096f, true, true);
+
+  // rotate to face mogo
+  chassisRotate(-90.f, true, true);
+
+  // lower mogo lifter
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
+
+  // move to mogo
+  chassisMove(33.263f, 33.263f, true, true);
+
+  // raise mogo lifter
+  mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
+
+  // rotate to face 10 zone
+  chassisRotate(180.f, true, true);
+
+  // move to 10 zone
+  chassisMove(41.532f, 41.532f, true, true);
+
+  // lower mogo lifter
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
+
+  // move back a bit to rotate
+  chassisMove(-10.481f, -10.381f, true, true);
+
+  // rotate to face mogo
+  chassisRotate(-180.f, true, true);
+
+  // move to mogo
+  chassisMove(64.950f, 64.950f, true, true);
+
+  // lift mogo
+  mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
+
+  // move to line
+  chassisMove(37.783f, 37.783f, true, true);
+
+  // align with starting bar
+  chassis_mode = CHASSIS_MODE_DIRECT;
+  chassisSetPower(25);
+  delay(5000);
+
+  // move back to line
+  chassisMove(-9.833f, -9.833f, true, true);
+
+  // rotate parallel to line
+  chassisRotate(-90.f, true, true);
+
+  // move to center of line
+  chassisMove(16.043f, 16.043f, true, true);
+
+  // rotate to face 20 zone
+  chassisRotate(90.f, true, true);
+
+  // move into 20 zone
+  chassisMove(29.631f, 29.631f, true, true);
+
+  // drop mogo into 20 (or 10 if it misses) and move out
+  mogoGoto(MOGO_ANGLE_DROP, false, false);
+  chassisMove(-29.631f, -29.631f, true, true);
+
+  // retract mogo lifter and move forward slowly to align with starting bar
+  mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
+  chassis_mode = CHASSIS_MODE_DIRECT;
+  chassisSetPower(25);
+  delay(2500);
+
+  // move back to line
+  chassisMove(-9.574f, -9.574f, true, true);
+
+  // rotate parallel to line
+  chassisRotate(-90.f, true, true);
+
+  // move forward a bit
+  chassisMove(17.471f, 17.471f, true, true);
+
+  // rotate to face mogo
+  chassisRotate(-90.f, true, true);
+
+  // lower mogo lifter
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
+
+  // move to mogo
+  chassisMove(29.759f, 29.759f, true, true);
+
+  // rotate to face 10 zone
+  chassisRotate(180.f, true, true);
+
+  // move to 10 zone
+  chassisMove(39.332f, 39.332f, true, true);
+
+  // lower mogo lifter
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
+
+  // move backwards to line
+  chassisMove(-9.187f, -9.187f, true, true);
+
+  // retract mogo lifter
+  mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
+
+  // rotate parallel to line
+  chassisRotate(90.f, true, true);
+
+  // move to end of line
+  chassisMove(48.513f, 48.513f, true, true);
+
+  // point towards parking spot
+  chassisRotate(45.f, true, true);
+
+  // park
+  chassisMove(49.953f, 49.953f, true, true);
 
 }
