@@ -17,6 +17,10 @@ public:
   // is the motor reversed?
   bool reversed;
 
+  // motor slew control
+  bool slew;
+  float slew_rate;
+
   // default initializer
   // MAKE SURE TO FULLY INITIALIZE WITH <Motor>.init()
   Motor();
@@ -31,7 +35,7 @@ public:
   float getVelocity();
 
   // sets the power of the motor
-  void setPower(int p, bool accel_);
+  void setPower(int p);
 
   // updates the internal motor variables (e.g. velocity)
   void update(float angle, int interval);
@@ -39,13 +43,10 @@ public:
 private:
 
   // current motor power output
-  int power;
+  float power;
 
   // target motor power output
   int target_power;
-
-  // tells whether or not to artificially accelerate
-  bool accel;
 
   // current motor velocity
   float velocity;

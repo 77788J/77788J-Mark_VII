@@ -68,7 +68,7 @@ unsigned int liftGetTimeout(float target) {
 
 // sets the power of both lift motors
 void liftSetPower(int power) {
-  motor_lift.setPower(power, false);
+  motor_lift.setPower(power);
 }
 
 void liftGoto(float height, bool wait, bool vel) {

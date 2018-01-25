@@ -3,22 +3,15 @@
 
 // init variables to zero
 float chainbar_angle = 0;
-float chainbar_height = 0;
 
 // declare motor
 Motor motor_chainbar;
 
-// declare encoder
-Encoder enc_chainbar;
-
 // declare PID
 Pid pid_chainbar;
 
-// inits the chainbar chainbarer (motors, pid, etc.)
+// inits the chainbar (motors, pid, etc.)
 void chainbarInit() {
-
-  // define chainbar encoder
-  enc_chainbar = encoderInit(5, 6, false);
 
   // update sensors for accurate starting position
   chainbarUpdateSensors();
@@ -27,8 +20,8 @@ void chainbarInit() {
   motor_chainbar.init(MOTOR_CHAINBAR, true, chainbar_angle);
 
   // init PID
-  pid_chainbar.init(1.15f, 0, 10, CHAINBAR_GRAB, chainbar_angle);
-  pid_chainbar.target_buffer = 20;
+  pid_chainbar.init(10.f, 5.f, 100.f, CHAINBAR_GRAB, chainbar_angle);
+  pid_chainbar.target_buffer = 2.f;
 }
 
 // update all chainbar chainbarer motors
@@ -50,13 +43,13 @@ bool chainbarAtTarget(bool vel) {
 
 // returns a recommended timeout for a PID
 unsigned int chainbarGetTimeout(float target) {
-  float delta = abs(target - chainbar_height);
-  return delta * (500 / abs(CHAINBAR_GRAB - CHAINBAR_STACK));
+  float delta = abs(target - chainbar_angle);
+  return delta * (fabs(CHAINBAR_GRAB - CHAINBAR_STACK) * .002f);
 }
 
 // sets the power of both chainbar motors
 void chainbarSetPower(int power) {
-  motor_chainbar.setPower(power, false);
+  motor_chainbar.setPower(power);
 }
 
 void chainbarGoto(float angle, bool wait, bool vel) {
