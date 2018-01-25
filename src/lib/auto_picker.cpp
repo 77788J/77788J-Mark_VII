@@ -8,12 +8,13 @@ unsigned char auto_color = BLUE;
 unsigned char auto_variation = 0;
 
 // array of autonomous variations
-#define AUTO_COUNT 5 // 'NONE' is zero, so it's the count of actual variations
+#define AUTO_COUNT 6 // 'NONE' is zero, so it's the count of actual variations
 const char * autos[] = {
 //"                " // 16 characters, size of an LCD line
   "      NONE      ",
   "    20 CONE     ",
   "   STATIONARY   ",
+  "STATIONARY FLIP ",
   "      CONE      ",
   "     BULLET     ",
   "     SKILLS     "
