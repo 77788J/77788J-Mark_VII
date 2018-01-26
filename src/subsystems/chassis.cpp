@@ -164,14 +164,14 @@ unsigned int chassisGetTimeoutAngle(float theta) {
 
 // set the power of the left side of the chassis
 void chassisSetPowerL(int power) {
-  motor_chassis_fl.setPower(power, false);
-  motor_chassis_bl.setPower(power, false);
+  motor_chassis_fl.setPower(power);
+  motor_chassis_bl.setPower(power);
 }
 
 // set the power of the right side of the chassis
 void chassisSetPowerR(int power) {
-  motor_chassis_fr.setPower(power, false);
-  motor_chassis_br.setPower(power, false);
+  motor_chassis_fr.setPower(power);
+  motor_chassis_br.setPower(power);
 }
 
 // set the power of both sides of the chassis
@@ -184,14 +184,6 @@ void chassisSetPower(int power) {
 void chassisSetPowerExt(int l, int r) {
   chassisSetPowerL(l);
   chassisSetPowerR(r);
-}
-
-// set the power of the chassis with artificial acceleration
-void chassisSetPowerAccel(int l, int r) {
-  motor_chassis_fl.setPower(l, true);
-  motor_chassis_bl.setPower(l, true);
-  motor_chassis_fr.setPower(r, true);
-  motor_chassis_br.setPower(r, true);
 }
 
 // move the chassis (uses PIDs)

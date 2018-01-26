@@ -7,10 +7,11 @@ void runAutoRightBlue(unsigned char variation) {
 
     case 0: break;
     case 1: autoRunRightBlue20Cone(); break;
-    case 2: autoRunRightBlueStationary(); break;
-    case 3: autoRunCone(); break;
-    case 4: autoRunBullet(); break;
-    case 5: autoRunSkills(); break;
+    case 2: autoRunRightStationary(); break;
+    case 3: autoRunRightStationaryFlip(); break;
+    case 4: autoRunCone(); break;
+    case 5: autoRunBullet(); break;
+    case 6: autoRunSkills(); break;
 
   }
 }

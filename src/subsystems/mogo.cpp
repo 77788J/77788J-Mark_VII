@@ -64,7 +64,7 @@ unsigned int mogoGetTimeout(float target) {
 
 // sets the power of both mogo motors
 void mogoSetPower(int power) {
-  motor_mogo.setPower(power, false);
+  motor_mogo.setPower(power);
 }
 
 void mogoGoto(float angle, bool wait, bool vel) {

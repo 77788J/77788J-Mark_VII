@@ -8,17 +8,11 @@ float claw_height = 0;
 // declare motor
 Motor motor_claw;
 
-// declare encoder
-Encoder enc_claw;
-
 // declare PID
 Pid pid_claw;
 
 // inits the claw clawer (motors, pid, etc.)
 void clawInit() {
-
-  // define claw encoder
-  enc_claw = encoderInit(5, 6, false);
 
   // update sensors for accurate starting position
   clawUpdateSensors();
@@ -56,7 +50,7 @@ unsigned int clawGetTimeout(float target) {
 
 // sets the power of both claw motors
 void clawSetPower(int power) {
-  motor_claw.setPower(power, false);
+  motor_claw.setPower(power);
 }
 
 void clawGoto(float angle, bool wait, bool vel) {

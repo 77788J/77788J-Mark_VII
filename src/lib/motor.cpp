@@ -1,4 +1,5 @@
 #include "motor.h"
+#include "math.h"
 
 // trueSpeed array (taken from team 24C)
 int true_speed[101] = {
@@ -26,6 +27,8 @@ void Motor :: init(int port_, bool reversed_, float angle_) {
   prev = angle_;
   power = 0;
   velocity = 0;
+  slew = true;
+  slew_rate = .667f;
 }
 
 // gets the current power of the motor
@@ -39,32 +42,31 @@ float Motor :: getVelocity() {
 }
 
 // sets the power of the motor
-void Motor :: setPower(int p, bool accel_) {
+void Motor :: setPower(int p) {
   target_power = p;
-  if (!accel_) power = p;
-  accel = accel_;
+  if (!slew) power = p;
 }
 
 // updates the motor (physical motor and internal variables)
 void Motor :: update(float angle, int interval) {
 
+  // slew motor of applicable
+  if (slew) {
+    float power_change = min(slew_rate * (float) interval, fabs(target_power - power)); // calculate change in power
+    power += power_change * sign(target_power - power); // apply correct sign and add to power var
+  }
+
   // make sure power is in confines of reality
   power = limit(power, -100, 100);
 
   // move physical motor at specified power
-  int p = power; // store power in temporary variable
+  int p = round(power); // store power in temporary variable
   if (reversed) p = -power; // reverse if necessary
   motorSet(port, true_speed[abs(p)] * sign(p)); // set the actualy power (using trueSpeed)
 
   // update velocity (with moving average filter)
   float rpm = calcRpm(angle - prev, interval); // calculate RPM
   velocity = (velocity * .6f) + (rpm * .4f); // apply moving average filter and store in velocity variable
-
-  // interpolate power (if artificial acceleration is enabled)
-  if (accel && target_power != power) {
-    float error = target_power - power;
-    power += 200.0f / error;
-  }
 
   // uodate previous angle for next run
   prev = angle;

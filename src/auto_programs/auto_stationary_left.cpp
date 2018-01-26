@@ -9,7 +9,7 @@
 #include "math.h"
 
 
-void autoRunLeftBlueStationary() {
+void autoRunLeftStationary() {
 
   // move parallel to stationry goal
   chassisMove(9.333f, 9.333f, true, true);

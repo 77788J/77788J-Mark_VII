@@ -6,6 +6,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "chainbar.h"
 #include "math.h"
 
 
