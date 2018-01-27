@@ -15,7 +15,9 @@ public:
   float kp;
   float ki;
   float kd;
-  float dr;
+  float kp_rev;
+  float ki_rev;
+  float kd_rev;
 
   // maximum outputs
   float max_p;

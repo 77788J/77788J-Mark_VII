@@ -41,18 +41,18 @@ Pid pid_chassis_theta;
 void chassisInit() {
 
   // init motors
-  motor_chassis_fl.init(MOTOR_CHASSIS_FL, true, 0);
+  motor_chassis_fl.init(MOTOR_CHASSIS_FL, false, 0);
   motor_chassis_bl.init(MOTOR_CHASSIS_BL, true, 0);
-  motor_chassis_fr.init(MOTOR_CHASSIS_FR, false, 0);
+  motor_chassis_fr.init(MOTOR_CHASSIS_FR, true, 0);
   motor_chassis_br.init(MOTOR_CHASSIS_BR, false, 0);
 
   // init gyros
-  gyro_a = gyroInit(6, 187);
-  gyro_b = gyroInit(7, 197);
+  gyro_a = gyroInit(6, 195);
+  gyro_b = gyroInit(7, 188);
 
   // init encoders
   enc_chassis_l = encoderInit(1, 2, true);
-  enc_chassis_r = encoderInit(3, 4, false);
+  enc_chassis_r = encoderInit(3, 4, true);
 
   // init AP inputs
   float g[6] =  {.0018f, -.0367f, .2798f, -.9749f, 1.51f, .1033f}; // y = 0.0018x5 - 0.0367x4 + 0.2798x3 - 0.9749x2 + 1.51x + 0.1033
@@ -104,10 +104,10 @@ void chassisUpdateSensors() {
   float chassis_angle_encoders = (chassis_left - chassis_right) * .2617f; // multiply by a scalar to convert to degrees
   float a = gyroGet(gyro_a);
   float b = gyroGet(gyro_b);
-  float chassis_angle_gyros = (a * .7f) + (b * .3f);
+  float chassis_angle_gyros = (a * .5f) + (b * .5f);
 
   // calculate orientation from weighted average
-  chassis_angle = (chassis_angle_encoders * 0) + (chassis_angle_gyros * 1);
+  chassis_angle = (chassis_angle_encoders * 0.f) + (chassis_angle_gyros * 1.f);
 
   // determine whether or not each line tracker is over a white line
   line_l = (analogRead(LINE_L) < 500);

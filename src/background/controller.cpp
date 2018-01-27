@@ -26,12 +26,6 @@ void updateAll() {
 
   // update motors (for physical motor output)
   updateAllMotors();
-
-  updateAllLcds();
-
-  if (lcd.btn_l_new == 1) lcd.setText(0, "LEFT");
-  if (lcd.btn_m_new == 1) lcd.setText(0, "MIDDLE");
-  if (lcd.btn_r_new == 1) lcd.setText(0, "RIGHT");
 }
 
 // starts a background task with the controller in it

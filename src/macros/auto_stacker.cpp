@@ -19,6 +19,8 @@ void autoStackerUpdate() {
 void autoStackerRun() {
   if (stack_size < MAX_STACK_SIZE - 1) {
 
+    unsigned int timeout = 0;
+
     float target = 0;
 
     // disable driver control of affected subsystems
@@ -28,43 +30,61 @@ void autoStackerRun() {
 
     // make sure claw is fully closed
     clawGoto(CLAW_CLOSED, false, false);
-    if (fabs(claw_angle - CLAW_CLOSED) > 20) delay(200); // wait for claw if it starts too far away
+    // if (fabs(claw_angle - CLAW_CLOSED) > 20) delay(200); // wait for claw if it starts too far away
 
     // make sure the chainbar is completely extended
-    chainbarGoto(CHAINBAR_GRAB, true, false);
+    chainbarGoto(CHAINBAR_GRAB, false, false);
 
     // raise the lift to stack height
-    target = 10.f + (2.8f * stack_size);
-    liftGoto(target, false, false);
-    while (lift_height < target) {
-      delay(1);
+    timeout = 0;
+    target = max(LIFT_HEIGHT_MIN, 1.f + (2.8f * stack_size));
+    while (lift_height < target && timeout < target * 750) {
+      liftSetPower(100);
+      delay(20);
+      timeout += 20;
     }
+    liftSetPower(0);
 
     // move the chainbar into stack position
     chainbarGoto(CHAINBAR_STACK, true, false);
 
     // lower lift slightly to make sure cone is fully nested
-    target = lift_height - 1.f;
-    liftGoto(target, false, false);
-    while (lift_height > target) {
-      delay(1);
+    timeout = 0;
+    target = max(LIFT_HEIGHT_MIN, lift_height - 1.f);
+    while (lift_height > target && timeout < 500) {
+      liftSetPower(-50);
+      delay(20);
+      timeout += 20;
     }
+    liftSetPower(0);
 
     // open claw
     clawGoto(CLAW_OPEN, true, false);
 
+    // update stack height
+    stack_size++;
+
     // raise lift to clear top cone
-    target = 13.5f + (2.8f * stack_size);
-    liftGoto(target, false, false);
-    while (lift_height < target) {
-      delay(1);
+    timeout = 0;
+    target = 2.f + (2.8f * stack_size);
+    while (lift_height < target && timeout < 1000) {
+      liftSetPower(100);
+      delay(20);
+      timeout += 20;
     }
+    liftSetPower(0);
 
     // extend chainbar back into grab position
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // lower lift back down
-    liftGoto(LIFT_HEIGHT_MIN, false, false);
+    timeout = 0;
+    while (lift_height > LIFT_HEIGHT_MIN + 1 && timeout < lift_height * 1000) {
+      liftSetPower(-100);
+      delay(20);
+      timeout += 20;
+    }
+    liftSetPower(0);
 
     // re-enable driver control of affected subsystems
     driver_claw = true;

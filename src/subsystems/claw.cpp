@@ -18,7 +18,7 @@ void clawInit() {
   clawUpdateSensors();
 
   // init motor
-  motor_claw.init(MOTOR_CLAW, true, claw_angle);
+  motor_claw.init(MOTOR_CLAW, false, claw_angle);
 
   // init PID
   pid_claw.init(1.15f, 0, 10, CLAW_CLOSED, claw_angle);

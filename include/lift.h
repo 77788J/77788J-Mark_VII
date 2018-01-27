@@ -20,16 +20,17 @@ extern Encoder enc_lift;
 
 // physical info
 #define LIFT_HEIGHT_MAX 42.5f
-#define LIFT_HEIGHT_MIN 4.5f
+#define LIFT_HEIGHT_MIN 6.f
 #define LIFT_ANGLE_MIN -27.f
 #define LIFT_ANGLE_MAX 56.f
 #define LIFT_HEIGHT_STATIONARY 27.f
 #define BEAM_LENGTH_TOP 13.5f
 #define BEAM_LENGTH_BOTTOM 15.5f
 
-#define LIFT_SNAP_ENABLED true
+#define LIFT_SNAP_ENABLED false
 
 // PID
+extern bool pid_lift_enabled;
 extern Pid pid_lift;
 
 // sensor value will be stored in these variables

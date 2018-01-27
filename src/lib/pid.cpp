@@ -10,6 +10,10 @@ void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_)
   kp = kp_;
   ki = ki_;
   kd = kd_;
+  kp_rev = kp_;
+  ki_rev = ki_;
+  kd_rev = kd_;
+
   target_buffer = 1.2f;
   velocity_buffer = 3;
 
@@ -88,13 +92,19 @@ float Pid :: run(float current_, float dt_) {
   float error = target - current_;
 
   // calculate P
-  float p = error * kp;
+  float p;
+  if (error > 0) p = error * kp;
+  else p = error * kp_rev;
 
   // calculate I (without newest error data)
-  float i = (integral * ki) / dt_;
+  float i;
+  if (error > 0) i = (integral * ki) / dt_;
+  else i = (integral * ki_rev) / dt_;
 
   // calculate D
-  float d = (kd * (error - prev_error)) / dt_;
+  float d;
+  if (error > 0) d = (kd * (error - prev_error)) / dt_;
+  else d = (kd_rev * (error - prev_error)) / dt_;
 
   // if input is not saturated, integrate
   if ((abs(error - prev_error) < (i_factor * dt_))) {
@@ -102,7 +112,8 @@ float Pid :: run(float current_, float dt_) {
   }
 
   // update I to reflect newest data (will do nothing if input is saturated)
-  i = (integral * ki) / dt_;
+  if (error > 0) i = (integral * ki) / dt_;
+  else i = (integral * ki_rev) / dt_;
 
   // update previous values for next run
   prev = current_;

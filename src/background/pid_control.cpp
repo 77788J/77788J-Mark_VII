@@ -106,7 +106,7 @@ void updateAllPids() {
   pidRunChassis();
 
   // lift
-  pidRunLift();
+  if (pid_lift_enabled) pidRunLift();
 
   // mogo lifter
   pidRunMogo();

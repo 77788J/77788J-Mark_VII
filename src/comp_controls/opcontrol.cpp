@@ -1,10 +1,12 @@
 #include "main.h"
 #include "controller.h"
+#include "driver_control.h"
 #include "io_control.h"
 #include "recorder.h"
 #include "macros.h"
 #include "chassis.h"
 #include "lift.h"
+#include "chainbar.h"
 #include "claw.h"
 #include "mogo.h"
 #include "math.h"
@@ -41,9 +43,27 @@ void operatorControl() {
 			print("LIFT\n");
 			printf("\tANGLE\t%f\n", lift_angle);
 			printf("\tHEIGHT\t%f\n", lift_height);
+			printf("\tTARGET\t%f\n", pid_lift.getTarget());
 			print("CLAW\n");
 			printf("\tANGLE\t%f\n", claw_angle);
+			print("4 BAR\n");
+			printf("\tANGLE\t%f\n", chainbar_angle);
 			print("\n\n\n");
+		}
+
+		if (joystick.btn7L && joystick.btn7R) {
+			driver_chassis = false;
+			driver_mogo = false;
+			driver_lift = false;
+			driver_chainbar = false;
+			driver_claw = false;
+
+			autonomous();
+
+			driver_chassis = true;
+			driver_mogo = true;
+			driver_lift = true;
+			driver_chainbar = true;
 		}
 
 		delay(1000);

@@ -7,6 +7,7 @@
 #include "io_control.h"
 #include "driver_control.h"
 #include "recorder.h"
+#include "macros.h"
 #include "math.h"
 
 // driver control enabled?
@@ -77,42 +78,55 @@ void driverControlChassis() {
 // lift control
 void driverControlLift() {
 
-  // raise button
-  if (joystick.btn5U) {
-    pid_lift.setTarget(LIFT_HEIGHT_MAX);
-  }
+  pid_lift_enabled = false;
 
-  // lower button
-  else if (joystick.btn5D) {
-    pid_lift.setTarget(LIFT_HEIGHT_MIN);
-  }
+  if (pid_lift_enabled) {
 
-  // if either were both just released and neither are pressed, set the power to 0
-  else if (joystick.btn5U_new + joystick.btn5D_new < 0) {
-
-    // if the lift should snap to the nearest cone height, snap
-    if (LIFT_SNAP_ENABLED) {
-
-        if (joystick.btn5U_new == -1) {
-          pid_lift.setTarget((ceil(lift_height / 2.8f) * 2.8f) + 1.f); // round up
-          if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() + 2.8f); // see if it's too close and raise if so
-          if (lift_height < 8.f) pid_lift.setTarget(10.f); // min height to stack
-          if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
-        }
-        if (joystick.btn5D_new == -1) {
-          pid_lift.setTarget((floor(lift_height / 2.8f) * 2.8f) + 1.f); // round down
-          if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() - 2.8f); // see if it's too close and lower if so
-          if (lift_height < 8.f) pid_lift.setTarget(LIFT_HEIGHT_MIN); // just lower it all the way
-          if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
-        }
+    // raise button
+    if (joystick.btn5U) {
+      pid_lift.setTarget(LIFT_HEIGHT_MAX);
     }
 
-    // if snap is disabled, just stop the lift where it is
-    else pid_lift.setTarget(lift_height);
+    // lower button
+    else if (joystick.btn5D) {
+      pid_lift.setTarget(LIFT_HEIGHT_MIN);
+    }
+
+    // if either were both just released and neither are pressed, set the power to 0
+    else if (joystick.btn5U_new + joystick.btn5D_new < 0) {
+
+      // if the lift should snap to the nearest cone height, snap
+      if (LIFT_SNAP_ENABLED) {
+
+          if (joystick.btn5U_new == -1) {
+            pid_lift.setTarget((ceil(lift_height / 2.8f) * 2.8f) + 1.f); // round up
+            if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() + 2.8f); // see if it's too close and raise if so
+            if (lift_height < 8.f) pid_lift.setTarget(10.f); // min height to stack
+            if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
+          }
+          if (joystick.btn5D_new == -1) {
+            pid_lift.setTarget((floor(lift_height / 2.8f) * 2.8f) + 1.f); // round down
+            if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() - 2.8f); // see if it's too close and lower if so
+            if (lift_height < 8.f) pid_lift.setTarget(LIFT_HEIGHT_MIN); // just lower it all the way
+            if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
+          }
+      }
+
+      // if snap is disabled, just stop the lift where it is
+      else pid_lift.setTarget(lift_height);
+    }
+
+    // stationary goal macro
+    if (joystick.btn8L) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
   }
 
-  // stationary goal macro
-  if (joystick.btn7U) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
+  else {
+
+    if (joystick.btn5U) liftSetPower(100);
+    else if (joystick.btn5D) liftSetPower(-100);
+    else liftSetPower(0);
+
+  }
 }
 
 // claw control
@@ -145,13 +159,25 @@ void driverControlMogo() {
 
 // chainbar control
 void driverControlChainbar() {
-  if (joystick.btn7U) pid_chainbar.setTarget(CHAINBAR_GRAB);
   if (joystick.btn7D) pid_chainbar.setTarget(CHAINBAR_GRAB);
+  if (joystick.btn7U) pid_chainbar.setTarget(CHAINBAR_STACK);
+}
+
+// check if macro should be interrupted
+void driverInterrupt() {
+
+  if (((joystick.btn5U || joystick.btn5D) && !driver_lift) ||
+  ((joystick.btn6U || joystick.btn6D) && !driver_claw) ||
+  ((joystick.btn7U || joystick.btn7D) && !driver_chainbar) ||
+  ((joystick.btn8U || joystick.btn8D) && !driver_mogo)) stopMacro();
+
 }
 
 // full driver control
 unsigned char mode = CHASSIS_MODE_POSITION;
 void updateDriverControl() {
+
+  driverInterrupt();
 
   // if 'recording' for auto
   if (RECORDING_ENABLED) {

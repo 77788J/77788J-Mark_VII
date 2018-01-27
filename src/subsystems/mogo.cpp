@@ -43,7 +43,7 @@ void mogoUpdateSensors() {
   mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.087890625f * .6f); // convert to degrees and apply filter
 
   // average left and right potentiometers
-  mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f;
+  mogo_angle = (mogo_angle_l) * 1.f;
 }
 
 // determines whether or not the mogo lifter has reached its target

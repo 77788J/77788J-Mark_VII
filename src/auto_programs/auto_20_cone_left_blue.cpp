@@ -17,16 +17,11 @@ void autoRunLeftBlue20Cone() {
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo while raising lift
-  liftGoto(15.f, false, false);
   chassisMove(105.f, 105.f, true, true);
-
-  // lower lift
-  liftGoto(9.f, false, false);
-  delay(500);
 
   // open claw
   clawGoto(CLAW_OPEN, false, false);
-  delay(500);
+  delay(100);
 
   // lift mogo lifter
   timeout = 0;

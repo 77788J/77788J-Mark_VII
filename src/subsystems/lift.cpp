@@ -5,6 +5,7 @@
 float lift_angle = 0;
 float lift_height = 0;
 static float constant = 0;
+bool pid_lift_enabled = true;
 
 // declare motor
 Motor motor_lift;
@@ -19,7 +20,7 @@ Pid pid_lift;
 void liftInit() {
 
   // define lift encoder
-  enc_lift = encoderInit(5, 6, false);
+  enc_lift = encoderInit(5, 6, true);
 
   // update sensors for accurate starting position
   liftUpdateSensors();
@@ -29,6 +30,9 @@ void liftInit() {
 
   // init PID
   pid_lift.init(18.f, 20.f, 400.f, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.kp_rev = 8.f;
+  pid_lift.ki_rev = 0.f;
+  pid_lift.kd_rev = 150.f;
   pid_lift.target_buffer = .2f;
   pid_lift.max_i = 70;
   pid_lift.i_factor = .05f;
@@ -47,7 +51,7 @@ void liftUpdateMotors() {
 void liftUpdateSensors() {
 
   // angle (degrees) if the lift
-  lift_angle = (.2f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
+  lift_angle = (1.f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians

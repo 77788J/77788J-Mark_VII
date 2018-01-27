@@ -31,7 +31,7 @@ void updateAllSensors() {
   liftUpdateSensors();
   mogoUpdateSensors();
   clawUpdateSensors();
-  chainbarUpdateMotors();
+  chainbarUpdateSensors();
 }
 
 // update all of the robot's LCDs

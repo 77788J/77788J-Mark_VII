@@ -13,6 +13,7 @@ extern "C" {
 // central macro functions
 extern TaskHandle task_macros;
 extern unsigned char current_macro;
+void stopMacro();
 void macrosStartListener();
 void macrosUpdate();
 

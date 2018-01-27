@@ -16,11 +16,11 @@ extern "C" {
 extern Motor motor_claw;
 
 // analog sensors
-#define POT_CLAW 5
+#define POT_CLAW 2
 
 // physical info
-#define CLAW_OPEN 70
-#define CLAW_CLOSED 145
+#define CLAW_OPEN 170.f
+#define CLAW_CLOSED 100.f
 
 // PID
 extern Pid pid_claw;

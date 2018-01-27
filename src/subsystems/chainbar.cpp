@@ -20,8 +20,11 @@ void chainbarInit() {
   motor_chainbar.init(MOTOR_CHAINBAR, true, chainbar_angle);
 
   // init PID
-  pid_chainbar.init(10.f, 5.f, 100.f, CHAINBAR_GRAB, chainbar_angle);
-  pid_chainbar.target_buffer = 2.f;
+  pid_chainbar.init(15.2f, .1f, 650.f, CHAINBAR_STACK, chainbar_angle);
+  pid_chainbar.kp_rev = 1.5f;
+  pid_chainbar.ki_rev = .1f;
+  pid_chainbar.kd_rev = 25.f;
+  pid_chainbar.target_buffer = 3.f;
 }
 
 // update all chainbar chainbarer motors
@@ -32,19 +35,21 @@ void chainbarUpdateMotors() {
 // update all chainbar chainbarer sensors
 void chainbarUpdateSensors() {
 
-  // angle (degrees) if the chainbar
+  // angle (degrees) of the chainbar
   chainbar_angle = analogRead(POT_CHAINBAR) * .0634765625f;
 }
 
 // determines whether or not the chainbar has reached its target
 bool chainbarAtTarget(bool vel) {
-  return pid_chainbar.atTarget(vel, chainbar_angle, motor_chainbar.getVelocity());
+  if (pid_chainbar.getTarget() == CHAINBAR_GRAB && chainbar_angle < CHAINBAR_GRAB + 10) return true;
+  else return pid_chainbar.atTarget(vel, chainbar_angle, motor_chainbar.getVelocity());
 }
 
 // returns a recommended timeout for a PID
 unsigned int chainbarGetTimeout(float target) {
-  float delta = abs(target - chainbar_angle);
-  return delta * (fabs(CHAINBAR_GRAB - CHAINBAR_STACK) * .002f);
+  // float delta = abs(target - chainbar_angle);
+  // return delta * 27.52f;
+  return 3000;
 }
 
 // sets the power of both chainbar motors

@@ -53,7 +53,10 @@ void Motor :: update(float angle, int interval) {
   // slew motor of applicable
   if (slew) {
     float power_change = min(slew_rate * (float) interval, fabs(target_power - power)); // calculate change in power
-    power += power_change * sign(target_power - power); // apply correct sign and add to power var
+
+    if (sign(target_power) + sign(power) == 0) power = 0; // if crossing 0, jump to 0
+    else if (fabs(target_power) < fabs(power)) power = target_power; // if target is less than current, jump to target
+    else power += power_change * sign(target_power - power); // apply correct sign and add to power var
   }
 
   // make sure power is in confines of reality
