@@ -24,10 +24,8 @@ void autoRunSkills();
 void autoRunBullet();
 
 // variation 1
-void autoRunLeftRed20Cone();
-void autoRunLeftBlue20Cone();
-void autoRunRightRed20Cone();
-void autoRunRightBlue20Cone();
+void autoRunLeft20Cone();
+void autoRunRight20Cone();
 
 // variation 2
 void autoRunCone();

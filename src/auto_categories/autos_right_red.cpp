@@ -6,7 +6,7 @@ void runAutoRightRed(unsigned char variation) {
   switch (variation) {
 
     case 0: break;
-    case 1: autoRunRightRed20Cone(); break;
+    case 1: autoRunRight20Cone(); break;
     case 2: autoRunRightStationary(); break;
     case 3: autoRunRightStationaryFlip(); break;
     case 4: autoRunCone(); break;
