@@ -27,8 +27,13 @@ void mogoInit() {
 }
 
 // update all mogo lifter motors
+void mogoUpdateMotorData() {
+  motor_mogo.updateData(mogo_angle, UPDATE_INTERVAL);
+}
+
+// update all mogo lifter motors
 void mogoUpdateMotors() {
-  motor_mogo.update(mogo_angle, UPDATE_INTERVAL);
+  motor_mogo.updateMotor(UPDATE_INTERVAL);
 }
 
 // update all mogo lifter sensors

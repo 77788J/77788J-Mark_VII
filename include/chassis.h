@@ -64,6 +64,7 @@ extern bool line_r;
 void chassisInit();
 
 // update all chassis motors
+void chassisUpdateMotorData();
 void chassisUpdateMotors();
 
 // updates all chassis sensors

@@ -38,6 +38,10 @@ void autoRunRightStationary();
 void autoRunLeftStationaryFlip();
 void autoRunRightStationaryFlip();
 
+// variation 5
+void autoRunLeft5Cone();
+void autoRunRight5Cone();
+
 #ifdef __cplusplus
 }
 #endif

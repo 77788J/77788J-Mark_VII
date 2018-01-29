@@ -15,8 +15,8 @@ void updateAll() {
   // update sensor inputs
   updateAllSensors();
 
-  // update motors (for velocity)
-  updateAllMotors();
+  // update motors' data
+  updateAllMotorData();
 
   // run driver control (if in driver control mode)
   if (isEnabled() && !isAutonomous()) updateDriverControl();
@@ -24,7 +24,7 @@ void updateAll() {
   // update PIDs
   updateAllPids();
 
-  // update motors (for physical motor output)
+  // update physical motors
   updateAllMotors();
 }
 

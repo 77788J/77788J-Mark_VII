@@ -21,15 +21,20 @@ void chainbarInit() {
 
   // init PID
   pid_chainbar.init(15.2f, .1f, 650.f, CHAINBAR_STACK, chainbar_angle);
-  pid_chainbar.kp_rev = 1.5f;
+  pid_chainbar.kp_rev = 2.f;
   pid_chainbar.ki_rev = .1f;
   pid_chainbar.kd_rev = 25.f;
   pid_chainbar.target_buffer = 3.f;
 }
 
+// updates all chainbar motors' data
+void chainbarUpdateMotorData() {
+  motor_chainbar.updateData(chainbar_angle, UPDATE_INTERVAL);
+}
+
 // update all chainbar chainbarer motors
 void chainbarUpdateMotors() {
-  motor_chainbar.update(chainbar_angle, UPDATE_INTERVAL);
+  motor_chainbar.updateMotor(UPDATE_INTERVAL);
 }
 
 // update all chainbar chainbarer sensors

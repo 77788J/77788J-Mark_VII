@@ -19,7 +19,7 @@ extern Motor motor_chainbar;
 #define POT_CHAINBAR 5
 
 // physical info
-#define CHAINBAR_STACK 163
+#define CHAINBAR_STACK 164
 #define CHAINBAR_GRAB 55
 
 // PID
@@ -32,6 +32,7 @@ extern float chainbar_angle; // degrees
 void chainbarInit();
 
 // update all chainbar motors
+void chainbarUpdateMotorData();
 void chainbarUpdateMotors();
 
 // updates all chainbar sensors

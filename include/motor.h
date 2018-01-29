@@ -37,8 +37,11 @@ public:
   // sets the power of the motor
   void setPower(int p);
 
-  // updates the internal motor variables (e.g. velocity)
-  void update(float angle, int interval);
+  // updates motor varaibles and statistics
+  void updateData(float angle, int interval);
+
+  // updates the physical motor
+  void updateMotor(int interval);
 
 private:
 

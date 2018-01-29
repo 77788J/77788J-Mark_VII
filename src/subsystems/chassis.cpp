@@ -85,12 +85,20 @@ void chassisInit() {
   pid_chassis_theta.max_d = 200;
 }
 
+// updates all chainbar motors' data
+void chassisUpdateMotorData() {
+  motor_chassis_fl.updateData(chassis_left, UPDATE_INTERVAL);
+  motor_chassis_bl.updateData(chassis_left, UPDATE_INTERVAL);
+  motor_chassis_fr.updateData(chassis_right, UPDATE_INTERVAL);
+  motor_chassis_br.updateData(chassis_right, UPDATE_INTERVAL);
+}
+
 // update all chassis motors
 void chassisUpdateMotors() {
-  motor_chassis_fl.update(chassis_left, UPDATE_INTERVAL);
-  motor_chassis_bl.update(chassis_left, UPDATE_INTERVAL);
-  motor_chassis_fr.update(chassis_right, UPDATE_INTERVAL);
-  motor_chassis_br.update(chassis_right, UPDATE_INTERVAL);
+  motor_chassis_fl.updateMotor(UPDATE_INTERVAL);
+  motor_chassis_bl.updateMotor(UPDATE_INTERVAL);
+  motor_chassis_fr.updateMotor(UPDATE_INTERVAL);
+  motor_chassis_br.updateMotor(UPDATE_INTERVAL);
 }
 
 // update all chassis sensors

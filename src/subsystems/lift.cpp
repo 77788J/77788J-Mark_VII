@@ -43,8 +43,13 @@ void liftInit() {
 }
 
 // update all lift lifter motors
+void liftUpdateMotorData() {
+  motor_lift.updateData(lift_angle, UPDATE_INTERVAL);
+}
+
+// update all lift lifter motors
 void liftUpdateMotors() {
-  motor_lift.update(lift_angle, UPDATE_INTERVAL);
+  motor_lift.updateMotor(UPDATE_INTERVAL);
 }
 
 // update all lift lifter sensors

@@ -41,6 +41,7 @@ extern float lift_height; // inches
 void liftInit();
 
 // update all lift motors
+void liftUpdateMotorData();
 void liftUpdateMotors();
 
 // updates all lift sensors

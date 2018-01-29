@@ -47,8 +47,19 @@ void Motor :: setPower(int p) {
   if (!slew) power = p;
 }
 
-// updates the motor (physical motor and internal variables)
-void Motor :: update(float angle, int interval) {
+// update motor data and statistics
+void Motor :: updateData(float angle, int interval) {
+
+  // update velocity (with moving average filter)
+  float rpm = calcRpm(angle - prev, interval); // calculate RPM
+  velocity = (velocity * .6f) + (rpm * .4f); // apply moving average filter and store in velocity variable
+
+  // update previous angle for next run
+  prev = angle;
+}
+
+// updates the physical motor
+void Motor :: updateMotor(int interval) {
 
   // slew motor of applicable
   if (slew) {
@@ -66,11 +77,4 @@ void Motor :: update(float angle, int interval) {
   int p = round(power); // store power in temporary variable
   if (reversed) p = -power; // reverse if necessary
   motorSet(port, true_speed[abs(p)] * sign(p)); // set the actualy power (using trueSpeed)
-
-  // update velocity (with moving average filter)
-  float rpm = calcRpm(angle - prev, interval); // calculate RPM
-  velocity = (velocity * .6f) + (rpm * .4f); // apply moving average filter and store in velocity variable
-
-  // uodate previous angle for next run
-  prev = angle;
 }

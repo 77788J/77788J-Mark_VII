@@ -11,26 +11,20 @@
 
 void autoRunCone() {
 
-  unsigned int timeout = 0;
-  unsigned int max_timeout = 0;
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
 
-  // move to mogo while raising lift
-  liftGoto(15.f, false, false);
-  chassisMove(105.f, 105.f, true, true);
+  // move to mogo
+  chassisMove(54.81f, 54.81f, true, true);
 
-  // lower lift
-  liftGoto(9.f, false, false);
-  delay(500);
+  // intake mogo
+  mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
+  delay(4575);
 
-  // open claw
-  clawGoto(CLAW_OPEN, false, false);
-  delay(500);
+  // stack (?) preload
+  clawGoto(CLAW_OPEN, true, false);
+  delay(100);
 
-  // go backwards
-  chassisMove(-40, -40, true, true);
-  chassisMove(0, 0, false, false);
   pid_chassis_theta.target_buffer = b;
 
 }

@@ -18,7 +18,10 @@ extern Lcd lcd;
 // updates all of the registered joysticks
 void updateAllJoysticks();
 
-// update all of the robot's motors
+// update all of the robot's motors' data
+void updateAllMotorData();
+
+// update all of the robot's physical motors
 void updateAllMotors();
 
 // update all of the robot's sensors

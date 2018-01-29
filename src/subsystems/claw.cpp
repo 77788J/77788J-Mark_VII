@@ -26,8 +26,13 @@ void clawInit() {
 }
 
 // update all claw clawer motors
+void clawUpdateMotorData() {
+  motor_claw.updateData(claw_angle, UPDATE_INTERVAL);
+}
+
+// update all claw clawer motors
 void clawUpdateMotors() {
-  motor_claw.update(claw_angle, UPDATE_INTERVAL);
+  motor_claw.updateMotor(UPDATE_INTERVAL);
 }
 
 // update all claw clawer sensors

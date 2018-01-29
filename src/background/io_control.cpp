@@ -16,7 +16,16 @@ void updateAllJoysticks() {
   joystick.update();
 }
 
-// update all of the robot's motors
+// update all of the robot's motors' data
+void updateAllMotorData() {
+  chassisUpdateMotorData();
+  liftUpdateMotorData();
+  mogoUpdateMotorData();
+  clawUpdateMotorData();
+  chainbarUpdateMotorData();
+}
+
+// update all of the robot's physical motors
 void updateAllMotors() {
   chassisUpdateMotors();
   liftUpdateMotors();

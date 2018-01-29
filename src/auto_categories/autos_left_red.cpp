@@ -7,11 +7,12 @@ void runAutoLeftRed(unsigned char variation) {
 
     case 0: break;
     case 1: autoRunLeft20Cone(); break;
-    case 2: autoRunLeftStationary(); break;
-    case 3: autoRunLeftStationaryFlip(); break;
-    case 4: autoRunCone(); break;
-    case 5: autoRunBullet(); break;
-    case 6: autoRunSkills(); break;
+    case 2: autoRunLeft5Cone(); break;
+    case 3: autoRunLeftStationary(); break;
+    case 4: autoRunLeftStationaryFlip(); break;
+    case 5: autoRunCone(); break;
+    case 6: autoRunBullet(); break;
+    case 7: autoRunSkills(); break;
 
   }
 }

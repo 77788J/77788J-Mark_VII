@@ -9,39 +9,32 @@
 #include "math.h"
 
 
-void autoRunLeft20Cone() {
+void autoRunLeft5Cone() {
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo
-  chassisMove(54.81f, 54.81f, true, true);
+  chassisMove(58.81f, 58.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(2500);
+  delay(1000);
 
   // stack (?) preload
   clawGoto(CLAW_OPEN, true, false);
   delay(100);
 
   // move back to line
-  chassisMove(-54.38f, -54.38f, true, true);
+  chassisMove(-49.78f, -49.78f, true, true);
 
-  // rotate parallel to 20 zone
-  chassisRotate(136.4f, true, true);
+  // rotate to 5 zone
+  chassisRotate(200.f, true, true);
 
-  // move to center of line
-  chassisMove(19.4f, 19.4f, true, true);
-
-  // rotate towards 20 zone
-  chassisRotate(90.f, true, true);
-
-  // go forwards to 20
-  chassisMove(45.f, 45.f, true, false);
+  chassisMove(1.f, 1.f, true, false);
 
   // drop mogo
-  mogoGoto(MOGO_ANGLE_DROP, false, false);
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
 
   // move out of zones
   chassisMove(-30.f, -30.f, true, false);

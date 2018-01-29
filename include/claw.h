@@ -20,7 +20,7 @@ extern Motor motor_claw;
 
 // physical info
 #define CLAW_OPEN 170.f
-#define CLAW_CLOSED 100.f
+#define CLAW_CLOSED 90.f
 
 // PID
 extern Pid pid_claw;
@@ -32,6 +32,7 @@ extern float claw_angle; // degrees
 void clawInit();
 
 // update all claw motors
+void clawUpdateMotorData();
 void clawUpdateMotors();
 
 // updates all claw sensors

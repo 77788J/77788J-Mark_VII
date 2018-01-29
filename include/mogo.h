@@ -37,6 +37,7 @@ extern float mogo_angle;
 void mogoInit();
 
 // update all mogo motors
+void mogoUpdateMotorData();
 void mogoUpdateMotors();
 
 // updates all mogo sensors
