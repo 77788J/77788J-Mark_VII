@@ -7,7 +7,7 @@ We are the 'A-team' of Calvary Christian Academy (88877_). This is mark VII of o
 
 - [x] Full PID library
 - [x] Motor library with velocity statistics
-- [x] Abstraction to seperate HAL with high-level program for easy subsystem modification
+- [x] Abstraction between HAL and high-level program for easy subsystem modification
 - [x] Experimental (disabled) associative probability filter for chassis orientation
 - [x] Drive-to-write autonomous generator
 - [x] Automated tasks during driver control (such as auto-stacking)
