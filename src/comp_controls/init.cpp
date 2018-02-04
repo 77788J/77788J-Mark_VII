@@ -2,6 +2,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "claw.h"
+#include "goliath.h"
 #include "chainbar.h"
 #include "mogo.h"
 #include "io_control.h"
@@ -24,6 +25,7 @@ void initialize() {
   liftInit();
   clawInit();
   chainbarInit();
+  goliathInit();
 
   // start auto selector task
   taskCreate(autoPickerStart, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_LOWEST);

@@ -52,7 +52,7 @@ void Motor :: updateData(float angle, int interval) {
 
   // update velocity (with moving average filter)
   float rpm = calcRpm(angle - prev, interval); // calculate RPM
-  velocity = (velocity * .6f) + (rpm * .4f); // apply moving average filter and store in velocity variable
+  velocity = (velocity * .7f) + (rpm * .3f); // apply moving average filter and store in velocity variable
 
   // update previous angle for next run
   prev = angle;

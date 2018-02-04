@@ -18,6 +18,10 @@ extern "C" {
 // timeout for discharge (in ms)
 #define GOLIATH_DISCHARGE_TIMEOUT 500
 
+// goliath modes
+#define GOLIATH_MODE_INTAKE 0
+#define GOLIATH_MODE_DISCHARGE 1
+
 // motors
 extern Motor motor_goliath;
 
@@ -30,6 +34,7 @@ extern Pid pid_goliath;
 extern float goliath_angle;
 
 // variables
+extern unsigned char goliath_mode;
 extern bool goliath_holding; // is it currently holding a cone?
 extern bool goliath_spinning; // logs whether or not it is spinning
 

@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "goliath.h"
 #include "chainbar.h"
 #include "pid.h"
 #include "math.h"
@@ -94,9 +95,29 @@ void pidRunClaw() {
   clawSetPower(pid);
 }
 
+// run chainbar PID
 void pidRunChainbar() {
   float pid = pid_chainbar.run(chainbar_angle, UPDATE_INTERVAL);
   chainbarSetPower(pid);
+}
+
+// run goliath PID
+void pidRunGoliath() {
+
+  // see if goliath is spinning at adequate speed
+  if (fabs(motor_goliath.getVelocity()) > 25.f) goliath_spinning = true;
+
+  // hold goliath if it was spinning and has now stopped
+  else if (fabs(motor_goliath.getVelocity()) < 10.f && goliath_spinning) {
+    goliath_spinning = false;
+    goliath_holding = true;
+  }
+
+  // run PID if holding
+  if (goliath_holding) {
+    float pid = pid_goliath.run(goliath_angle, UPDATE_INTERVAL);
+    goliathSetPower(pid);
+  }
 }
 
 // run all PIDs
@@ -113,6 +134,9 @@ void updateAllPids() {
 
   // claw
   pidRunClaw();
+
+  // goliath
+  pidRunGoliath();
 
   // chainbar
   pidRunChainbar();

@@ -3,6 +3,7 @@
 #include "lift.h"
 #include "mogo.h"
 #include "claw.h"
+#include "goliath.h"
 #include "chainbar.h"
 #include "io_control.h"
 #include "driver_control.h"
@@ -15,6 +16,7 @@ bool driver_chassis = true;
 bool driver_lift = true;
 bool driver_mogo = true;
 bool driver_claw = true;
+bool driver_goliath = true;
 bool driver_chainbar = true;
 
 // has it stopped yet?
@@ -135,6 +137,12 @@ void driverControlClaw() {
   if (joystick.btn6D) pid_claw.setTarget(CLAW_OPEN);
 }
 
+// goliath control
+void driverControlGoliath() {
+  if (joystick.btn6D) goliathDischarge(false);
+  else goliathIntake(false);
+}
+
 // mogo lifter control
 void driverControlMogo() {
 
@@ -226,6 +234,11 @@ void updateDriverControl() {
     // run claw control
     if (driver_claw) {
       driverControlClaw();
+    }
+
+    // run goliath control
+    if (driver_goliath) {
+      driverControlGoliath();
     }
 
     // run lift control

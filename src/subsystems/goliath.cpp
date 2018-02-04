@@ -10,6 +10,7 @@ Encoder enc_goliath;
 Pid pid_goliath;
 
 // variables
+unsigned char goliath_mode = GOLIATH_MODE_INTAKE; // default to intake mode
 bool goliath_holding = false; // is it currently holding a cone?
 bool goliath_spinning = false; // logs whether or not it is spinning
 
@@ -52,11 +53,11 @@ void goliathSetPower(int power) {
 // optionally waits for cone to enter
 void goliathIntake(bool wait) {
 
-  // make sure it doesn't think it has a cone
-  goliath_holding = false;
-
   // make sure it's spinning the right direction
   goliathSetPower(100);
+
+  // update mode variable
+  goliath_mode = GOLIATH_MODE_INTAKE;
 
   // wait for cone if applicable
   if (wait) {
@@ -75,6 +76,9 @@ void goliathDischarge(bool wait) {
 
   // make sure it's spinning the right direction
   goliathSetPower(-100);
+
+  // update mode variable
+  goliath_mode = GOLIATH_MODE_DISCHARGE;
 
   // wait for discharge if applicable
   if (wait) {
