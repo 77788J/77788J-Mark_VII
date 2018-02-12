@@ -176,8 +176,14 @@ void driverControlMogo() {
 
 // chainbar control
 void driverControlChainbar() {
-  if (joystick.btn7D || joystick_secondary.btn7D) pid_chainbar.setTarget(CHAINBAR_GRAB);
-  if (joystick.btn7U || joystick_secondary.btn7U) pid_chainbar.setTarget(CHAINBAR_STACK);
+  if (joystick.btn7U || joystick_secondary.btn7U) {
+    if (pid_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
+    else pid_chainbar.setTarget(CHAINBAR_RETRACTED);
+  }
+  if (joystick.btn7D || joystick_secondary.btn7D) {
+    if (pid_angle > CHAINBAR_STACK + 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
+    else pid_chainbar.setTarget(CHAINBAR_GRAB);
+  }
 }
 
 // check if macro should be interrupted
