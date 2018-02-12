@@ -113,7 +113,7 @@ void pidRunGoliath() {
 
   // hold goliath if it was spinning and has now stopped
   if (fabs(motor_goliath.getVelocity()) < 20.f && goliath_mode == GOLIATH_MODE_INTAKE) {
-    if (goliath_timeout > time) {
+    if (goliath_timeout > time || goliath_spinning) {
       goliath_spinning = false;
       goliath_holding = true;
       pid_goliath.setTarget(goliath_angle);
