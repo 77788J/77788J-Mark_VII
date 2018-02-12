@@ -102,22 +102,33 @@ void pidRunChainbar() {
 }
 
 // run goliath PID
+int goliath_timeout = -1;
 void pidRunGoliath() {
 
   // see if goliath is spinning at adequate speed
-  if (motor_goliath.getVelocity() > 100.f && !goliath_holding) goliath_spinning = true;
+  if (motor_goliath.getVelocity() > 100.f && !goliath_holding) {
+    goliath_spinning = true;
+    goliath_timeout = -1;
+  }
 
   // hold goliath if it was spinning and has now stopped
-  if (fabs(motor_goliath.getVelocity()) < 20.f && goliath_spinning && goliath_mode == GOLIATH_MODE_INTAKE) {
-    goliath_spinning = false;
-    goliath_holding = true;
-    pid_goliath.setTarget(goliath_angle);
+  if (fabs(motor_goliath.getVelocity()) < 20.f && goliath_mode == GOLIATH_MODE_INTAKE) {
+    if (goliath_timeout > time) {
+      goliath_spinning = false;
+      goliath_holding = true;
+      pid_goliath.setTarget(goliath_angle);
+      goliath_timeout = -1;
+    }
+    else if (goliath_timeout < 0) {
+      goliath_timeout = time + 200;
+    }
   }
 
   // run PID if holding
   if (goliath_holding) {
     float pid = pid_goliath.run(goliath_angle, UPDATE_INTERVAL);
     goliathSetPower(pid + 15);
+    goliath_timeout = -1;
   }
 }
 
