@@ -146,10 +146,10 @@ void driverControlClaw() {
 void driverControlGoliath() {
   if (joystick.btn6D || joystick_secondary.btn6D) goliathDischarge(false);
   else if (joystick.btn6U_new == 1 || joystick_secondary.joystick.btn6U_ned == 1) {
-    if (goliath_mode == GOLIATH_DISABLE) goliathIntake(false);
+    if (goliath_mode == GOLIATH_MODE_DISABLED) goliathIntake(false);
     else goliathDisable();
   }
-  else if (joystick.btn6D_new == -1 || joystick_secondary.btn6D_new == -1) goliathIntake(false);
+  else if (goliath_mode == GOLIATH_MODE_DISCHARGE) goliathIntake(false);
 }
 
 // mogo lifter control
