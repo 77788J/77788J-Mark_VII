@@ -93,3 +93,13 @@ void goliathDischarge(bool wait) {
     }
   }
 }
+
+// disables the goliath until re-enabled
+void goliathDisable() {
+ 
+  // turn off motor
+  goliathSetPower(0);
+  
+  // update state variable
+  goliath_mode = GOLIATH_MODE_DISABLED;
+}
