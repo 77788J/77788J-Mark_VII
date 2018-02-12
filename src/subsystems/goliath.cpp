@@ -53,20 +53,22 @@ void goliathSetPower(int power) {
 // sets goliath to intake mode
 // optionally waits for cone to enter
 void goliathIntake(bool wait) {
+  if (!goliath_holding) {
 
-  // make sure it's spinning the right direction
-  goliathSetPower(100);
+    // make sure it's spinning the right direction
+    goliathSetPower(100);
 
-  // update mode variable
-  goliath_mode = GOLIATH_MODE_INTAKE;
+    // update mode variable
+    goliath_mode = GOLIATH_MODE_INTAKE;
 
-  // disable holding
-  // if (goliath_mode != GOLIATH_MODE_INTAKE) goliath_holding = false;
+    // disable holding
+    // if (goliath_mode != GOLIATH_MODE_INTAKE) goliath_holding = false;
 
-  // wait for cone if applicable
-  if (wait) {
-    while (!goliath_holding) {
-      delay(1);
+    // wait for cone if applicable
+    if (wait) {
+      while (!goliath_holding) {
+        delay(1);
+      }
     }
   }
 }
