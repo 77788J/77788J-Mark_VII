@@ -19,8 +19,9 @@ extern "C" {
 #define GOLIATH_DISCHARGE_TIMEOUT 500
 
 // goliath modes
-#define GOLIATH_MODE_INTAKE 0
-#define GOLIATH_MODE_DISCHARGE 1
+#define GOLIATH_MODE_DISABLED 0
+#define GOLIATH_MODE_INTAKE 1
+#define GOLIATH_MODE_DISCHARGE 2
 
 // motors
 extern Motor motor_goliath;
