@@ -27,7 +27,12 @@ void driverControlChassis() {
 
   // store joystick output in mutable variables
   int l = joystick.analogLV;
+  if (fabs(joystick_secondary.analogLV) > fabs(l))
+    l = joystick_secondary.analogLV;
+
   int r = joystick.analogRV;
+  if (fabs(joystick_secondary.analogRV) >
+    fabs(r)) r = joystick_secondary.analogRV;
 
   // if joysticks are close enough to zero, treat them as zero
   if (abs(l) < 20) l = 0;
@@ -85,28 +90,28 @@ void driverControlLift() {
   if (pid_lift_enabled) {
 
     // raise button
-    if (joystick.btn5U) {
+    if (joystick.btn5U || joystick_secondary.btn5U) {
       pid_lift.setTarget(LIFT_HEIGHT_MAX);
     }
 
     // lower button
-    else if (joystick.btn5D) {
+    else if (joystick.btn5D || joystick_secondary.btn5D) {
       pid_lift.setTarget(LIFT_HEIGHT_MIN);
     }
 
     // if either were both just released and neither are pressed, set the power to 0
-    else if (joystick.btn5U_new + joystick.btn5D_new < 0) {
+    else if (joystick.btn5U_new + joystick.btn5D_new < 0 || joystick_secondary.btn5U_new + joystick_secondary.btn5D_new < 0) {
 
       // if the lift should snap to the nearest cone height, snap
       if (LIFT_SNAP_ENABLED) {
 
-          if (joystick.btn5U_new == -1) {
+          if (joystick.btn5U_new == -1 || joystick_secondary.btn5U_new == -1) {
             pid_lift.setTarget((ceil(lift_height / 2.8f) * 2.8f) + 1.f); // round up
             if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() + 2.8f); // see if it's too close and raise if so
             if (lift_height < 8.f) pid_lift.setTarget(10.f); // min height to stack
             if (pid_lift.getTarget() > LIFT_HEIGHT_MAX) pid_lift.setTarget(LIFT_HEIGHT_MAX); // make sure it doesn't go too tall
           }
-          if (joystick.btn5D_new == -1) {
+          if (joystick.btn5D_new == -1 || joystick_secondary.btn5D_new == -1) {
             pid_lift.setTarget((floor(lift_height / 2.8f) * 2.8f) + 1.f); // round down
             if (fabs(lift_height - pid_lift.getTarget()) < 1.2f) pid_lift.setTarget(pid_lift.getTarget() - 2.8f); // see if it's too close and lower if so
             if (lift_height < 8.f) pid_lift.setTarget(LIFT_HEIGHT_MIN); // just lower it all the way
@@ -119,13 +124,13 @@ void driverControlLift() {
     }
 
     // stationary goal macro
-    if (joystick.btn8L) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
+    if (joystick.btn8L || joystick_secondary.btn8L) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
   }
 
   else {
 
-    if (joystick.btn5U) liftSetPower(100);
-    else if (joystick.btn5D) liftSetPower(-100);
+    if (joystick.btn5U || joystick_secondary.btn5U) liftSetPower(100);
+    else if (joystick.btn5D || joystick_secondary.btn5D) liftSetPower(-100);
     else liftSetPower(0);
 
   }
@@ -139,7 +144,7 @@ void driverControlClaw() {
 
 // goliath control
 void driverControlGoliath() {
-  if (joystick.btn6D) goliathDischarge(false);
+  if (joystick.btn6D || joystick_secondary.btn6D) goliathDischarge(false);
   else goliathIntake(false);
 }
 
@@ -167,16 +172,16 @@ void driverControlMogo() {
 
 // chainbar control
 void driverControlChainbar() {
-  if (joystick.btn7D) pid_chainbar.setTarget(CHAINBAR_GRAB);
-  if (joystick.btn7U) pid_chainbar.setTarget(CHAINBAR_STACK);
+  if (joystick.btn7D || joystick_secondary.btn7D) pid_chainbar.setTarget(CHAINBAR_GRAB);
+  if (joystick.btn7U || joystick_secondary.btn7U) pid_chainbar.setTarget(CHAINBAR_STACK);
 }
 
 // check if macro should be interrupted
 void driverInterrupt() {
 
-  if (((joystick.btn5U || joystick.btn5D) && !driver_lift) ||
-  ((joystick.btn6U || joystick.btn6D) && !driver_claw) ||
-  ((joystick.btn7U || joystick.btn7D) && !driver_chainbar) ||
+  if (((joystick.btn5U || joystick.btn5D || joystick_secondary.btn5U || joystick_secondary.btn5D) && !driver_lift) ||
+  ((joystick.btn6D || joystick_secondary.btn6D) && !driver_goliath) ||
+  ((joystick.btn7U || joystick.btn7D || joystick_secondary.btn7U || joystick_secondary.btn7D) && !driver_chainbar) ||
   ((joystick.btn8U || joystick.btn8D) && !driver_mogo)) stopMacro();
 
 }
@@ -233,7 +238,7 @@ void updateDriverControl() {
 
     // run claw control
     if (driver_claw) {
-      driverControlClaw();
+      // driverControlClaw();
     }
 
     // run goliath control

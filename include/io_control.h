@@ -11,6 +11,7 @@ extern "C" {
 
 // declare joystick
 extern Joystick joystick;
+extern Joystick joystick_secondary;
 
 // declare LCD
 extern Lcd lcd;

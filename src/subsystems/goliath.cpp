@@ -13,20 +13,21 @@ Pid pid_goliath;
 unsigned char goliath_mode = GOLIATH_MODE_INTAKE; // default to intake mode
 bool goliath_holding = false; // is it currently holding a cone?
 bool goliath_spinning = false; // logs whether or not it is spinning
+float goliath_angle = 0;
 
 // inits the goliath (PID, motors, etc)
 void goliathInit() {
 
   // define goliath encoder
-  enc_goliath = encoderInit(7, 8, true);
+  enc_goliath = encoderInit(7, 8, false);
 
   // init motor
-  motor_goliath.init(MOTOR_GOLIATH, true, goliath_angle);
+  motor_goliath.init(MOTOR_GOLIATH, false, goliath_angle);
   motor_goliath.slew = true;
   motor_goliath.slew_rate = .25f;
 
   // init PID
-  pid_goliath.init(1.2f, 0.f, 0.f, goliath_angle, goliath_angle);
+  pid_goliath.init(1.6f, 0.f, 0.f, goliath_angle, goliath_angle);
 }
 
 // update all goliath motor data
@@ -58,6 +59,9 @@ void goliathIntake(bool wait) {
 
   // update mode variable
   goliath_mode = GOLIATH_MODE_INTAKE;
+
+  // disable holding
+  // if (goliath_mode != GOLIATH_MODE_INTAKE) goliath_holding = false;
 
   // wait for cone if applicable
   if (wait) {

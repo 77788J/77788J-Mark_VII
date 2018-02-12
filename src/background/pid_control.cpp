@@ -105,18 +105,19 @@ void pidRunChainbar() {
 void pidRunGoliath() {
 
   // see if goliath is spinning at adequate speed
-  if (fabs(motor_goliath.getVelocity()) > 25.f) goliath_spinning = true;
+  if (motor_goliath.getVelocity() > 100.f && !goliath_holding) goliath_spinning = true;
 
   // hold goliath if it was spinning and has now stopped
-  else if (fabs(motor_goliath.getVelocity()) < 10.f && goliath_spinning) {
+  if (fabs(motor_goliath.getVelocity()) < 20.f && goliath_spinning && goliath_mode == GOLIATH_MODE_INTAKE) {
     goliath_spinning = false;
     goliath_holding = true;
+    pid_goliath.setTarget(goliath_angle);
   }
 
   // run PID if holding
   if (goliath_holding) {
     float pid = pid_goliath.run(goliath_angle, UPDATE_INTERVAL);
-    goliathSetPower(pid);
+    goliathSetPower(pid + 15);
   }
 }
 
@@ -133,7 +134,7 @@ void updateAllPids() {
   pidRunMogo();
 
   // claw
-  pidRunClaw();
+  // pidRunClaw();
 
   // goliath
   pidRunGoliath();

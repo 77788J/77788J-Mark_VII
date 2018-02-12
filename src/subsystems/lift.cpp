@@ -38,7 +38,7 @@ void liftInit() {
   pid_lift.i_factor = .05f;
 
   // calculate lift offset from ground when at 'neutral' position (all bars parallel)
-  float rad = lift_angle * 0.0174533f; // convert to radians
+  float rad = lift_angle * .01745329251f; // convert to radians
   constant = -(-LIFT_HEIGHT_MIN + (sin(rad) * BEAM_LENGTH_BOTTOM) + (sin(rad) * BEAM_LENGTH_TOP)); // do the maths
 }
 
@@ -56,7 +56,7 @@ void liftUpdateMotors() {
 void liftUpdateSensors() {
 
   // angle (degrees) if the lift
-  lift_angle = (1.f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
+  lift_angle = (.142857143f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
 
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians

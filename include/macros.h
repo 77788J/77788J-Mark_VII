@@ -9,6 +9,7 @@ extern "C" {
 
 // macros list
 #define MACRO_AUTO_STACKER 1
+#define MACRO_ASSISTED_STACKER 2
 
 // central macro functions
 extern TaskHandle task_macros;
@@ -22,6 +23,10 @@ void macrosUpdate();
 extern unsigned int stacksize;
 void autoStackerUpdate();
 void autoStackerRun();
+
+// assisted stacker
+void assistedStackerUpdate();
+void assistedStackerRun();
 
 #ifdef __cplusplus
 }

@@ -19,8 +19,8 @@ extern Motor motor_chainbar;
 #define POT_CHAINBAR 5
 
 // physical info
-#define CHAINBAR_STACK 164
-#define CHAINBAR_GRAB 55
+#define CHAINBAR_STACK 87.676f
+#define CHAINBAR_GRAB -23.f
 
 // PID
 extern Pid pid_chainbar;

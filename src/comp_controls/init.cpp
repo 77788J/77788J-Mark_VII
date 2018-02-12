@@ -15,6 +15,7 @@ void initialize() {
 
   // init joystick
   joystick.init(1);
+  joystick_secondary.init(2);
 
   // init LCD
   lcd.init(uart1);

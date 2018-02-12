@@ -20,11 +20,9 @@ void chainbarInit() {
   motor_chainbar.init(MOTOR_CHAINBAR, true, chainbar_angle);
 
   // init PID
-  pid_chainbar.init(15.2f, .1f, 650.f, CHAINBAR_STACK, chainbar_angle);
-  pid_chainbar.kp_rev = 2.f;
-  pid_chainbar.ki_rev = .1f;
-  pid_chainbar.kd_rev = 25.f;
-  pid_chainbar.target_buffer = 3.f;
+  pid_chainbar.init(8.2f, .1f, 500.f, CHAINBAR_STACK, chainbar_angle);
+  pid_chainbar.target_buffer = 1.5f;
+  pid_chainbar.max_d = 200;
 }
 
 // updates all chainbar motors' data
@@ -41,7 +39,7 @@ void chainbarUpdateMotors() {
 void chainbarUpdateSensors() {
 
   // angle (degrees) of the chainbar
-  chainbar_angle = analogRead(POT_CHAINBAR) * .0634765625f;
+  chainbar_angle = (analogRead(POT_CHAINBAR) - 1383) * .0634765625f;
 }
 
 // determines whether or not the chainbar has reached its target

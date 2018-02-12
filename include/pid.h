@@ -15,14 +15,17 @@ public:
   float kp;
   float ki;
   float kd;
+  float kc;
   float kp_rev;
   float ki_rev;
   float kd_rev;
+  float kc_rev;
 
   // maximum outputs
   float max_p;
   float max_i;
   float max_d;
+  float max_c;
 
   float i_factor;
 

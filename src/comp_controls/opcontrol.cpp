@@ -8,6 +8,7 @@
 #include "lift.h"
 #include "chainbar.h"
 #include "claw.h"
+#include "goliath.h"
 #include "mogo.h"
 #include "math.h"
 
@@ -44,8 +45,9 @@ void operatorControl() {
 			printf("\tANGLE\t%f\n", lift_angle);
 			printf("\tHEIGHT\t%f\n", lift_height);
 			printf("\tTARGET\t%f\n", pid_lift.getTarget());
-			print("CLAW\n");
-			printf("\tANGLE\t%f\n", claw_angle);
+			print("GOLIATH\n");
+			printf("\tANGLE\t%f\n", goliath_angle);
+			printf("\tVELOCITY\t%f\n", motor_goliath.getVelocity());
 			print("4 BAR\n");
 			printf("\tANGLE\t%f\n", chainbar_angle);
 			print("\n\n\n");

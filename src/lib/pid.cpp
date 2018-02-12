@@ -10,9 +10,11 @@ void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_)
   kp = kp_;
   ki = ki_;
   kd = kd_;
+  kc = 0;
   kp_rev = kp_;
   ki_rev = ki_;
   kd_rev = kd_;
+  kc_rev = 0;
 
   target_buffer = 1.2f;
   velocity_buffer = 3;
@@ -21,6 +23,7 @@ void Pid :: init(float kp_, float ki_, float kd_, float target_, float current_)
   max_p = 200;
   max_i = 50;
   max_d = 64;
+  max_c = 40;
 
   i_factor = .006f;
 
@@ -93,17 +96,22 @@ float Pid :: run(float current_, float dt_) {
 
   // calculate P
   float p;
-  if (error > 0) p = error * kp;
+  if (error >= 0) p = error * kp;
   else p = error * kp_rev;
+
+  // calculate C
+  float c;
+  if (error >= 0) c = cos(current_ * .01745329251f) * kc;
+  else c = cos(current_ * .01745329251f) * kc_rev;
 
   // calculate I (without newest error data)
   float i;
-  if (error > 0) i = (integral * ki) / dt_;
+  if (error >= 0) i = (integral * ki) / dt_;
   else i = (integral * ki_rev) / dt_;
 
   // calculate D
   float d;
-  if (error > 0) d = (kd * (error - prev_error)) / dt_;
+  if (error >= 0) d = (kd * (error - prev_error)) / dt_;
   else d = (kd_rev * (error - prev_error)) / dt_;
 
   // if input is not saturated, integrate
@@ -112,7 +120,7 @@ float Pid :: run(float current_, float dt_) {
   }
 
   // update I to reflect newest data (will do nothing if input is saturated)
-  if (error > 0) i = (integral * ki) / dt_;
+  if (error >= 0) i = (integral * ki) / dt_;
   else i = (integral * ki_rev) / dt_;
 
   // update previous values for next run
@@ -121,6 +129,7 @@ float Pid :: run(float current_, float dt_) {
 
   // confine P, I, and D components to within their set bounds
   p = limit(p, -max_p, max_p);
+  c = limit(c, -max_c, max_c);
   i = limit(i, -max_i, max_i);
   d = limit(d, -max_d, max_d);
 
@@ -135,6 +144,6 @@ float Pid :: run(float current_, float dt_) {
   }
 
   // return the calculated PID output
-  int result = p + i + d;
+  int result = p + c + i + d;
   return result;
 }

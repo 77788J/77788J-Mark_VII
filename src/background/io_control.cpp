@@ -8,6 +8,7 @@
 
 // declare joystick
 Joystick joystick;
+Joystick joystick_secondary;
 
 // declare lcd
 Lcd lcd;
@@ -15,6 +16,7 @@ Lcd lcd;
 // update all of the registered joysticks
 void updateAllJoysticks() {
   joystick.update();
+  joystick_secondary.update();
 }
 
 // update all of the robot's motors' data
