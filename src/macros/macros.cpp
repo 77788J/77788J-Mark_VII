@@ -33,4 +33,5 @@ void macrosStartListener() {
 void macrosUpdate() {
   // autoStackerUpdate();
   assistedStackerUpdate();
+  stationaryLoaderUpdate();
 }
