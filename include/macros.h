@@ -10,6 +10,7 @@ extern "C" {
 // macros list
 #define MACRO_AUTO_STACKER 1
 #define MACRO_ASSISTED_STACKER 2
+#define MACRO_STATIONARY_LOADER 3
 
 // central macro functions
 extern TaskHandle task_macros;
@@ -27,6 +28,10 @@ void autoStackerRun();
 // assisted stacker
 void assistedStackerUpdate();
 void assistedStackerRun();
+  
+// stationary loader
+void stationaryLoaderUpdate();
+void stationaryLoaderRun();
 
 #ifdef __cplusplus
 }
