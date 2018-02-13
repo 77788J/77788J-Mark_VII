@@ -8,7 +8,7 @@
 
 void stationaryLoaderUpdate() {
   if (joystick.btn8R || joystick_secondary.btn8R) {
-    current_macro = MACRO_ASSISTED_STACKER;
+    current_macro = MACRO_STATIONARY_LOADER;
     assistedStackerRun();
     current_macro = NONE;
   }
