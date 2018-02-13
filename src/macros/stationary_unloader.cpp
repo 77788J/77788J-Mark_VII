@@ -8,7 +8,7 @@
 
 void stationaryLoaderUpdate() {
   if (joystick.btn8R || joystick_secondary.btn8R) {
-    current_macro = MACRO_STATIONARY_LOADER;
+    current_macro = MACRO_ASSISTED_STACKER;
     assistedStackerRun();
     current_macro = NONE;
   }
@@ -22,14 +22,18 @@ void stationaryLoaderRun() {
   driver_goliath = false;
   driver_chainbar = false;
 
-  // wait for user to raise lift above stack or stationary
-  target = lift_height + 4.f;
-  while (lift_height < STATIONARY_HEIGHT + 3 || lift_height < target) {
+  // move 4-bar to drop position
+  chainbarGoto(CHAINBAR_GRAB, false, false);
+
+  // wait for user to lower lift a bit
+  while (!joystick.btn5D && !joystick_secondary.btn5D) {
     delay(1);
   }
-  
-  // lower 4-bar
-  chainbarGoto(CHAINBAR_GRAB, true, false);
+
+  // wait for user to raise lift up
+  while (!joystick.btn5U && !joystick_secondary.btn5U) {
+    delay(1);
+  }
 
   // spit out cone
   goliathDischarge(false);
@@ -42,7 +46,7 @@ void stationaryLoaderRun() {
     delay(1);
   }
 
-  // retract 4-bar
+  // retract 4-bar to grab position
   chainbarGoto(CHAINBAR_STACK, false, false);
 
   // switch goliath back to intake mode
