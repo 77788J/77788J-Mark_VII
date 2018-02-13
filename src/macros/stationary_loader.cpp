@@ -7,7 +7,7 @@
 #include "driver_control.h"
 
 void stationaryLoaderUpdate() {
-  if (joystick.btn8R || joystick_secondary.btn8R) {
+  if (joystick.btn8L || joystick_secondary.btn8L) {
     current_macro = MACRO_STATIONARY_LOADER;
     assistedStackerRun();
     current_macro = NONE;
