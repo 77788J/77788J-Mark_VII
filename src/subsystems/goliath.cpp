@@ -55,14 +55,11 @@ void goliathSetPower(int power) {
 void goliathIntake(bool wait) {
   if (!goliath_holding) {
 
-    // make sure it's spinning the right direction
-    goliathSetPower(100);
-
     // update mode variable
     goliath_mode = GOLIATH_MODE_INTAKE;
 
-    // disable holding
-    // if (goliath_mode != GOLIATH_MODE_INTAKE) goliath_holding = false;
+    // make sure it's spinning the right direction
+    goliathSetPower(100);
 
     // wait for cone if applicable
     if (wait) {
@@ -86,6 +83,9 @@ void goliathDischarge(bool wait) {
   // update mode variable
   goliath_mode = GOLIATH_MODE_DISCHARGE;
 
+  // reset timeout
+  goliath_timeout = -1;
+
   // wait for discharge if applicable
   if (wait) {
     float target = goliath_angle - GOLIATH_DISCHARGE_ANGLE; // target angle to move past
@@ -98,10 +98,12 @@ void goliathDischarge(bool wait) {
 
 // disables the goliath until re-enabled
 void goliathDisable() {
- 
+
   // turn off motor
   goliathSetPower(0);
-  
+
   // update state variable
   goliath_mode = GOLIATH_MODE_DISABLED;
+
+  goliath_timeout = -1;
 }

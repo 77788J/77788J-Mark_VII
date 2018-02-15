@@ -36,6 +36,8 @@ extern float goliath_angle;
 
 // variables
 extern unsigned char goliath_mode;
+
+extern int goliath_timeout;
 extern bool goliath_holding; // is it currently holding a cone?
 extern bool goliath_spinning; // logs whether or not it is spinning
 
@@ -59,6 +61,9 @@ void goliathIntake(bool wait);
 // sets goliath to discharge mode
 // optionally waits for cone to be spit out
 void goliathDischarge(bool wait);
+
+// disables the goliath
+void goliathDisable();
 
 #ifdef __cplusplus
 }

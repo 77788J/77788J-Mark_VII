@@ -145,8 +145,11 @@ void driverControlClaw() {
 // goliath control
 void driverControlGoliath() {
   if (joystick.btn6D || joystick_secondary.btn6D) goliathDischarge(false);
-  else if (joystick.btn6U_new == 1 || joystick_secondary.joystick.btn6U_ned == 1) {
-    if (goliath_mode == GOLIATH_MODE_DISABLED) goliathIntake(false);
+  else if (joystick.btn6U_new == 1 || joystick_secondary.btn6U_new == 1) {
+    if (goliath_mode == GOLIATH_MODE_DISABLED) {
+      goliath_timeout = -1;
+      goliathIntake(false);
+    }
     else goliathDisable();
   }
   else if (goliath_mode == GOLIATH_MODE_DISCHARGE) goliathIntake(false);
@@ -177,11 +180,11 @@ void driverControlMogo() {
 // chainbar control
 void driverControlChainbar() {
   if (joystick.btn7U || joystick_secondary.btn7U) {
-    if (pid_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
+    if (chainbar_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_RETRACTED);
   }
   if (joystick.btn7D || joystick_secondary.btn7D) {
-    if (pid_angle > CHAINBAR_STACK + 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
+    if (chainbar_angle > CHAINBAR_STACK + 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_GRAB);
   }
 }

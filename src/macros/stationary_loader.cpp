@@ -9,7 +9,7 @@
 void stationaryLoaderUpdate() {
   if (joystick.btn8L || joystick_secondary.btn8L) {
     current_macro = MACRO_STATIONARY_LOADER;
-    assistedStackerRun();
+    stationaryLoaderRun();
     current_macro = NONE;
   }
 }
@@ -25,7 +25,7 @@ void stationaryLoaderRun() {
   // move 4-bar to drop position
   chainbarGoto(CHAINBAR_GRAB, false, false);
 
-  // wait for user to lower lift a bit
+  // wait for user to lower lift around stationary goal
   while (!joystick.btn5D && !joystick_secondary.btn5D) {
     delay(1);
   }

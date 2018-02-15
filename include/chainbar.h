@@ -19,8 +19,8 @@ extern Motor motor_chainbar;
 #define POT_CHAINBAR 5
 
 // physical info
-#define CHAINBAR_RETRACTED 105.f
-#define CHAINBAR_STACK 87.676f
+#define CHAINBAR_RETRACTED 120.f
+#define CHAINBAR_STACK 85.676f
 #define CHAINBAR_GRAB -23.f
 
 // PID
