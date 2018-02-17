@@ -33,73 +33,74 @@ void autoRunRightStationary5() {
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
   chassisMove(-21.391f, -21.391f, true, true);
 
-  // lower lift and rotate
+  // lower lift, lower mogo, and rotate
   liftGoto(LIFT_HEIGHT_MIN, false, false);
-  chassisRotate(-90.f, true, true);
+  mogoGoto(MOGO_ANGLE_GRAB, false, false);
+  chassisRotate(90.f, true, true);
 
-    float b = pid_chassis_theta.target_buffer;
-    pid_chassis_theta.target_buffer = 2.f;
+  float b = pid_chassis_theta.target_buffer;
+  pid_chassis_theta.target_buffer = 2.f;
 
-    // move to mogo
-    chassisMove(58.81f, 58.81f, true, true);
+  // move to mogo
+  chassisMove(58.81f, 58.81f, true, true);
 
-    // intake mogo
-    mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-    delay(1000);
+  // intake mogo
+  mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
+  delay(1000);
 
-    // switch goliath to intake mode
-    goliath_timeout = -1;
-    goliathIntake(false);
+  // switch goliath to intake mode
+  goliath_timeout = -1;
+  goliathIntake(false);
 
-    // move backwards a bit
-    chassisMove(-6.f, -6.f, true, false);
+  // move backwards a bit
+  chassisMove(-6.f, -6.f, true, false);
 
-    // lower chainbar for cone
-    chainbarGoto(CHAINBAR_GRAB, true, false);
+  // lower chainbar for cone
+  chainbarGoto(CHAINBAR_GRAB, true, false);
 
-    // move forwards until holding cone or timeout
-    chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(45);
+  // move forwards until holding cone or timeout
+  chassis_mode = CHASSIS_MODE_DIRECT;
+  chassisSetPower(45);
 
-    // wait for cone intake
-    while (!goliath_holding && time < 8500) {
-      delay(1);
-    }
+  // wait for cone intake
+  while (!goliath_holding && time < 10000) {
+    delay(1);
+  }
 
-    // stop chassis
-    chassisSetPower(0);
-    chassisMove(0, 0, false, false);
-    chassis_mode = CHASSIS_MODE_POSITION;
+  // stop chassis
+  chassisSetPower(0);
+  chassisMove(0, 0, false, false);
+  chassis_mode = CHASSIS_MODE_POSITION;
 
-    // stack cone
-    chainbarGoto(CHAINBAR_STACK, true, false);
-    goliathDischarge(true);
+  // stack cone
+  chainbarGoto(CHAINBAR_STACK, true, false);
+  goliathDischarge(true);
 
-    // move chainbar way back
-    chainbarGoto(CHAINBAR_RETRACTED, true, false);
+  // move chainbar way back
+  chainbarGoto(CHAINBAR_RETRACTED, true, false);
 
-    // shut down goliath
-    goliathDisable();
+  // shut down goliath
+  goliathDisable();
 
-    // move back to line
-    chassisMove(-49.78f, -49.78f, true, true);
+  // move back to line
+  chassisMove(-49.78f, -49.78f, true, true);
 
-    // rotate to 5 zone
-    chassisRotate(-200.f, true, true);
+  // rotate to 5 zone
+  chassisRotate(-200.f, true, true);
 
-    chassisMove(8.f, 8.f, true, false);
+  chassisMove(8.f, 8.f, true, false);
 
-    // drop mogo
-    mogoGoto(MOGO_ANGLE_GRAB, true, false);
+  // drop mogo
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
 
-    delay(500);
+  delay(500);
 
-    // move out of zones
-    chassisMove(-30.f, -30.f, true, false);
+  // move out of zones
+  chassisMove(-30.f, -30.f, true, false);
 
-    // get mogo ready for match
-    mogoGoto(MOGO_ANGLE_GRAB, false, false);
+  // get mogo ready for match
+  mogoGoto(MOGO_ANGLE_GRAB, false, false);
 
-    pid_chassis_theta.target_buffer = b;
+  pid_chassis_theta.target_buffer = b;
 
 }
