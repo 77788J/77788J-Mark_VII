@@ -28,6 +28,9 @@ void goliathInit() {
 
   // init PID
   pid_goliath.init(1.6f, 0.f, 0.f, goliath_angle, goliath_angle);
+
+  // start intake mode
+  goliathIntake(false);
 }
 
 // update all goliath motor data
@@ -53,7 +56,6 @@ void goliathSetPower(int power) {
 // sets goliath to intake mode
 // optionally waits for cone to enter
 void goliathIntake(bool wait) {
-  if (!goliath_holding) {
 
     // update mode variable
     goliath_mode = GOLIATH_MODE_INTAKE;
@@ -67,7 +69,7 @@ void goliathIntake(bool wait) {
         delay(1);
       }
     }
-  }
+
 }
 
 // sets goliath to discharge mode

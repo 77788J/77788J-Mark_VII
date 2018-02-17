@@ -27,15 +27,15 @@ void liftInit() {
 
   // init motor
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
+  motor_lift.slew = true;
+  motor_lift.slew_rate = .5f;
 
   // init PID
-  pid_lift.init(18.f, 20.f, 400.f, LIFT_HEIGHT_MIN, lift_angle);
-  pid_lift.kp_rev = 8.f;
-  pid_lift.ki_rev = 0.f;
-  pid_lift.kd_rev = 150.f;
+  pid_lift.init(10.f, 5.f, 1750.f, LIFT_HEIGHT_MIN, lift_angle);
   pid_lift.target_buffer = .2f;
-  pid_lift.max_i = 70;
-  pid_lift.i_factor = .05f;
+  pid_lift.max_i = 70.f;
+  pid_lift.max_d = 200.f;
+  pid_lift.i_factor = .001f;
 
   // calculate lift offset from ground when at 'neutral' position (all bars parallel)
   float rad = lift_angle * .01745329251f; // convert to radians

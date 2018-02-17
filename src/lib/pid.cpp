@@ -115,7 +115,7 @@ float Pid :: run(float current_, float dt_) {
   else d = (kd_rev * (error - prev_error)) / dt_;
 
   // if input is not saturated, integrate
-  if ((abs(error - prev_error) < (i_factor * dt_))) {
+  if ((fabs(error - prev_error) < (i_factor * dt_))) {
     integral += error;
   }
 

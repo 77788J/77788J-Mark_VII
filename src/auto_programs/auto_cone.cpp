@@ -5,7 +5,7 @@
 #include "chassis.h"
 #include "lift.h"
 #include "mogo.h"
-#include "claw.h"
+#include "goliath.h"
 #include "math.h"
 
 
@@ -19,11 +19,10 @@ void autoRunCone() {
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(4575);
+  delay(2000);
 
   // stack (?) preload
-  clawGoto(CLAW_OPEN, true, false);
-  delay(100);
+  goliathDischarge(true);
 
   pid_chassis_theta.target_buffer = b;
 

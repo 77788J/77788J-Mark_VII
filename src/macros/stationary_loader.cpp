@@ -50,6 +50,8 @@ void stationaryLoaderRun() {
   chainbarGoto(CHAINBAR_STACK, false, false);
 
   // switch goliath back to intake mode
+  goliath_holding = false;
+  goliath_spinning = false;
   goliathIntake(false);
 
   // re-enable driver control of affected subsystems

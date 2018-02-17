@@ -1,6 +1,7 @@
 #include "main.h"
 #include "controller.h"
 #include "auto_picker.h"
+#include "chassis.h"
 #include "autos.h"
 
 // declare timeout varaibles
@@ -16,6 +17,9 @@ void autonomous() {
   // reset timeout
   timeout = 0;
   max_timeout = 0;
+  time = 0;
+
+  // chassisMove(48.f, 48.f, true, true);
 
   // pick the side/color combo to run
   switch (auto_side) {

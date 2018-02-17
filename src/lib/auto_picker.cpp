@@ -15,10 +15,10 @@ const char * autos[] = {
   "    20 CONE     ",
   "     5 CONE     ",
   "   STATIONARY   ",
+  "  STATIONARY 5  ",
   "STATIONARY FLIP ",
   "      CONE      ",
-  "     BULLET     ",
-  "     SKILLS     "
+  "     BULLET     "
 };
 
 // stages of auto picker

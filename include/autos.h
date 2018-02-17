@@ -17,30 +17,30 @@ void runAutoRightBlue(unsigned char variation);
 void runAutoLeftRed(unsigned char variation);
 void runAutoRightRed(unsigned char variation);
 
-// skills
-void autoRunSkills();
-
 // bullet
 void autoRunBullet();
 
-// variation 1
+// 20 zone with 2 cones
 void autoRunLeft20Cone();
 void autoRunRight20Cone();
 
-// variation 2
+// single cone
 void autoRunCone();
 
-// variation 3
-void autoRunLeftStationary();
-void autoRunRightStationary();
+// stationary
+void autoRunStationary();
 
-// variation 4
+// stationary and flip mogo
 void autoRunLeftStationaryFlip();
 void autoRunRightStationaryFlip();
 
-// variation 5
+// 5 zone with 2 cones
 void autoRunLeft5Cone();
 void autoRunRight5Cone();
+
+// stationary and 5 zone with cone
+void autoRunLeftStationary5();
+void autoRunRightStationary5();
 
 #ifdef __cplusplus
 }

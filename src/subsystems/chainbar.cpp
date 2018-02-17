@@ -51,8 +51,8 @@ bool chainbarAtTarget(bool vel) {
 // returns a recommended timeout for a PID
 unsigned int chainbarGetTimeout(float target) {
   // float delta = abs(target - chainbar_angle);
-  // return delta * 27.52f;
-  return 3000;
+  // return delta * 15.f;
+  return 1500;
 }
 
 // sets the power of both chainbar motors

@@ -4,8 +4,9 @@
 #include "io_control.h"
 #include "chassis.h"
 #include "lift.h"
+#include "chainbar.h"
 #include "mogo.h"
-#include "claw.h"
+#include "goliath.h"
 #include "math.h"
 
 
@@ -15,18 +16,84 @@ void autoRunRight20Cone() {
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo
-  chassisMove(54.81f, 54.81f, true, true);
+  chassisMove(58.81f, 58.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(2500);
+  delay(1000);
 
   // stack (?) preload
-  clawGoto(CLAW_OPEN, true, false);
-  delay(100);
+  goliathDischarge(true);
+
+  // switch goliath back to intake mode
+  goliath_timeout = -1;
+  goliathIntake(false);
+
+  // move backwards a bit
+  chassisMove(-8.f, -8.f, true, false);
+
+  // lower chainbar for second cone
+  chainbarGoto(CHAINBAR_GRAB, true, false);
+
+  // move forwards until holding second cone
+  chassis_mode = CHASSIS_MODE_DIRECT;
+  chassisSetPower(30);
+
+  // wait for cone intake
+  while (!goliath_holding && time < 7100) {
+    delay(1);
+  }
+
+  // stop chassis
+  chassisSetPower(0);
+  chassisMove(0, 0, false, false);
+  chassis_mode = CHASSIS_MODE_POSITION;
+
+  // stack second cone
+  chainbarGoto(CHAINBAR_STACK, true, false);
+  goliathDischarge(true);
+
+  // // make sure there's enough time for a third cone
+  // if (time < 25000) {
+  //
+  //   // switch goliath back to intake mode
+  //   goliath_timeout = -1;
+  //   goliathIntake(false);
+  //
+  //   // lower chainbar for second cone
+  //   chainbarGoto(CHAINBAR_GRAB, true, false);
+  //
+  //   // move forwards until holding second cone
+  //   chassis_mode = CHASSIS_MODE_DIRECT;
+  //   chassisSetPower(45);
+  //
+  //   // wait for cone intake
+  //   while (!goliath_holding && time < 25000) {
+  //     delay(1);
+  //   }
+  //
+  //   // stop chassis
+  //   chassisSetPower(0);
+  //   chassisMove(0, 0, false, false);
+  //   chassis_mode = CHASSIS_MODE_POSITION;
+  //
+  //   // raise lift a bit
+  //   liftGoto(9.f, true, true);
+  //
+  //   // stack third cone
+  //   chainbarGoto(CHAINBAR_STACK, true, false);
+  //   goliathDischarge(true);
+  // }
+
+  // move chainbar way back
+  chainbarGoto(CHAINBAR_RETRACTED, true, false);
+
+  // shut down goliath and lower lift
+  goliathDisable();
+  liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-54.38f, -54.38f, true, true);
+  chassisMove(-59.38f, -59.38f, true, true);
 
   // rotate parallel to 20 zone
   chassisRotate(-136.4f, true, true);
