@@ -10,10 +10,13 @@
 #include "math.h"
 
 
-void autoRunLeft20Cone() {
+void autoRunLeft20ConeStationary() {
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
+
+  // rotate to face mogo
+  chassisRotate(-90.f, true, true);
 
   // move to mogo
   chassisMove(58.81f, 58.81f, true, true);
@@ -25,33 +28,36 @@ void autoRunLeft20Cone() {
   // stack (?) preload
   goliathDischarge(true);
 
-  // switch goliath back to intake mode
-  goliath_timeout = -1;
-  goliathIntake(false);
+  if (auto_cone) {
 
-  // move backwards a bit
-  chassisMove(-8.f, -8.f, true, false);
+    // switch goliath back to intake mode
+    goliath_timeout = -1;
+    goliathIntake(false);
 
-  // lower chainbar for second cone
-  chainbarGoto(CHAINBAR_GRAB, true, false);
+    // move backwards a bit
+    chassisMove(-8.f, -8.f, true, false);
 
-  // move forwards until holding second cone
-  chassis_mode = CHASSIS_MODE_DIRECT;
-  chassisSetPower(30);
+    // lower chainbar for second cone
+    chainbarGoto(CHAINBAR_GRAB, true, false);
 
-  // wait for cone intake
-  while (!goliath_holding && time < 7100) {
-    delay(1);
+    // move forwards until holding second cone
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPower(30);
+
+    // wait for cone intake
+    while (!goliath_holding && time < 7100) {
+      delay(1);
+    }
+
+    // stop chassis
+    chassisSetPower(0);
+    chassisMove(0, 0, false, false);
+    chassis_mode = CHASSIS_MODE_POSITION;
+
+    // stack second cone
+    chainbarGoto(CHAINBAR_STACK, true, false);
+    goliathDischarge(true);
   }
-
-  // stop chassis
-  chassisSetPower(0);
-  chassisMove(0, 0, false, false);
-  chassis_mode = CHASSIS_MODE_POSITION;
-
-  // stack second cone
-  chainbarGoto(CHAINBAR_STACK, true, false);
-  goliathDischarge(true);
 
   // // make sure there's enough time for a third cone
   // if (time < 25000) {

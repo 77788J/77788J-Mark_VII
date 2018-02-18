@@ -48,36 +48,40 @@ void autoRunLeftStationary5() {
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
   delay(1000);
 
-  // switch goliath to intake mode
-  goliath_timeout = -1;
-  goliathIntake(false);
+  if (auto_cone) {
 
-  // move backwards a bit
-  chassisMove(-6.f, -6.f, true, false);
+    // switch goliath to intake mode
+    goliath_timeout = -1;
+    goliathIntake(false);
 
-  // lower chainbar for cone
-  chainbarGoto(CHAINBAR_GRAB, true, false);
+    // move backwards a bit
+    chassisMove(-6.f, -6.f, true, false);
 
-  // move forwards until holding cone or timeout
-  chassis_mode = CHASSIS_MODE_DIRECT;
-  chassisSetPower(45);
+    // lower chainbar for cone
+    chainbarGoto(CHAINBAR_GRAB, true, false);
 
-  // wait for cone intake
-  while (!goliath_holding && time < 10000) {
-    delay(1);
+    // move forwards until holding cone or timeout
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPower(45);
+
+    // wait for cone intake
+    while (!goliath_holding && time < 10000) {
+      delay(1);
+    }
+
+    // stop chassis
+    chassisSetPower(0);
+    chassisMove(0, 0, false, false);
+    chassis_mode = CHASSIS_MODE_POSITION;
+
+    // stack cone
+    chainbarGoto(CHAINBAR_STACK, true, false);
+    goliathDischarge(true);
+
+
+    // move chainbar way back
+    chainbarGoto(CHAINBAR_RETRACTED, true, false);
   }
-
-  // stop chassis
-  chassisSetPower(0);
-  chassisMove(0, 0, false, false);
-  chassis_mode = CHASSIS_MODE_POSITION;
-
-  // stack cone
-  chainbarGoto(CHAINBAR_STACK, true, false);
-  goliathDischarge(true);
-
-  // move chainbar way back
-  chainbarGoto(CHAINBAR_RETRACTED, true, false);
 
   // shut down goliath
   goliathDisable();

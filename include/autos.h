@@ -6,37 +6,48 @@ extern "C" {
 #endif
 
 #include <main.h>
+#include <auto_picker.h>
 
 
 #define BULLET_DISTANCE 230
 
 
 // categories
-void runAutoLeftBlue(unsigned char variation);
-void runAutoRightBlue(unsigned char variation);
-void runAutoLeftRed(unsigned char variation);
-void runAutoRightRed(unsigned char variation);
+void runAutoLeftMogo(unsigned char variation);
+void runAutoRightMogo(unsigned char variation);
+void runAutoLeftBullet(unsigned char variation);
+void runAutoRightBullet(unsigned char variation);
+void runAutoLeftStationary(unsigned char variation);
+void runAutoRightStationary(unsigned char variation);
 
-// bullet
+// bullets
 void autoRunBullet();
+void autoRunLeftBulletMogo();
+void autoRunRightBulletMogo();
+void autoRunLeftBulletStationary();
+void autoRunRightBulletStationary();
 
 // 20 zone with 2 cones
-void autoRunLeft20Cone();
-void autoRunRight20Cone();
+void autoRunLeft20ConeMogo();
+void autoRunRight20ConeMogo();
+void autoRunLeft20ConeStationary();
+void autoRunRight20ConeStationary();
 
 // single cone
 void autoRunCone();
 
+// landslide
+void autoRunLeftLandslideMogo();
+void autoRunRightLandslideMogo();
+void autoRunLeftLandslideStationary();
+void autoRunRightLandslideStationary();
+
 // stationary
 void autoRunStationary();
 
-// stationary and flip mogo
-void autoRunLeftStationaryFlip();
-void autoRunRightStationaryFlip();
-
 // 5 zone with 2 cones
-void autoRunLeft5Cone();
-void autoRunRight5Cone();
+void autoRunLeft5ConeMogo();
+void autoRunRight5ConeMogo();
 
 // stationary and 5 zone with cone
 void autoRunLeftStationary5();

@@ -19,22 +19,22 @@ void autonomous() {
   max_timeout = 0;
   time = 0;
 
-  // chassisMove(48.f, 48.f, true, true);
-
   // pick the side/color combo to run
   switch (auto_side) {
 
     case (LEFT): {
-      switch (auto_color) {
-        case (BLUE): runAutoLeftBlue(auto_variation); break;
-        case (RED): runAutoLeftRed(auto_variation); break;
+      switch (auto_start) {
+        case (START_MOGO): runAutoLeftMogo(auto_variation); break;
+        case (START_BULLET): runAutoLeftBullet(auto_variation); break;
+        case (START_STATIONARY): runAutoLeftStationary(auto_variation); break;
       }
     }; break;
 
     case (RIGHT): {
-      switch (auto_color) {
-        case (BLUE): runAutoRightBlue(auto_variation); break;
-        case (RED): runAutoRightRed(auto_variation); break;
+      switch (auto_start) {
+        case (START_MOGO): runAutoRightMogo(auto_variation); break;
+        case (START_BULLET): runAutoRightBullet(auto_variation); break;
+        case (START_STATIONARY): runAutoRightStationary(auto_variation); break;
       }
     }; break;
   }
