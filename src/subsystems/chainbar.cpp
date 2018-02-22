@@ -20,7 +20,7 @@ void chainbarInit() {
   motor_chainbar.init(MOTOR_CHAINBAR, true, chainbar_angle);
 
   // init PID
-  pid_chainbar.init(8.2f, .1f, 500.f, CHAINBAR_STACK, chainbar_angle);
+  pid_chainbar.init(8.2f, .1f, 825.f, CHAINBAR_STACK, chainbar_angle);
   pid_chainbar.target_buffer = 1.5f;
   pid_chainbar.max_d = 200;
 }

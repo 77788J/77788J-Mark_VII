@@ -3,20 +3,20 @@
 #include "controller.h"
 #include "io_control.h"
 #include "chassis.h"
-#include "lift.h"
 #include "chainbar.h"
+#include "lift.h"
 #include "mogo.h"
 #include "goliath.h"
 #include "math.h"
 
 
-void autoRunLeft20ConeStationary() {
+void autoRunRight5ConeStationary() {
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
 
   // rotate to face mogo
-  chassisRotate(-90.f, true, true);
+  chassisRotate(90.f, true, true);
 
   // move to mogo
   chassisMove(58.81f, 58.81f, true, true);
@@ -35,17 +35,17 @@ void autoRunLeft20ConeStationary() {
     goliathIntake(false);
 
     // move backwards a bit
-    chassisMove(-8.f, -8.f, true, false);
+    chassisMove(-6.f, -6.f, true, false);
 
     // lower chainbar for second cone
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(30);
+    chassisSetPower(45);
 
     // wait for cone intake
-    while (!goliath_holding && time < 6850) {
+    while (!goliath_holding && time < 15000) {
       delay(1);
     }
 
@@ -99,22 +99,17 @@ void autoRunLeft20ConeStationary() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-59.38f, -59.38f, true, true);
+  chassisMove(-49.78f, -49.78f, true, true);
 
-  // rotate parallel to 20 zone
-  chassisRotate(136.4f, true, true);
+  // rotate to 5 zone
+  chassisRotate(-200.f, true, true);
 
-  // move to center of line
-  chassisMove(19.4f, 19.4f, true, true);
-
-  // rotate towards 20 zone
-  chassisRotate(90.f, true, true);
-
-  // go forwards to 20
-  chassisMove(45.f, 45.f, true, false);
+  chassisMove(8.f, 8.f, true, false);
 
   // drop mogo
-  mogoGoto(MOGO_ANGLE_DROP, false, false);
+  mogoGoto(MOGO_ANGLE_GRAB, true, false);
+
+  delay(500);
 
   // move out of zones
   chassisMove(-30.f, -30.f, true, false);

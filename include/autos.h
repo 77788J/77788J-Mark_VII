@@ -48,6 +48,8 @@ void autoRunStationary();
 // 5 zone with 2 cones
 void autoRunLeft5ConeMogo();
 void autoRunRight5ConeMogo();
+void autoRunLeft5ConeStationary();
+void autoRunRight5ConeStationary();
 
 // stationary and 5 zone with cone
 void autoRunLeftStationary5();

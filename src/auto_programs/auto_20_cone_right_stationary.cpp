@@ -45,7 +45,7 @@ void autoRunRight20ConeStationary() {
     chassisSetPower(30);
 
     // wait for cone intake
-    while (!goliath_holding && time < 7100) {
+    while (!goliath_holding && time < 6850) {
       delay(1);
     }
 

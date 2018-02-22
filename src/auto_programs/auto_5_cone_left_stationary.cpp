@@ -10,36 +10,13 @@
 #include "math.h"
 
 
-void autoRunLeftStationary5() {
-
-  // raise lift and extend chainbar
-  mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
-  liftGoto(LIFT_HEIGHT_STATIONARY + 4.f, true, true);
-
-  // move to stationary goal
-  chassisMove(22.5f, 22.5f, true, true);
-  delay(200);
-
-  // lower lift slightly and open claw
-  liftGoto(LIFT_HEIGHT_STATIONARY - 12.f, true, true);
-  delay(200);
-
-  // discharge and raise lift
-  goliathDischarge(false);
-  liftGoto(LIFT_HEIGHT_STATIONARY + 2.f, true, false);
-  delay(100);
-
-  // back up and retract chainbar
-  chainbarGoto(CHAINBAR_RETRACTED, false, false);
-  chassisMove(-21.391f, -21.391f, true, true);
-
-  // lower lift, lower mogo, and rotate
-  liftGoto(LIFT_HEIGHT_MIN, false, false);
-  mogoGoto(MOGO_ANGLE_GRAB, false, false);
-  chassisRotate(-90.f, true, true);
+void autoRunLeft5ConeStationary() {
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
+
+  // rotate to face mogo
+  chassisRotate(-90.f, true, true);
 
   // move to mogo
   chassisMove(58.81f, 58.81f, true, true);
@@ -48,50 +25,78 @@ void autoRunLeftStationary5() {
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
   delay(1000);
 
+  // stack (?) preload
+  goliathDischarge(true);
+
   if (auto_cone) {
 
-    // switch goliath to intake mode
+    // switch goliath back to intake mode
     goliath_timeout = -1;
     goliathIntake(false);
 
     // move backwards a bit
     chassisMove(-6.f, -6.f, true, false);
 
-    // lower chainbar for cone
+    // lower chainbar for second cone
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
-    // move forwards until holding cone or timeout
+    // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
     chassisSetPower(45);
 
     // wait for cone intake
-    while (!goliath_holding && time < 900) {
+    while (!goliath_holding && time < 15000) {
       delay(1);
     }
-
-    if (time < 900) {
 
     // stop chassis
     chassisSetPower(0);
     chassisMove(0, 0, false, false);
     chassis_mode = CHASSIS_MODE_POSITION;
 
-    // stack cone
+    // stack second cone
     chainbarGoto(CHAINBAR_STACK, true, false);
     goliathDischarge(true);
-
-
-    // move chainbar way back
-    chainbarGoto(CHAINBAR_RETRACTED, true, false);
   }
-}
 
-else {
-  chainbarGoto(CHAINBAR_RETRACTED, false, false);
-}
+  // // make sure there's enough time for a third cone
+  // if (time < 25000) {
+  //
+  //   // switch goliath back to intake mode
+  //   goliath_timeout = -1;
+  //   goliathIntake(false);
+  //
+  //   // lower chainbar for second cone
+  //   chainbarGoto(CHAINBAR_GRAB, true, false);
+  //
+  //   // move forwards until holding second cone
+  //   chassis_mode = CHASSIS_MODE_DIRECT;
+  //   chassisSetPower(45);
+  //
+  //   // wait for cone intake
+  //   while (!goliath_holding && time < 25000) {
+  //     delay(1);
+  //   }
+  //
+  //   // stop chassis
+  //   chassisSetPower(0);
+  //   chassisMove(0, 0, false, false);
+  //   chassis_mode = CHASSIS_MODE_POSITION;
+  //
+  //   // raise lift a bit
+  //   liftGoto(9.f, true, true);
+  //
+  //   // stack third cone
+  //   chainbarGoto(CHAINBAR_STACK, true, false);
+  //   goliathDischarge(true);
+  // }
 
-  // shut down goliath
+  // move chainbar way back
+  chainbarGoto(CHAINBAR_RETRACTED, true, false);
+
+  // shut down goliath and lower lift
   goliathDisable();
+  liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
   chassisMove(-49.78f, -49.78f, true, true);
@@ -113,5 +118,4 @@ else {
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
 
   pid_chassis_theta.target_buffer = b;
-
 }

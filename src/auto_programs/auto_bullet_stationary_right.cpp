@@ -20,7 +20,7 @@ void autoRunRightBulletStationary() {
   chassisRotate(-115.f, true, false);
 
   // move
-  chassisMove(92.f, 92.f, true, false);
+  chassisMove(-92.f, -92.f, true, false);
 
   // no more move
   chassisMove(0, 0, false, false);

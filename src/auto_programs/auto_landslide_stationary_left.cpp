@@ -36,7 +36,7 @@ void autoRunLeftLandslideStationary() {
   chassisRotate(180.f, true, true);
 
   // push mogos into corner
-  chassisMove(93.f, 93.f, true, false);
+  chassisMove(-93.f, -93.f, true, false);
 
   // stop chassis (in case of timeout)
   chassisMove(0, 0, false, false);

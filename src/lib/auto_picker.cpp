@@ -93,7 +93,7 @@ void autoPickerRun() {
 
         // next stage
         lcd.setText(0, "      SIDE      ");
-        lcd.setText(1, "LEFT       RIGHT");
+        lcd.setText(1, "LEFT  BACK RIGHT");
         stage++;
 
       }
@@ -132,7 +132,7 @@ void autoPickerRun() {
       // if the middle button is pressed, go back a stage
       if (lcd.btn_m_new == 1) {
         lcd.setText(0, "      SIDE      ");
-        lcd.setText(1, "LEFT       RIGHT");
+        lcd.setText(1, "LEFT  BACK RIGHT");
         stage--;
       }
 

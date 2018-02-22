@@ -17,7 +17,7 @@ void autoRunBullet() {
   mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
 
   // move
-  chassisMove(BULLET_DISTANCE, BULLET_DISTANCE, true, true);
+  chassisMove(-BULLET_DISTANCE, -BULLET_DISTANCE, true, true);
 
   // no more move
   chassisMove(0, 0, false, false);

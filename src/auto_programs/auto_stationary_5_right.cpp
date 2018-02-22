@@ -65,9 +65,11 @@ void autoRunRightStationary5() {
     chassisSetPower(45);
 
     // wait for cone intake
-    while (!goliath_holding && time < 10000) {
+    while (!goliath_holding && time < 900) {
       delay(1);
     }
+
+    if (time < 900) {
 
     // stop chassis
     chassisSetPower(0);
@@ -78,9 +80,15 @@ void autoRunRightStationary5() {
     chainbarGoto(CHAINBAR_STACK, true, false);
     goliathDischarge(true);
 
+
     // move chainbar way back
     chainbarGoto(CHAINBAR_RETRACTED, true, false);
   }
+}
+
+else {
+  chainbarGoto(CHAINBAR_RETRACTED, false, false);
+}
 
   // shut down goliath
   goliathDisable();

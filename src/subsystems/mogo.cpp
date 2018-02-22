@@ -45,10 +45,10 @@ void mogoUpdateSensors() {
 
   // update left potentiometer
   float raw_r = analogRead(POT_MOGO_R) - 963; // translate to correct range
-  mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.087890625f * .6f); // convert to degrees and apply filter
+  mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.087890625f * .6f) - 12.f; // convert to degrees and apply filter
 
   // average left and right potentiometers
-  mogo_angle = (mogo_angle_l) * 1.f;
+  mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f;
 }
 
 // determines whether or not the mogo lifter has reached its target

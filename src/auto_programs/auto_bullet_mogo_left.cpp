@@ -20,7 +20,7 @@ void autoRunLeftBulletMogo() {
   chassisRotate(-150.f, true, false);
 
   // move
-  chassisMove(95.f, 95.f, true, false);
+  chassisMove(-95.f, -95.f, true, false);
 
   // no more move
   chassisMove(0, 0, false, false);

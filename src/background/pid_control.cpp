@@ -71,7 +71,7 @@ void pidRunMogo() {
 
   if (pid_mogo.atTarget(false, mogo_angle, 0)) pid_mogo.resetIntegral();
 
-  // if the mogo lifter is extended or retracted, make its minimum power +/-24
+  // if the mogo lifter is extended or retracted, make its minimum power +/-15
   if (pid_mogo.getTarget() == MOGO_ANGLE_EXTENDED &&
       mogo_angle > MOGO_ANGLE_EXTENDED - 5 &&
       pid < 15)

@@ -122,9 +122,6 @@ void driverControlLift() {
       // if snap is disabled, just stop the lift where it is
       else pid_lift.setTarget(lift_height);
     }
-
-    // stationary goal macro
-    if (joystick.btn8L || joystick_secondary.btn8L) pid_lift.setTarget(LIFT_HEIGHT_STATIONARY);
   }
 
   else {
@@ -160,18 +157,18 @@ void driverControlGoliath() {
 void driverControlMogo() {
 
   // extend button
-  if (joystick.btn8U) {
+  if (joystick.btn8U /*|| joystick_secondary.btn8U*/) {
     pid_mogo.setTarget(MOGO_ANGLE_EXTENDED);
   }
 
   // retract button
-  else if (joystick.btn8D) {
+  else if (joystick.btn8D /*|| joystick_secondary.btn8U*/) {
     pid_mogo.setTarget(MOGO_ANGLE_RETRACTED);
   }
 
   // if mogo lifter was being extended/retracted and is not past grab point
-  if ((joystick.btn8U_new == -1 && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
-      (joystick.btn8D_new == -1 && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
+  if (((joystick.btn8U_new == -1 /*|| joystick_secondary.btn8U_new == -1*/) && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
+      ((joystick.btn8D_new == -1 /*|| joystick_secondary.btn8D_new == -1*/) && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
 
     // set mogo target to grab
     pid_mogo.setTarget(MOGO_ANGLE_GRAB);
@@ -180,11 +177,11 @@ void driverControlMogo() {
 
 // chainbar control
 void driverControlChainbar() {
-  if (joystick.btn7U || joystick_secondary.btn7U) {
+  if (joystick.btn7U || joystick_secondary.btn7U || joystick_secondary.btn8U) {
     if (chainbar_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_RETRACTED);
   }
-  if (joystick.btn7D || joystick_secondary.btn7D) {
+  if (joystick.btn7D || joystick_secondary.btn7D || joystick_secondary.btn8D) {
     if (chainbar_angle > CHAINBAR_STACK + 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_GRAB);
   }

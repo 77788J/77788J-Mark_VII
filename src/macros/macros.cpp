@@ -34,4 +34,5 @@ void macrosUpdate() {
   // autoStackerUpdate();
   assistedStackerUpdate();
   stationaryLoaderUpdate();
+  if ((joystick.btn7L && joystick.btn7R) || joystick_secondary.btn7L) stopMacro();
 }
