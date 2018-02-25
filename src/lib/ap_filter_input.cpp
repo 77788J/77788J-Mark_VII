@@ -14,12 +14,12 @@ float ApFilterInput :: getReliability(float input_) {
 
   float r = 0;
 
-  // printf("r %d\n\n", reliability_count);
-  // 
-  // for (int i = 0; i < reliability_count; i++) {
-  //   // r += reliabilty[i] * pow(input_, reliability_count - 1 - i);
-  //   printf("RE: %d\n", i);
-  // }
+  printf("r %d\n\n", reliability_count);
+
+  for (int i = 0; i < reliability_count; i++) {
+    r += reliabilty[i] * pow(input_, reliability_count - 1 - i);
+    printf("RE: %d\n", i);
+  }
 
   return r;
 }
