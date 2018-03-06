@@ -1,6 +1,7 @@
 #include "macros.h"
 #include "io_control.h"
 #include "driver_control.h"
+#include "lift.h"
 
 TaskHandle task_macros;
 unsigned char current_macro = NONE;
@@ -13,6 +14,7 @@ void stopMacro() {
 
   // reset varaibles for raw driver control
   current_macro = NONE;
+  pid_lift_enabled = false;
   driver_chassis = true;
   driver_lift = true;
   driver_claw = true;
@@ -34,5 +36,6 @@ void macrosUpdate() {
   // autoStackerUpdate();
   assistedStackerUpdate();
   stationaryLoaderUpdate();
-  if ((joystick.btn7L && joystick.btn7R) || joystick_secondary.btn7L) stopMacro();
+  autoScorerUpdate();
+  if ((joystick.btn7L && joystick.btn7R) || (joystick_secondary.btn7L && joystick_secondary.btn7R)) stopMacro();
 }

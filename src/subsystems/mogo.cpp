@@ -6,6 +6,8 @@ float mogo_angle_l = 0;
 float mogo_angle_r = 0;
 float mogo_angle = 0;
 
+bool pid_mogo_enabled = true;
+
 // declare motor
 Motor motor_mogo;
 
@@ -22,7 +24,7 @@ void mogoInit() {
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
 
   // init PID
-  pid_mogo.init(3.f, 2, 4, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.init(2.2, 0.f, 15.f, MOGO_ANGLE_GRAB, mogo_angle);
   pid_mogo.target_buffer = 15;
 }
 

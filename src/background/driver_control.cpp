@@ -157,18 +157,26 @@ void driverControlGoliath() {
 void driverControlMogo() {
 
   // extend button
-  if (joystick.btn8U /*|| joystick_secondary.btn8U*/) {
+  if (joystick.btn8U || joystick_secondary.btn8U) {
+    pid_mogo_enabled = false;
     pid_mogo.setTarget(MOGO_ANGLE_EXTENDED);
+    mogoSetPower(100);
   }
 
   // retract button
-  else if (joystick.btn8D /*|| joystick_secondary.btn8U*/) {
+  else if (joystick.btn8D || joystick_secondary.btn8D) {
+    pid_mogo_enabled = false;
     pid_mogo.setTarget(MOGO_ANGLE_RETRACTED);
+    mogoSetPower(-100);
+  }
+
+  else {
+    pid_mogo_enabled = true;
   }
 
   // if mogo lifter was being extended/retracted and is not past grab point
-  if (((joystick.btn8U_new == -1 /*|| joystick_secondary.btn8U_new == -1*/) && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
-      ((joystick.btn8D_new == -1 /*|| joystick_secondary.btn8D_new == -1*/) && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
+  if (((joystick.btn8U_new == -1 || joystick_secondary.btn8U_new == -1) && mogo_angle + 15 < MOGO_ANGLE_GRAB) ||
+      ((joystick.btn8D_new == -1 || joystick_secondary.btn8D_new == -1) && mogo_angle - 15 > MOGO_ANGLE_GRAB)) {
 
     // set mogo target to grab
     pid_mogo.setTarget(MOGO_ANGLE_GRAB);
