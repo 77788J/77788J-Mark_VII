@@ -14,13 +14,13 @@ void autoRunStationary() {
 
   // raise lift and extend chainbar
   mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
-  liftGoto(LIFT_HEIGHT_STATIONARY + 4.f, true, true);
+  liftGoto(LIFT_HEIGHT_STATIONARY, true, true);
 
   // move to stationary goal
   chassisMove(22.5f, 22.5f, true, true);
 
   // lower lift slightly and open claw
-  liftGoto(LIFT_HEIGHT_STATIONARY - 12.f, true, true);
+  liftGoto(LIFT_HEIGHT_STATIONARY - 4.f, true, true);
 
   // discharge and raise lift
   goliathDischarge(false);

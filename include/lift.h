@@ -23,7 +23,7 @@ extern Encoder enc_lift;
 #define LIFT_HEIGHT_MIN 6.0625f
 #define LIFT_ANGLE_MIN -27.85f
 #define LIFT_ANGLE_MAX 65.87f
-#define LIFT_HEIGHT_STATIONARY 27.f
+#define LIFT_HEIGHT_STATIONARY 18.f
 #define BEAM_LENGTH_TOP 13.5f
 #define BEAM_LENGTH_BOTTOM 15.f
 

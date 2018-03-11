@@ -156,6 +156,9 @@ void driverControlGoliath() {
 // mogo lifter control
 void driverControlMogo() {
 
+  // toggle mogo dead if applicable
+  if (joystick.btn7R_new == 1 || joystick_secondary.btn7R_new == 1) mogo_dead = !mogo_dead;
+
   // extend button
   if (joystick.btn8U || joystick_secondary.btn8U) {
     pid_mogo_enabled = false;

@@ -20,10 +20,10 @@ extern Motor motor_mogo;
 #define POT_MOGO_R 2
 
 // angle presets
-#define MOGO_ANGLE_EXTENDED 185
-#define MOGO_ANGLE_DROP 140
-#define MOGO_ANGLE_GRAB 90
-#define MOGO_ANGLE_RETRACTED 0
+#define MOGO_ANGLE_EXTENDED 5.6f
+#define MOGO_ANGLE_DROP -30.f
+#define MOGO_ANGLE_GRAB -90.f
+#define MOGO_ANGLE_RETRACTED -170.f
 
 // PID
 extern Pid pid_mogo;
@@ -34,7 +34,7 @@ extern float mogo_angle_r;
 extern float mogo_angle;
 
 extern bool pid_mogo_enabled;
-
+extern bool mogo_dead;
 // inits the mogo lifter (PID, motors, etc)
 void mogoInit();
 

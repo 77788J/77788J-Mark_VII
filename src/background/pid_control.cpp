@@ -65,7 +65,8 @@ void pidRunLift() {
 
 // run mogo lifter PID
 void pidRunMogo() {
-  if (pid_mogo_enabled) {
+  if (mogo_dead) mogoSetPower(0);
+  else if (pid_mogo_enabled) {
 
     // calculate PID
     float pid = pid_mogo.run(mogo_angle, UPDATE_INTERVAL);

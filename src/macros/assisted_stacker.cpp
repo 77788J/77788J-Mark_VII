@@ -7,7 +7,7 @@
 #include "driver_control.h"
 
 void assistedStackerUpdate() {
-  if (joystick.btn8R || joystick_secondary.btn8R) {
+  if ((joystick.btn8R || joystick_secondary.btn8R) /*&& goliath_holding*/) {
     current_macro = MACRO_ASSISTED_STACKER;
     assistedStackerRun();
     current_macro = NONE;
@@ -43,7 +43,8 @@ void assistedStackerRun() {
 
   // wait for lift to raise above target
   while (lift_height < target) {
-    delay(1);
+  goliathDischarge(false);
+    delay(UPDATE_INTERVAL);
   }
 
   // extend 4-bar to grab position

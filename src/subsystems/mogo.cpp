@@ -7,6 +7,7 @@ float mogo_angle_r = 0;
 float mogo_angle = 0;
 
 bool pid_mogo_enabled = true;
+bool mogo_dead = false;
 
 // declare motor
 Motor motor_mogo;
@@ -24,7 +25,8 @@ void mogoInit() {
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
 
   // init PID
-  pid_mogo.init(2.2, 0.f, 15.f, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.init(2.83, 0.f, 16.f, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.kc = 20.f;
   pid_mogo.target_buffer = 15;
 }
 
@@ -42,15 +44,15 @@ void mogoUpdateMotors() {
 void mogoUpdateSensors() {
 
   // update left potentiometer
-  float raw_l = 3140 - analogRead(POT_MOGO_L); // translate to correct range
-  mogo_angle_l = (mogo_angle_l * .4f) + (raw_l * 0.087890625f * .6f); // convert to degrees and apply filter
+  float raw_l = 975.f - analogRead(POT_MOGO_L); // translate to correct range
+  mogo_angle_l = (mogo_angle_l * .4f) + (raw_l * 0.088890625f * .6f); // convert to degrees and apply filter
 
   // update left potentiometer
-  float raw_r = analogRead(POT_MOGO_R) - 963; // translate to correct range
-  mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.087890625f * .6f) - 12.f; // convert to degrees and apply filter
+  float raw_r = analogRead(POT_MOGO_R) - 3305.f; // translate to correct range
+  mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.088890625f * .6f); // convert to degrees and apply filter
 
   // average left and right potentiometers
-  mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f;
+  mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f + 27.f;
 }
 
 // determines whether or not the mogo lifter has reached its target
