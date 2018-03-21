@@ -157,7 +157,10 @@ void driverControlGoliath() {
 void driverControlMogo() {
 
   // toggle mogo dead if applicable
-  if (joystick.btn7R_new == 1 || joystick_secondary.btn7R_new == 1) mogo_dead = !mogo_dead;
+  if ((joystick.btn7R || joystick_secondary.btn7R) &&
+  (joystick.btn8U_new == 1 || joystick.btn8D_new == 1 ||
+   joystick_secondary.btn8U_new == 1 || joystick_secondary.btn8D_new == 1))
+  mogo_dead = !mogo_dead;
 
   // extend button
   if (joystick.btn8U || joystick_secondary.btn8U) {
@@ -277,5 +280,11 @@ void updateDriverControl() {
     if (driver_chainbar) {
       driverControlChainbar();
     }
+
+    // bad hack to kill macros cause I won't bother doing it right
+    if ((joystick.btn7R || joystick_secondary.btn7R) &&
+    (joystick.btn7L_new == 1 || joystick.btn8L_new == 1 || joystick.btn8R_new == 1 ||
+     joystick_secondary.btn7L_new == 1 || joystick_secondary.btn8L_new == 1 || joystick_secondary.btn8R_new == 1))
+      stopMacro();
   }
 }
