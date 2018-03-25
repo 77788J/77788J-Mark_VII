@@ -39,7 +39,7 @@ void stationaryLoaderRun() {
   goliathDischarge(false);
 
   // store target height of lift
-  target = lift_height + 4.f;
+  target = lift_height + 3.f;
 
   // wait for lift to raise above target
   while (lift_height < target) {
