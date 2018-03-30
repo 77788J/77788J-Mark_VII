@@ -16,7 +16,7 @@ void autoRunRight5ConeMogo() {
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo
-  chassisMove(58.81f, 58.81f, true, true);
+  chassisMove(55.81f, 55.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
@@ -42,7 +42,7 @@ void autoRunRight5ConeMogo() {
     chassisSetPower(45);
 
     // wait for cone intake
-    while (!goliath_holding && time < 15000) {
+    while (!goliath_holding) {
       delay(1);
     }
 
@@ -96,7 +96,7 @@ void autoRunRight5ConeMogo() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-49.78f, -49.78f, true, true);
+  chassisMove(-42.78f, -42.78f, true, true);
 
   // rotate to 5 zone
   chassisRotate(-200.f, true, true);

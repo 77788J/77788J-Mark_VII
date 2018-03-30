@@ -19,7 +19,7 @@ void autoRunLeft5ConeStationary() {
   chassisRotate(-90.f, true, true);
 
   // move to mogo
-  chassisMove(58.81f, 58.81f, true, true);
+  chassisMove(55.81f, 55.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
@@ -99,12 +99,12 @@ void autoRunLeft5ConeStationary() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-49.78f, -49.78f, true, true);
+  chassisMove(-44.78f, -44.78f, true, true);
 
   // rotate to 5 zone
   chassisRotate(200.f, true, true);
 
-  chassisMove(8.f, 8.f, true, false);
+  chassisMove(16.f, 16.f, true, false);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_GRAB, true, false);

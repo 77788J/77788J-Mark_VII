@@ -16,7 +16,7 @@ void autoRunRight20ConeMogo() {
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo
-  chassisMove(58.81f, 58.81f, true, true);
+  chassisMove(55.81f, 55.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
@@ -96,7 +96,7 @@ void autoRunRight20ConeMogo() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-59.38f, -59.38f, true, true);
+  chassisMove(-55.38f, -55.38f, true, true);
 
   // rotate parallel to 20 zone
   chassisRotate(-136.4f, true, true);

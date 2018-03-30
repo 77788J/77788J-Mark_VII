@@ -13,7 +13,7 @@ extern "C" {
 #define MOTOR_GOLIATH 9
 
 // min degrees for goliath to spin to discharge a cone
-#define GOLIATH_DISCHARGE_ANGLE 260
+#define GOLIATH_DISCHARGE_ANGLE 110
 
 // timeout for discharge (in ms)
 #define GOLIATH_DISCHARGE_TIMEOUT 500

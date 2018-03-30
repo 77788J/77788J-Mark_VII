@@ -191,11 +191,11 @@ void driverControlMogo() {
 
 // chainbar control
 void driverControlChainbar() {
-  if (joystick.btn7U || joystick_secondary.btn7U || joystick_secondary.btn8U) {
+  if (joystick.btn7U || joystick_secondary.btn7U) {
     if (chainbar_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_RETRACTED);
   }
-  if (joystick.btn7D || joystick_secondary.btn7D || joystick_secondary.btn8D) {
+  if (joystick.btn7D || joystick_secondary.btn7D) {
     if (chainbar_angle > CHAINBAR_STACK + 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_GRAB);
   }
