@@ -36,6 +36,7 @@ extern Pid pid_lift;
 // sensor value will be stored in these variables
 extern float lift_angle; // degrees
 extern float lift_height; // inches
+extern float lift_speed; // inches/second
 
 // inits the lift (PID, motors, etc)
 void liftInit();
@@ -45,7 +46,7 @@ void liftUpdateMotorData();
 void liftUpdateMotors();
 
 // updates all lift sensors
-void liftUpdateSensors();
+void liftUpdateSensors(int dt);
 
 // determines whether or not the lift has reached its target
 bool liftAtTarget(bool vel);

@@ -9,7 +9,7 @@
 #include "driver_control.h"
 
 void autoScorerUpdate() {
-  if (joystick.btn7L || joystick_secondary.btn7L) {
+  if (joystick.btn7L) {
     current_macro = MACRO_AUTO_SCORER;
     autoScorerRun();
     current_macro = NONE;

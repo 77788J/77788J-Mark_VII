@@ -33,9 +33,8 @@ void macrosStartListener() {
 
 // listen for macros and run them
 void macrosUpdate() {
-  // autoStackerUpdate();
+  autoStackerUpdate();
   assistedStackerUpdate();
   stationaryLoaderUpdate();
   autoScorerUpdate();
-  if ((joystick.btn7L && joystick.btn7R) || (joystick_secondary.btn7L && joystick_secondary.btn7R)) stopMacro();
 }

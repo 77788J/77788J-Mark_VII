@@ -42,7 +42,7 @@ void updateAllMotors() {
 // update all of the robot's sensors
 void updateAllSensors() {
   chassisUpdateSensors();
-  liftUpdateSensors();
+  liftUpdateSensors(UPDATE_INTERVAL);
   mogoUpdateSensors();
   clawUpdateSensors();
   goliathUpdateSensors();

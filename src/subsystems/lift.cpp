@@ -4,6 +4,8 @@
 // init variables to zero
 float lift_angle = 0;
 float lift_height = 0;
+float lift_height_prev = 0;
+float lift_speed = 0;
 static float constant = 0;
 bool pid_lift_enabled = true;
 
@@ -23,7 +25,8 @@ void liftInit() {
   enc_lift = encoderInit(5, 6, true);
 
   // update sensors for accurate starting position
-  liftUpdateSensors();
+  liftUpdateSensors(1);
+  liftUpdateSensors(1);
 
   // init motor
   motor_lift.init(MOTOR_LIFT, true, lift_angle);
@@ -53,7 +56,7 @@ void liftUpdateMotors() {
 }
 
 // update all lift lifter sensors
-void liftUpdateSensors() {
+void liftUpdateSensors(int dt) {
 
   // angle (degrees) if the lift
   lift_angle = (.142857143f * encoderGet(enc_lift)) + LIFT_ANGLE_MIN;
@@ -61,6 +64,10 @@ void liftUpdateSensors() {
   // height (inches) of the lift
   float rad = lift_angle * 0.0174533f; // convert to radians
   lift_height = (sin(rad) * BEAM_LENGTH_BOTTOM) + (sin(rad) * BEAM_LENGTH_TOP) + constant; // translate to height
+
+  lift_speed = (lift_speed * .4f + (lift_height - lift_height_prev) * .6f) * (1000 / dt);
+
+  lift_height_prev = lift_height;
 }
 
 // determines whether or not the lift has reached its target

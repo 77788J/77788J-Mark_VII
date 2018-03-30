@@ -284,6 +284,7 @@ void updateDriverControl() {
     // bad hack to kill macros cause I won't bother doing it right
     if ((joystick.btn7R &&
     (joystick.btn7L_new == 1 || joystick.btn8L_new == 1 || joystick.btn8R_new == 1)) ||
+    joystick_secondary.btn7L_new == -1 ||
     (joystick_secondary.btn7R &&
     (joystick_secondary.btn7L_new == 1 || joystick_secondary.btn8L_new == 1 || joystick_secondary.btn8R_new == 1)))
       stopMacro();
