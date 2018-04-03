@@ -52,37 +52,37 @@ void autoRunLeft20ConeMogo() {
   }
 
   // // make sure there's enough time for a third cone
-  if (time < 25000) {
+//   if (time < 25000) {
 
-    // switch goliath back to intake mode
-    goliath_timeout = -1;
-    goliathIntake(false);
+//     // switch goliath back to intake mode
+//     goliath_timeout = -1;
+//     goliathIntake(false);
 
-    // lower chainbar for second cone
-    chainbarGoto(CHAINBAR_GRAB, true, false);
+//     // lower chainbar for second cone
+//     chainbarGoto(CHAINBAR_GRAB, true, false);
 
-    // move forwards until holding second cone
-    chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(84);
+//     // move forwards until holding second cone
+//     chassis_mode = CHASSIS_MODE_DIRECT;
+//     chassisSetPower(84);
 
-    // wait for cone intake
-    while (!goliath_holding && time < 25000) {
-      delay(1);
-    }
+//     // wait for cone intake
+//     while (!goliath_holding && time < 25000) {
+//       delay(1);
+//     }
 
-    // stop chassis
-    chassisSetPower(0);
-    chassisMove(0, 0, false, false);
-    chassis_mode = CHASSIS_MODE_POSITION;
+//     // stop chassis
+//     chassisSetPower(0);
+//     chassisMove(0, 0, false, false);
+//     chassis_mode = CHASSIS_MODE_POSITION;
 
-    // raise lift a bit
-    pid_lift_enabled = true;
-    liftGoto(LIFT_HEIGHT_MIN + 6.f, true, true);
+//     // raise lift a bit
+//     pid_lift_enabled = true;
+//     liftGoto(LIFT_HEIGHT_MIN + 6.f, true, true);
 
-    // stack third cone
-    chainbarGoto(CHAINBAR_STACK, true, false);
-    goliathDischarge(true);
-  }
+//     // stack third cone
+//     chainbarGoto(CHAINBAR_STACK, true, false);
+//     goliathDischarge(true);
+//   }
 
   // move chainbar way back
   chainbarGoto(CHAINBAR_RETRACTED, true, false);
