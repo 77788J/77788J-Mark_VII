@@ -51,48 +51,60 @@ void autoRunLeft203ConeMogo() {
     goliathDischarge(true);
   }
 
-  // // make sure there's enough time for a third cone
-//   if (time < 25000) {
+  // make sure there's enough time for a third cone
+  if (time < 7100) {
 
-//     // switch goliath back to intake mode
-//     goliath_timeout = -1;
-//     goliathIntake(false);
+    // switch goliath back to intake mode
+    goliath_timeout = -1;
+    goliathIntake(false);
 
-//     // lower chainbar for second cone
-//     chainbarGoto(CHAINBAR_GRAB, true, false);
+    // lower chainbar for third cone
+    chainbarGoto(CHAINBAR_GRAB, true, false);
 
-//     // move forwards until holding second cone
-//     chassis_mode = CHASSIS_MODE_DIRECT;
-//     chassisSetPower(84);
+    // move forwards until holding third cone
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPower(84);
 
-//     // wait for cone intake
-//     while (!goliath_holding && time < 25000) {
-//       delay(1);
-//     }
+    // wait for cone intake
+    while (!goliath_holding && time < 6950) {
+      delay(1);
+    }
 
-//     // stop chassis
-//     chassisSetPower(0);
-//     chassisMove(0, 0, false, false);
-//     chassis_mode = CHASSIS_MODE_POSITION;
+    // stop chassis
+    chassisSetPower(0);
+    chassisMove(0, 0, false, false);
+    chassis_mode = CHASSIS_MODE_POSITION;
 
-//     // raise lift a bit
-//     pid_lift_enabled = true;
-//     liftGoto(LIFT_HEIGHT_MIN + 6.f, true, true);
+    // raise lift a bit
+    pid_lift_enabled = true;
+    liftGoto(LIFT_HEIGHT_MIN + 6.f, false, true);
+    
+    // wait for cone to be above ground
+    while (lift_height < LIFT_HEIGHT_MIN + 1.f && time < 7050) {
+      delay(1);
+    }
+    
+    // begin to move back to line
+    chassisMove(-50.58f, -50.58f, false, false);
+    
+    delay(500);
 
-//     // stack third cone
-//     chainbarGoto(CHAINBAR_STACK, true, false);
-//     goliathDischarge(true);
-//   }
+    // stack third cone
+    chainbarGoto(CHAINBAR_STACK, true, true);
+    goliathDischarge(true);
+  }
 
-  // move chainbar way back
+  // shut down goliath and move chainbar way back
+  goliathDisable();
   chainbarGoto(CHAINBAR_RETRACTED, true, false);
 
-  // shut down goliath and lower lift
-  goliathDisable();
+  // lower lift
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-50.58f, -50.58f, true, true);
+  while (!chassisAtTarget(false)) {
+    delay(1);
+  }
 
   // rotate parallel to 20 zone
   chassisRotate(136.4f, true, true);
