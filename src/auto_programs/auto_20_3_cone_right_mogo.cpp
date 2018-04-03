@@ -10,7 +10,7 @@
 #include "math.h"
 
 
-void autoRunLeft203ConeMogo() {
+void autoRunRight203ConeMogo() {
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
@@ -107,13 +107,13 @@ void autoRunLeft203ConeMogo() {
   }
 
   // rotate parallel to 20 zone
-  chassisRotate(136.4f, true, true);
+  chassisRotate(-136.4f, true, true);
 
   // move to center of line
   chassisMove(24.9f, 24.4f, true, true);
 
   // rotate towards 20 zone
-  chassisRotate(90.f, true, true);
+  chassisRotate(-90.f, true, true);
 
   // go forwards to 20
   chassisMove(45.f, 45.f, true, false);
