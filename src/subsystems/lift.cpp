@@ -78,8 +78,7 @@ bool liftAtTarget(bool vel) {
 // returns a recommended timeout for a PID
 unsigned int liftGetTimeout(float target) {
   float delta = target - lift_height;
-  if (delta > 0) return abs(delta * 69.f);
-  else return abs(delta * 27.7f);
+  return abs(delta * 69.420f);
 }
 
 // sets the power of both lift motors

@@ -46,11 +46,6 @@ void autoRunLeft20ConeMogo() {
       delay(1);
     }
 
-    // stop chassis
-    chassisSetPower(0);
-    chassisMove(0, 0, false, false);
-    chassis_mode = CHASSIS_MODE_POSITION;
-
     // stack second cone
     chainbarGoto(CHAINBAR_STACK, true, false);
     goliathDischarge(true);
@@ -68,7 +63,7 @@ void autoRunLeft20ConeMogo() {
 
     // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(45);
+    chassisSetPower(84);
 
     // wait for cone intake
     while (!goliath_holding && time < 25000) {
@@ -81,9 +76,8 @@ void autoRunLeft20ConeMogo() {
     chassis_mode = CHASSIS_MODE_POSITION;
 
     // raise lift a bit
+    pid_lift_enabled = true;
     liftGoto(LIFT_HEIGHT_MIN + 6.f, true, true);
-
-    delay(5000);
 
     // stack third cone
     chainbarGoto(CHAINBAR_STACK, true, false);
