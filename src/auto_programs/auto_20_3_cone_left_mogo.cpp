@@ -13,7 +13,7 @@
 void autoRunLeft203ConeMogo() {
 
   float b = pid_chassis_theta.target_buffer;
-  pid_chassis_theta.target_buffer = 2.f;
+  pid_chassis_theta.target_buffer = 2.5f;
 
   // move to mogo
   chassisMove(55.81f, 55.81f, true, true);
@@ -78,15 +78,15 @@ void autoRunLeft203ConeMogo() {
     // raise lift a bit
     pid_lift_enabled = true;
     liftGoto(LIFT_HEIGHT_MIN + 6.f, false, true);
-    
+
     // wait for cone to be above ground
     while (lift_height < LIFT_HEIGHT_MIN + 1.f && time < 7050) {
       delay(1);
     }
-    
+
     // begin to move back to line
     chassisMove(-50.58f, -50.58f, false, false);
-    
+
     delay(500);
 
     // stack third cone
@@ -102,7 +102,7 @@ void autoRunLeft203ConeMogo() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  while (!chassisAtTarget(false)) {
+  while (!chassisAtTarget(false, CHASSIS_MODE_POSITION)) {
     delay(1);
   }
 

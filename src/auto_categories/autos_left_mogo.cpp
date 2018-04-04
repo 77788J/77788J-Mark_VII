@@ -7,12 +7,13 @@ void runAutoLeftMogo(unsigned char variation) {
 
     case 0: break;
     case 1: autoRunLeft20ConeMogo(); break;
-    case 2: autoRunLeft5ConeMogo(); break;
-    case 3: autoRunCone(); break;
-    case 4: autoRunStationary(); break;
-    case 5: autoRunLeftStationary5(); break;
-    case 6: autoRunLeftLandslideMogo(); break;
-    case 7: autoRunLeftBulletMogo(); break;
+    case 2: autoRunLeft203ConeMogo(); break;
+    case 3: autoRunLeft5ConeMogo(); break;
+    case 4: autoRunCone(); break;
+    case 5: autoRunStationary(); break;
+    case 6: autoRunLeftStationary5(); break;
+    case 7: autoRunLeftLandslideMogo(); break;
+    case 8: autoRunLeftBulletMogo(); break;
 
   }
 }

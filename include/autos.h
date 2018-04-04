@@ -27,9 +27,11 @@ void autoRunRightBulletMogo();
 void autoRunLeftBulletStationary();
 void autoRunRightBulletStationary();
 
-// 20 zone with 2 cones
+// 20 zone cones
 void autoRunLeft20ConeMogo();
 void autoRunRight20ConeMogo();
+void autoRunLeft203ConeMogo();
+void autoRunRight203ConeMogo();
 void autoRunLeft20ConeStationary();
 void autoRunRight20ConeStationary();
 

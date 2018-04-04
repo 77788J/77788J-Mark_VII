@@ -13,7 +13,7 @@
 void autoRunRight203ConeMogo() {
 
   float b = pid_chassis_theta.target_buffer;
-  pid_chassis_theta.target_buffer = 2.f;
+  pid_chassis_theta.target_buffer = 2.5f;
 
   // move to mogo
   chassisMove(55.81f, 55.81f, true, true);
@@ -39,12 +39,14 @@ void autoRunRight203ConeMogo() {
 
     // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(30);
+    chassisSetPower(45);
 
     // wait for cone intake
     while (!goliath_holding && time < 7100) {
       delay(1);
     }
+
+    chassisSetPower(30);
 
     // stack second cone
     chainbarGoto(CHAINBAR_STACK, true, false);
@@ -77,17 +79,20 @@ void autoRunRight203ConeMogo() {
 
     // raise lift a bit
     pid_lift_enabled = true;
-    liftGoto(LIFT_HEIGHT_MIN + 6.f, false, true);
-    
+    liftGoto(LIFT_HEIGHT_MIN + 3.f, false, true);
+
+    // raise chainbar slightly
+    chainbarGoto(35.f, false, false);
+
     // wait for cone to be above ground
-    while (lift_height < LIFT_HEIGHT_MIN + 1.f && time < 7050) {
+    while (lift_height < LIFT_HEIGHT_MIN + 1.f && chainbar_angle < 10.f && time < 7250) {
       delay(1);
     }
-    
+
     // begin to move back to line
-    chassisMove(-50.58f, -50.58f, false, false);
-    
-    delay(500);
+    chassisMove(4.f - (chassis_left / CHASSIS_SCALE_DISTANCE), 4.f - (chassis_right / CHASSIS_SCALE_DISTANCE), false, false);
+
+    delay(275);
 
     // stack third cone
     chainbarGoto(CHAINBAR_STACK, true, true);
@@ -102,7 +107,7 @@ void autoRunRight203ConeMogo() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  while (!chassisAtTarget(false)) {
+  while (!chassisAtTarget(false, CHASSIS_MODE_POSITION)) {
     delay(1);
   }
 

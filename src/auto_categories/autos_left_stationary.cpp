@@ -7,12 +7,13 @@ void runAutoLeftStationary(unsigned char variation) {
 
     case 0: break;
     case 1: autoRunLeft20ConeStationary(); break;
-    case 2: autoRunLeft5ConeStationary(); break;
-    case 3: autoRunCone(); break;
-    case 4: autoRunStationary(); break;
-    case 5: autoRunLeftStationary5(); break;
-    case 6: autoRunLeftLandslideStationary(); break;
-    case 7: autoRunLeftBulletStationary(); break;
+    case 2: autoRunLeft203ConeMogo(); break;
+    case 3: autoRunLeft5ConeStationary(); break;
+    case 4: autoRunCone(); break;
+    case 5: autoRunStationary(); break;
+    case 6: autoRunLeftStationary5(); break;
+    case 7: autoRunLeftLandslideStationary(); break;
+    case 8: autoRunLeftBulletStationary(); break;
 
   }
 }

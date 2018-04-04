@@ -13,7 +13,7 @@
 void autoRunRight20ConeMogo() {
 
   float b = pid_chassis_theta.target_buffer;
-  pid_chassis_theta.target_buffer = 2.f;
+  pid_chassis_theta.target_buffer = 3.f;
 
   // move to mogo
   chassisMove(55.81f, 55.81f, true, true);
@@ -89,7 +89,7 @@ void autoRunRight20ConeMogo() {
   // }
 
   // move chainbar way back
-  chainbarGoto(CHAINBAR_RETRACTED, true, false);
+  chainbarGoto(CHAINBAR_RETRACTED, false, false);
 
   // shut down goliath and lower lift
   goliathDisable();
@@ -108,7 +108,7 @@ void autoRunRight20ConeMogo() {
   chassisRotate(-90.f, true, true);
 
   // go forwards to 20
-  chassisMove(45.f, 45.f, true, false);
+  chassisMove(50.f, 50.f, true, false);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_DROP, false, false);

@@ -111,7 +111,7 @@ void autoRunLeft20ConeStationary() {
   chassisRotate(90.f, true, true);
 
   // go forwards to 20
-  chassisMove(45.f, 45.f, true, false);
+  chassisMove(50.f, 50.f, true, false);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_DROP, false, false);

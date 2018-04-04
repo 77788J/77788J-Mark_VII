@@ -42,11 +42,11 @@ void autoRunRightStationary5() {
   pid_chassis_theta.target_buffer = 2.f;
 
   // move to mogo
-  chassisMove(55.81f, 55.81f, true, true);
+  chassisMove(47.81f, 47.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(1000);
+  delay(750);
 
   if (auto_cone) {
 
@@ -81,11 +81,12 @@ void autoRunRightStationary5() {
 
       // stack cone
       chainbarGoto(CHAINBAR_STACK, true, false);
+      delay(50);
       goliathDischarge(true);
 
 
       // move chainbar way back
-      chainbarGoto(CHAINBAR_RETRACTED, true, false);
+      chainbarGoto(CHAINBAR_RETRACTED, false, false);
     }
 
     else {
@@ -93,11 +94,11 @@ void autoRunRightStationary5() {
     }
   }
 
-  // move back to line
-  chassisMove(-47.78f, -47.78f, true, true);
-
   // shut down goliath
   goliathDisable();
+
+  // move back to line
+  chassisMove(-49.78f, -49.78f, true, true);
 
   // rotate to 5 zone
   chassisRotate(-200.f, true, true);
@@ -112,7 +113,7 @@ void autoRunRightStationary5() {
   mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
 
   // move out of zones
-  chassisMove(-30.f, -30.f, true, false);
+  chassisMove(-10.f, -10.f, true, false);
 
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
 
