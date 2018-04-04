@@ -46,6 +46,8 @@ void autoRunRightLandslideStationary();
 
 // stationary
 void autoRunStationary();
+void autoRunLeftStationary2();
+void autoRunRightStationary2();
 
 // 5 zone with 2 cones
 void autoRunLeft5ConeMogo();
