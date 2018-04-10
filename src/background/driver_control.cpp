@@ -190,7 +190,11 @@ void driverControlMogo() {
 }
 
 // chainbar control
-void driverControlChainbar() {
+void driverControlChainbar() {// toggle mogo dead if applicable
+  if ((joystick.btn7R && (joystick.btn7U_new == 1 || joystick.btn7D_new == 1)) ||
+  (joystick_secondary.btn7R && (joystick_secondary.btn7U_new == 1 || joystick_secondary.btn7D_new == 1)))
+  pid_chainbar_disabled = !pid_chainbar_disabled;
+
   if (joystick.btn7U || joystick_secondary.btn7U) {
     if (chainbar_angle < CHAINBAR_STACK - 15.f) pid_chainbar.setTarget(CHAINBAR_STACK);
     else pid_chainbar.setTarget(CHAINBAR_RETRACTED);

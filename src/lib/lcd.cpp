@@ -13,6 +13,7 @@ void Lcd :: init(FILE *port_) {
   lcdInit(port);
   lcdClear(port);
   lcdSetBacklight(port, true);
+  backlight = true;
 }
 
 // gets the text currently displayed on the specified line
@@ -32,6 +33,17 @@ void Lcd :: setText(int line_, const char *text_) {
 
   // update physical LCD
   lcdSetText(port, line_ + 1, text_); // lcdSetText takes 1 or 2, so line_ (0 or 1) must be translated into that range
+}
+
+void Lcd :: setBacklight(bool backlight_) {
+
+  if (backlight != backlight_) {
+
+    backlight = backlight_;
+    lcdSetBacklight(port, backlight);
+
+  }
+
 }
 
 void Lcd :: updateButtons() {

@@ -31,11 +31,14 @@ void autoRunRightStationary2() {
 
   // back up and retract chainbar
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
-  chassisMove(-15.5f, -15.5f, true, true);
+  chassisMove(-12.5f, -12.5f, true, true);
 
   // lower lift and mogo lifter
   liftGoto(LIFT_HEIGHT_MIN, false, false);
-  mogoGoto(MOGO_ANGLE_GRAB, false, false);
+  mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
+
+  // intake goliath
+  goliathIntake(false);
 
   // rotate to face cone and lower chainbar
   chainbarGoto(CHAINBAR_GRAB, false, false);
@@ -44,10 +47,14 @@ void autoRunRightStationary2() {
   // reset encoders
   chassisResetSensors();
 
+  // intake goliath
+  goliathIntake(false);
+
   // move chassis to cone
-  chassisMove(33.f, 33.f, true, true);
+  chassisMove(20.f, 20.f, true, true);
+  delay(200);
   chassis_mode = CHASSIS_MODE_DIRECT;
-  chassisSetPower(45);
+  chassisSetPower(30);
 
   // grab cone
   while (!goliath_holding) {
@@ -57,11 +64,11 @@ void autoRunRightStationary2() {
   // raise 4 bar and move back to loader
   chainbarGoto(CHAINBAR_STACK, false, false);
   delay(200);
-  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE, -chassis_right / CHASSIS_SCALE_DISTANCE, true, true);
+  liftGoto(LIFT_HEIGHT_STATIONARY + 4.f, false, false);
+  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE - 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE - 2.f, true, true);
 
   // raise lift and extend mogo lifter
   mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
-  liftGoto(LIFT_HEIGHT_STATIONARY, false, false);
 
   // rotate towards loader
   chassisRotate(-90.f, true, true);
@@ -71,12 +78,13 @@ void autoRunRightStationary2() {
   delay(200);
 
   // lower lift slightly
-  liftGoto(LIFT_HEIGHT_STATIONARY, true, true);
+  liftGoto(LIFT_HEIGHT_STATIONARY + 1.f, true, true);
   delay(300);
 
   // discharge and raise lift
   goliathDischarge(false);
-  liftGoto(LIFT_HEIGHT_STATIONARY + 5.f, true, false);
+  delay(100);
+  liftGoto(LIFT_HEIGHT_STATIONARY + 8.f, true, false);
 
   // back up and retract chainbar
   chainbarGoto(CHAINBAR_RETRACTED, false, false);

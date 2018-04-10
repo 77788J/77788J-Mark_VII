@@ -181,6 +181,9 @@ void autoPickerRun() {
 
     }; break;
   }
+
+
+
 }
 
 void autoPickerStart(void * parameter) {

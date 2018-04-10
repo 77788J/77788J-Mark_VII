@@ -3,6 +3,7 @@
 
 // init variables to zero
 float chainbar_angle = 0;
+bool pid_chainbar_disabled = false;
 
 // declare motor
 Motor motor_chainbar;

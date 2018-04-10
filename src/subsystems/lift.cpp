@@ -34,7 +34,7 @@ void liftInit() {
   motor_lift.slew_rate = .5f;
 
   // init PID
-  pid_lift.init(10.f, 5.f, 1200.f, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.init(15.f, 5.f, 1850.f, LIFT_HEIGHT_MIN, lift_angle);
   pid_lift.target_buffer = .2f;
   pid_lift.max_i = 70.f;
   pid_lift.max_d = 200.f;

@@ -108,7 +108,16 @@ void autoRunRight20ConeMogo() {
   chassisRotate(-90.f, true, true);
 
   // go forwards to 20
-  chassisMove(50.f, 50.f, true, false);
+  chassisMove(50.f, 50.f, false, false);
+
+  pid_mogo_enabled = false;
+  mogoSetPower(100);
+  delay(250);
+  mogoSetPower(0);
+  pid_mogo_enabled = true;
+
+  // go forwards to 20
+  delay(1700);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_DROP, false, false);

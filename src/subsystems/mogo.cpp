@@ -25,7 +25,7 @@ void mogoInit() {
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
 
   // init PID
-  pid_mogo.init(2.83, 0.f, 16.f, MOGO_ANGLE_GRAB, mogo_angle);
+  pid_mogo.init(2.83, 15.f, 16.f, MOGO_ANGLE_GRAB, mogo_angle);
   pid_mogo.kc = 20.f;
   pid_mogo.target_buffer = 15;
 }

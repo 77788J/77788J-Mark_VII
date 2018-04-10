@@ -14,6 +14,7 @@ extern "C" {
 
 // motors
 extern Motor motor_chainbar;
+extern bool pid_chainbar_disabled;
 
 // analog sensors
 #define POT_CHAINBAR 5

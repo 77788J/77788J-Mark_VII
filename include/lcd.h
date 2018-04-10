@@ -24,6 +24,8 @@ public:
   int btn_m_new;
   int btn_r_new;
 
+  bool backlight;
+
   // default initializer
   // MAKE SURE TO FULLY INITIALIZE WITH <Lcd>.init()
   Lcd();
@@ -36,6 +38,8 @@ public:
 
   // updates the text on the LCD
   void setText(int line_, const char *text_);
+
+  void setBacklight(bool backlight_);
 
   // updates the button variables
   void updateButtons();

@@ -96,8 +96,11 @@ void pidRunClaw() {
 
 // run chainbar PID
 void pidRunChainbar() {
-  float pid = pid_chainbar.run(chainbar_angle, UPDATE_INTERVAL);
-  chainbarSetPower(pid);
+  if (pid_chainbar_disabled) chainbarSetPower(0);
+  else {
+    float pid = pid_chainbar.run(chainbar_angle, UPDATE_INTERVAL);
+    chainbarSetPower(pid);
+  }
 }
 
 // run goliath PID
