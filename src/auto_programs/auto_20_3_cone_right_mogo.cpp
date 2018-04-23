@@ -15,12 +15,14 @@ void autoRunRight203ConeMogo() {
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 3.f;
 
+  chassisResetSensors();
+
   // move to mogo
-  chassisMove(55.81f, 55.81f, true, true);
+  chassisMove(56.81f, 56.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(1000);
+  delay(250);
 
   // stack (?) preload
   goliathDischarge(true);
@@ -34,36 +36,42 @@ void autoRunRight203ConeMogo() {
     // move backwards a bit
     chassisMove(-8.f, -8.f, true, false);
 
+    // start moving forwards slowly
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPower(15);
+
     // lower chainbar for second cone
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(30);
+    chassisSetPower(40);
 
     // wait for cone intake
-    while (!goliath_holding && time < 9000) {
+    while (!goliath_holding && time < 7500) {
       delay(1);
     }
 
     // stop chassis
     chassisSetPower(0);
-    chassisMove(0, 0, false, false);
+    chassisMove(10.f, 10.f, false, false);
     chassis_mode = CHASSIS_MODE_POSITION;
 
     // stack second cone
     chainbarGoto(CHAINBAR_STACK, true, false);
     goliathDischarge(true);
 
+    goliathIntake(false);
+
     // lower chainbar for third cone
     chainbarGoto(CHAINBAR_GRAB, true, false);
 
     // move forwards until holding third cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(55);
+    chassisSetPower(30);
 
     // wait for cone intake
-    while (!goliath_holding && time < 8750) {
+    while (!goliath_holding && time < 7500) {
       delay(1);
     }
 
@@ -78,7 +86,7 @@ void autoRunRight203ConeMogo() {
     // stack cone
     pid_lift_enabled = false;
     liftSetPower(100);
-    while (lift_height < 11.f) {
+    while (lift_height < 9.5f) {
       delay(1);
     }
     liftSetPower(0);
@@ -106,9 +114,8 @@ void autoRunRight203ConeMogo() {
   // move chainbar way back
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
 
-  // shut down goliath and lower lift
+  // shut down goliath
   goliathDisable();
-  liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
   chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE + 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE + 2.f, true, true);
@@ -117,7 +124,7 @@ void autoRunRight203ConeMogo() {
   chassisRotate(-136.4f, true, true);
 
   // move to center of line
-  chassisMove(22.9f, 22.9f, true, true);
+  chassisMove(30.f, 30.f, true, true);
 
   // rotate towards 20 zone
   chassisRotate(-90.f, true, true);
