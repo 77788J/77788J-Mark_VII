@@ -13,7 +13,7 @@
 void autoRunRight203ConeMogo() {
 
   float b = pid_chassis_theta.target_buffer;
-  pid_chassis_theta.target_buffer = 2.5f;
+  pid_chassis_theta.target_buffer = 3.f;
 
   // move to mogo
   chassisMove(55.81f, 55.81f, true, true);
@@ -39,36 +39,10 @@ void autoRunRight203ConeMogo() {
 
     // move forwards until holding second cone
     chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(45);
-
-    // wait for cone intake
-    while (!goliath_holding && time < 7100) {
-      delay(1);
-    }
-
     chassisSetPower(30);
 
-    // stack second cone
-    chainbarGoto(CHAINBAR_STACK, true, false);
-    goliathDischarge(true);
-  }
-
-  // make sure there's enough time for a third cone
-  if (time < 7100) {
-
-    // switch goliath back to intake mode
-    goliath_timeout = -1;
-    goliathIntake(false);
-
-    // lower chainbar for third cone
-    chainbarGoto(CHAINBAR_GRAB, true, false);
-
-    // move forwards until holding third cone
-    chassis_mode = CHASSIS_MODE_DIRECT;
-    chassisSetPower(84);
-
     // wait for cone intake
-    while (!goliath_holding && time < 6950) {
+    while (!goliath_holding && time < 9000) {
       delay(1);
     }
 
@@ -77,51 +51,82 @@ void autoRunRight203ConeMogo() {
     chassisMove(0, 0, false, false);
     chassis_mode = CHASSIS_MODE_POSITION;
 
-    // raise lift a bit
-    pid_lift_enabled = true;
-    liftGoto(LIFT_HEIGHT_MIN + 3.f, false, true);
+    // stack second cone
+    chainbarGoto(CHAINBAR_STACK, true, false);
+    goliathDischarge(true);
 
-    // raise chainbar slightly
-    chainbarGoto(35.f, false, false);
+    // lower chainbar for third cone
+    chainbarGoto(CHAINBAR_GRAB, true, false);
 
-    // wait for cone to be above ground
-    while (lift_height < LIFT_HEIGHT_MIN + 1.f && chainbar_angle < 10.f && time < 7250) {
+    // move forwards until holding third cone
+    chassis_mode = CHASSIS_MODE_DIRECT;
+    chassisSetPower(55);
+
+    // wait for cone intake
+    while (!goliath_holding && time < 8750) {
       delay(1);
     }
 
-    // begin to move back to line
-    chassisMove(4.f - (chassis_left / CHASSIS_SCALE_DISTANCE), 4.f - (chassis_right / CHASSIS_SCALE_DISTANCE), false, false);
+    // stop chassis
+    chassisSetPower(0);
+    chassisMove(0, 0, false, false);
+    chassis_mode = CHASSIS_MODE_POSITION;
 
-    delay(275);
+    // start moving back
+    chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE + 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE + 2.f, false, false);
+
+    // stack cone
+    pid_lift_enabled = false;
+    liftSetPower(100);
+    while (lift_height < 11.f) {
+      delay(1);
+    }
+    liftSetPower(0);
 
     // stack third cone
-    chainbarGoto(CHAINBAR_STACK, true, true);
-    goliathDischarge(true);
+    chainbarGoto(CHAINBAR_STACK, true, false);
+    liftSetPower(-100);
+    delay(400);
+    liftSetPower(0);
+    goliathDischarge(false);
+    liftSetPower(100);
+    while (lift_height < 12.f) {
+      delay(1);
+    }
+    liftSetPower(0);
   }
 
-  // shut down goliath and move chainbar way back
-  goliathDisable();
-  chainbarGoto(CHAINBAR_RETRACTED, true, false);
+  // make sure mogo is lifted all the way
+  pid_mogo_enabled = false;
+  mogoSetPower(100);
+  delay(250);
+  mogoSetPower(0);
+  pid_mogo_enabled = true;
 
-  // lower lift
+  // move chainbar way back
+  chainbarGoto(CHAINBAR_RETRACTED, false, false);
+
+  // shut down goliath and lower lift
+  goliathDisable();
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  while (!chassisAtTarget(false, CHASSIS_MODE_POSITION)) {
-    delay(1);
-  }
+  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE + 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE + 2.f, true, true);
 
   // rotate parallel to 20 zone
   chassisRotate(-136.4f, true, true);
 
   // move to center of line
-  chassisMove(24.9f, 24.4f, true, true);
+  chassisMove(22.9f, 22.9f, true, true);
 
   // rotate towards 20 zone
   chassisRotate(-90.f, true, true);
 
   // go forwards to 20
-  chassisMove(45.f, 45.f, true, false);
+  chassisMove(50.f, 50.f, false, false);
+
+  // go forwards to 20
+  delay(1400);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_DROP, false, false);

@@ -72,12 +72,12 @@ void chassisInit() {
   ap_filter_orientation.init(.001f, 3, inputs);
 
   // init PIDs
-  pid_chassis_l.init(.5f, 10, 150, 0, 0);
-  pid_chassis_r.init(.5f, 10, 150, 0, 0);
-  pid_chassis_l.max_d = 100;
-  pid_chassis_r.max_d = 100;
-  pid_chassis_l.target_buffer = 8;
-  pid_chassis_r.target_buffer = 8;
+  pid_chassis_l.init(.4f, 10, 200, 0, 0);
+  pid_chassis_r.init(.4f, 10, 200, 0, 0);
+  pid_chassis_l.max_d = 150;
+  pid_chassis_r.max_d = 150;
+  pid_chassis_l.target_buffer = 8.f;
+  pid_chassis_r.target_buffer = 8.f;
 
   pid_chassis_theta.init(2.8f, 4, 600, 0, 0);
   pid_chassis_theta.target_buffer = 1.24f;

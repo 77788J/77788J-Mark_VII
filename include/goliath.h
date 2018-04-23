@@ -16,7 +16,7 @@ extern "C" {
 #define GOLIATH_DISCHARGE_ANGLE 110
 
 // timeout for discharge (in ms)
-#define GOLIATH_DISCHARGE_TIMEOUT 500
+#define GOLIATH_DISCHARGE_TIMEOUT 250
 
 // goliath modes
 #define GOLIATH_MODE_DISABLED 0

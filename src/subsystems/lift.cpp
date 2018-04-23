@@ -34,10 +34,11 @@ void liftInit() {
   motor_lift.slew_rate = .5f;
 
   // init PID
-  pid_lift.init(15.f, 5.f, 1850.f, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.init(10.f, 0.f, 500.f, LIFT_HEIGHT_MIN, lift_angle);
+  pid_lift.kc = 10.f;
   pid_lift.target_buffer = .2f;
   pid_lift.max_i = 70.f;
-  pid_lift.max_d = 200.f;
+  pid_lift.max_d = 1000.f;
   pid_lift.i_factor = .001f;
 
   // calculate lift offset from ground when at 'neutral' position (all bars parallel)

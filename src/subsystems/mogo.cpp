@@ -6,6 +6,11 @@ float mogo_angle_l = 0;
 float mogo_angle_r = 0;
 float mogo_angle = 0;
 
+float prev_mogo_angle_l = 0;
+float prev_prev_mogo_angle_l = 0;
+float prev_mogo_angle_r = 0;
+float prev_prev_mogo_angle_r = 0;
+
 bool pid_mogo_enabled = true;
 bool mogo_dead = false;
 
@@ -20,6 +25,10 @@ void mogoInit() {
 
   // update sensors for accurate starting position
   mogoUpdateSensors();
+  prev_mogo_angle_l = mogo_angle_l;
+  prev_prev_mogo_angle_l = mogo_angle_l;
+  prev_mogo_angle_r = mogo_angle_r;
+  prev_prev_mogo_angle_r = mogo_angle_r;
 
   // init motor
   motor_mogo.init(MOTOR_MOGO, true, mogo_angle);
@@ -45,14 +54,21 @@ void mogoUpdateSensors() {
 
   // update left potentiometer
   float raw_l = 975.f - analogRead(POT_MOGO_L); // translate to correct range
+  prev_prev_mogo_angle_l = prev_mogo_angle_l; // save old angle values
+  prev_mogo_angle_l = mogo_angle_l; // save old angle values
   mogo_angle_l = (mogo_angle_l * .4f) + (raw_l * 0.088890625f * .6f); // convert to degrees and apply filter
 
   // update left potentiometer
   float raw_r = analogRead(POT_MOGO_R) - 3305.f; // translate to correct range
+  prev_prev_mogo_angle_r = prev_mogo_angle_r; // save old angle values
+  prev_mogo_angle_r = mogo_angle_r; // save old angle values
   mogo_angle_r = (mogo_angle_r * .4f) + (raw_r * 0.088890625f * .6f); // convert to degrees and apply filter
 
   // average left and right potentiometers
-  mogo_angle = (mogo_angle_l + mogo_angle_r) * .5f + 27.f;
+  mogo_angle =
+    (min(max(mogo_angle_l, prev_mogo_angle_l), prev_prev_mogo_angle_l)
+   + min(max(mogo_angle_r, prev_mogo_angle_r), prev_prev_mogo_angle_r))
+   * .5f + 27.f;
 }
 
 // determines whether or not the mogo lifter has reached its target

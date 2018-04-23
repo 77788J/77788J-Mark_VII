@@ -14,7 +14,7 @@ void autoRunRightStationary5() {
 
   // raise lift and extend chainbar
   mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
-  liftGoto(LIFT_HEIGHT_STATIONARY, true, true);
+  liftGoto(LIFT_HEIGHT_STATIONARY + 2.f, true, true);
 
   // move to stationary goal
   chassisMove(22.5f, 22.5f, true, true);

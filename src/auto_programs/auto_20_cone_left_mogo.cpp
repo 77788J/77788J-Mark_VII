@@ -56,38 +56,6 @@ void autoRunLeft20ConeMogo() {
     goliathDischarge(true);
   }
 
-  // // make sure there's enough time for a third cone
-  // if (time < 25000) {
-  //
-  //   // switch goliath back to intake mode
-  //   goliath_timeout = -1;
-  //   goliathIntake(false);
-  //
-  //   // lower chainbar for second cone
-  //   chainbarGoto(CHAINBAR_GRAB, true, false);
-  //
-  //   // move forwards until holding second cone
-  //   chassis_mode = CHASSIS_MODE_DIRECT;
-  //   chassisSetPower(45);
-  //
-  //   // wait for cone intake
-  //   while (!goliath_holding && time < 25000) {
-  //     delay(1);
-  //   }
-  //
-  //   // stop chassis
-  //   chassisSetPower(0);
-  //   chassisMove(0, 0, false, false);
-  //   chassis_mode = CHASSIS_MODE_POSITION;
-  //
-  //   // raise lift a bit
-  //   liftGoto(9.f, true, true);
-  //
-  //   // stack third cone
-  //   chainbarGoto(CHAINBAR_STACK, true, false);
-  //   goliathDischarge(true);
-  // }
-
   // move chainbar way back
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
 
@@ -96,13 +64,13 @@ void autoRunLeft20ConeMogo() {
   liftGoto(LIFT_HEIGHT_MIN, false, false);
 
   // move back to line
-  chassisMove(-55.38f, -55.38f, true, true);
+  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE + 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE + 2.f, true, true);
 
   // rotate parallel to 20 zone
   chassisRotate(136.4f, true, true);
 
   // move to center of line
-  chassisMove(19.4f, 19.4f, true, true);
+  chassisMove(20.9f, 20.9f, true, true);
 
   // rotate towards 20 zone
   chassisRotate(90.f, true, true);
@@ -117,7 +85,7 @@ void autoRunLeft20ConeMogo() {
   pid_mogo_enabled = true;
 
   // go forwards to 20
-  delay(1700);
+  delay(1400);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_DROP, false, false);
