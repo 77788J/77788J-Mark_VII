@@ -31,24 +31,30 @@ void autoRunRightStationary5() {
 
   // back up and retract chainbar
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
-  chassisMove(-21.391f, -21.391f, true, true);
+  chassisMove(-22.391f, -22.391f, true, true);
 
   // lower lift, lower mogo, and rotate
   liftGoto(LIFT_HEIGHT_MIN, false, false);
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
-  chassisRotate(90.f, true, true);
+  chassisRotate(-100.f, true, true);
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
 
+  chassisResetSensors();
+
   // move to mogo
-  chassisMove(47.81f, 47.81f, true, true);
+  chassisMove(50.81f, 50.81f, true, true);
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
   delay(750);
 
   if (auto_cone) {
+
+    // make sure lift is pressed down
+    pid_lift_enabled = false;
+    liftSetPower(-30);
 
   // begin to lower chainbar for cone
   chainbarGoto(CHAINBAR_GRAB, false, false);
@@ -74,36 +80,62 @@ void autoRunRightStationary5() {
 
     if (time < 9250) {
 
+      goliath_timeout = -1;
+      goliathIntake(false);
+
       // stop chassis
       chassisSetPower(0);
-      chassisMove(0, 0, false, false);
+      chassisMove(10.f, 10.f, false, false);
       chassis_mode = CHASSIS_MODE_POSITION;
 
       // stack cone
       chainbarGoto(CHAINBAR_STACK, true, false);
-      delay(50);
+      delay(100);
       goliathDischarge(true);
 
+      if (time < 9500) {
 
-      // move chainbar way back
-      chainbarGoto(CHAINBAR_RETRACTED, false, false);
+        goliath_timeout = -1;
+        goliathIntake(false);
+
+        chainbarGoto(CHAINBAR_GRAB, true, false);
+
+        delay(200);
+
+        chassisMove(-59.7f, -59.7f, false, false);
+        chainbarGoto(CHAINBAR_STACK, true, false);
+        delay(100);
+        goliathDischarge(true);
+
+        while (!chassisAtTarget(false, CHASSIS_MODE_POSITION)) {
+          delay(1);
+        }
+      }
+      else {
+        // move back to line
+        chassisMove(-49.78f, -49.78f, true, true);
+      }
     }
-
     else {
-      chainbarGoto(CHAINBAR_RETRACTED, false, false);
+      // move back to line
+      chassisMove(-49.78f, -49.78f, true, true);
     }
   }
+  else {
+    // move back to line
+    chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE + 4.f, -chassis_right / CHASSIS_SCALE_DISTANCE + 4.f, true, true);
+  }
+
+  // move chainbar way back
+  chainbarGoto(CHAINBAR_RETRACTED, false, false);
 
   // shut down goliath
   goliathDisable();
 
-  // move back to line
-  chassisMove(-49.78f, -49.78f, true, true);
-
   // rotate to 5 zone
   chassisRotate(-200.f, true, true);
 
-  chassisMove(8.f, 8.f, true, false);
+  chassisMove(8.f, 8.f, false, false);
 
   // drop mogo
   mogoGoto(MOGO_ANGLE_GRAB, true, false);
@@ -113,7 +145,7 @@ void autoRunRightStationary5() {
   mogoGoto(MOGO_ANGLE_RETRACTED, false, false);
 
   // move out of zones
-  chassisMove(-10.f, -10.f, true, false);
+  chassisMove(-12.f, -12.f, true, false);
 
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
 

@@ -42,7 +42,7 @@ void autoRunRightStationary2() {
 
   // rotate to face cone and lower chainbar
   chainbarGoto(CHAINBAR_GRAB, false, false);
-  chassisRotate(90.f, true, true);
+  chassisRotate(101.9f, true, true);
 
   // reset encoders
   chassisResetSensors();
@@ -65,13 +65,13 @@ void autoRunRightStationary2() {
   chainbarGoto(CHAINBAR_STACK, false, false);
   delay(200);
   liftGoto(LIFT_HEIGHT_STATIONARY + 4.f, false, false);
-  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE - 2.f, -chassis_right / CHASSIS_SCALE_DISTANCE - 2.f, true, true);
+  chassisMove(-chassis_left / CHASSIS_SCALE_DISTANCE - 1.3f, -chassis_right / CHASSIS_SCALE_DISTANCE - 1.3f, true, true);
 
   // raise lift and extend mogo lifter
   mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
 
   // rotate towards loader
-  chassisRotate(-90.f, true, true);
+  chassisRotate(-105.f, true, true);
 
   // move to stationary goal
   chassisMove(15.5f, 15.5f, true, true);
