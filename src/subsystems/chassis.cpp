@@ -137,6 +137,8 @@ void chassisResetSensors() {
   chassis_left = 0;
   chassis_right = 0;
   chassis_angle = 0;
+
+  delay(UPDATE_INTERVAL);
 }
 
 // returns whether or not the chassis has reached its target
@@ -162,12 +164,12 @@ bool chassisAtTarget(bool vel, int mode) {
 // returns a recommended timeout for a position PID
 unsigned int chassisGetTimeoutPosition(float l, float r) {
   float dist = max(abs(l), abs(r));
-  return dist * 36.75f + 2.75f;
+  return dist * 34.75f + 2.75f;
 }
 
 // returns a recommended timeout for a rotation PID
 unsigned int chassisGetTimeoutAngle(float theta) {
-  return abs(theta * 12.5f + 2.f);
+  return abs(theta * 7.5f + 2.f);
 }
 
 // set the power of the left side of the chassis

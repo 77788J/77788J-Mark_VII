@@ -12,6 +12,9 @@
 
 void autoRunRightStationary5() {
 
+  // set gyro scaling correct
+  // gyro
+
   // raise lift and extend chainbar
   mogoGoto(MOGO_ANGLE_EXTENDED, false, false);
   liftGoto(LIFT_HEIGHT_STATIONARY + 2.f, true, true);
@@ -31,12 +34,12 @@ void autoRunRightStationary5() {
 
   // back up and retract chainbar
   chainbarGoto(CHAINBAR_RETRACTED, false, false);
-  chassisMove(-22.391f, -22.391f, true, true);
+  chassisMove(-21.391f, -21.391f, true, true);
 
   // lower lift, lower mogo, and rotate
   liftGoto(LIFT_HEIGHT_MIN, false, false);
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
-  chassisRotate(-100.f, true, true);
+  chassisRotate(100.f, true, true);
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
