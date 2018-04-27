@@ -47,8 +47,8 @@ void chassisInit() {
   motor_chassis_br.init(MOTOR_CHASSIS_BR, false, 0);
 
   // init gyros
-  gyro_a = gyroInit(6, 196);
-  gyro_b = gyroInit(7, 188);
+  gyro_a = gyroInit(6, 188);
+  gyro_b = gyroInit(7, 197);
 
   // init encoders
   enc_chassis_l = encoderInit(1, 2, true);
@@ -112,6 +112,8 @@ void chassisUpdateSensors() {
   float chassis_angle_encoders = (chassis_left - chassis_right) * .2617f; // multiply by a scalar to convert to degrees
   float a = gyroGet(gyro_a);
   float b = gyroGet(gyro_b);
+  // printf("a:\t%f\n", a);
+  // printf("b:\t%f\n", b);
   float chassis_angle_gyros = (a * 1.f) + (b * 0.f);
 
   // calculate orientation from weighted average
@@ -169,7 +171,7 @@ unsigned int chassisGetTimeoutPosition(float l, float r) {
 
 // returns a recommended timeout for a rotation PID
 unsigned int chassisGetTimeoutAngle(float theta) {
-  return abs(theta * 7.5f + 2.f);
+  return abs(theta * 10.5f + 2.f);
 }
 
 // set the power of the left side of the chassis

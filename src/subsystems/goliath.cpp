@@ -14,6 +14,7 @@ unsigned char goliath_mode = GOLIATH_MODE_INTAKE; // default to intake mode
 bool goliath_holding = false; // is it currently holding a cone?
 bool goliath_spinning = false; // logs whether or not it is spinning
 float goliath_angle = 0;
+float goliath_vel = 0;
 
 // inits the goliath (PID, motors, etc)
 void goliathInit() {
@@ -36,6 +37,7 @@ void goliathInit() {
 // update all goliath motor data
 void goliathUpdateMotorData() {
   motor_goliath.updateData(goliath_angle, UPDATE_INTERVAL);
+  goliath_vel = (goliath_vel * .75f + motor_goliath.getVelocity() * .25f);
 }
 
 // update all physical goliath motors

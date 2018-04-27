@@ -33,6 +33,7 @@ extern Encoder enc_goliath;
 extern Pid pid_goliath;
 
 extern float goliath_angle;
+extern float goliath_vel;
 
 // variables
 extern unsigned char goliath_mode;

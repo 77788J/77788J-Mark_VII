@@ -17,12 +17,30 @@ void autoRunLeft203ConeMogo() {
 
   chassisResetSensors();
 
+  float height = lift_height;
+  pid_lift_enabled = false;
+  liftSetPower(72);
+
   // move to mogo
-  chassisMove(56.81f, 56.81f, true, true);
+  int t = chassisGetTimeoutPosition(56.81f, 56.81f) + time;
+  chassisMove(56.81f, 56.81f, false, false);
+
+  // unlock lift
+  while (lift_height <= height + .5f) {
+    delay(1);
+  }
+  liftSetPower(-72);
+  delay(300);
+  liftSetPower(-30);
+
+  // wait for chassis
+  while (!chassisAtTarget(true, true) && time < t) {
+    delay(UPDATE_INTERVAL);
+  }
 
   // intake mogo
   mogoGoto(MOGO_ANGLE_EXTENDED, true, false);
-  delay(250);
+  delay(350);
 
   // stack (?) preload
   goliathDischarge(true);

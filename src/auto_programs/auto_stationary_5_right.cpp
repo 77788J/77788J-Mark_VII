@@ -39,12 +39,13 @@ void autoRunRightStationary5() {
   // lower lift, lower mogo, and rotate
   liftGoto(LIFT_HEIGHT_MIN, false, false);
   mogoGoto(MOGO_ANGLE_GRAB, false, false);
-  chassisRotate(100.f, true, true);
+  chassisRotate(96.f, true, true);
 
   float b = pid_chassis_theta.target_buffer;
   pid_chassis_theta.target_buffer = 2.f;
 
   chassisResetSensors();
+  delay(250);
 
   // move to mogo
   chassisMove(50.81f, 50.81f, true, true);
